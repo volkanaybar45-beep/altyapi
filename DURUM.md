@@ -91,6 +91,12 @@ animasyonu ışını oynatmasın diye (kanonik kaynak dersi).
 işi buna dayanabilir.
 
 ## KARARLAR (tarihli, tek satır)
+- 2026-09-14 · Tasarım ve yayın planı yazıldı: `oyunlar/fener/tasarim_notlari.md` + `yayin_plani.md` (ChatGPT danışması, patron süzdü)
+- 2026-09-14 · V1'de sadece iki yeni mekanik: ışık bölücü (~31) ve renk filtresi (~41). Fazlası kapsam şişmesi
+- 2026-09-14 · İlk sürüm 70 değil **40-45 bölüm**; kalanı güncelleme paketi olarak gelir
+- 2026-09-14 · Zorluk ritmi düz çizgi değil: her 10 bölümde bir nefes bölümü. Yeni mekanik 3 bölümde öğretilir, tanıtım bölümü zor olmaz
+- 2026-09-14 · Üreteç "önce güzel çözüm yolu, sonra bulmaca" kurar; "çözülebiliyor = iyi bulmaca" kabul edilmez
+- 2026-09-14 · Reklam: sadece ödüllü, bölüm bittikten SONRA; ödül "Liman Restorasyonu" ışık puanı — bulmacayı kolaylaştıran hiçbir ödül yok
 - 2026-09-14 · Tek klasör: her şey `C:\Altyapi` içinde; çöp `cop/`'a, zamanı gelince temizlenir
 - 2026-09-14 · Şirket yapısı: 7 bölüm, patron Claude, kurucu = son test + yayın
 - 2026-09-14 · Kod ayrı Claude ekranında yazılır; iletişim bu dosyadaki İŞ EMRİ / RAPOR bölümleriyle
