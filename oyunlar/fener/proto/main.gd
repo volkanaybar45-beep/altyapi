@@ -311,7 +311,8 @@ func _draw() -> void:
 	var beam_w := 6.0 + 2.0 * sin(time * 3.0) * 0.5
 	for p in paths:
 		for i in p.size() - 1:
-			draw_line(p[i], p[i + 1], Color(1.0, 0.85, 0.4, 0.15), 26.0 * k)
+			# hale ince: komşu şeritte paralel giden iki kol tek banda karışmasın
+			draw_line(p[i], p[i + 1], Color(1.0, 0.85, 0.4, 0.15), 18.0 * k)
 			draw_line(p[i], p[i + 1], core, beam_w)
 	if glow > 0.0:
 		for p in paths:
