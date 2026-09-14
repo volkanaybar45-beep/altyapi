@@ -14,8 +14,9 @@ func _initialize() -> void:
 		main.load_level(i)
 		var start: bool = main.compute_path()["hit"]
 		var sol: Array = Levels.ALL[i]["cozum"]
-		for j in sol.size():
-			main.mirrors[j].set_step(sol[j])
+		for j in sol.size():  # gerçek dokunma yolu: aynaya sol[j] kez dokun
+			for _k in sol[j]:
+				main.tap(main.mirrors[j].position + Vector2(10, 10))
 		var r: Dictionary = main.compute_path()
 		var pass_i: bool = (not start) and r["hit"]
 		ok = ok and pass_i
