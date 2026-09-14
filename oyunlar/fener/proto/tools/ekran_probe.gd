@@ -1,8 +1,6 @@
 extends SceneTree
-## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 1..3> <cozulu 0/1>
-## --headless KULLANMA (GPU render gerekir).
-
-const Levels := preload("res://levels.gd")
+## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 1..9> <cozulu 0/1> [mod 45/90]
+## --headless KULLANMA (GPU render gerekir). Çözüm kaba kuvvetle bulunur.
 
 
 func _initialize() -> void:
@@ -15,14 +13,18 @@ func _initialize() -> void:
 	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(vp)
 	var main = load("res://main.tscn").instantiate()
+	main.mode90 = args.size() > 3 and args[3] == "90"
 	vp.add_child(main)
 	for _i in 3:
 		await process_frame
 	main.load_level(lv)
 	if solved:
-		var sol: Array = Levels.ALL[lv]["cozum"]
-		for j in sol.size():
-			main.mirrors[j].set_step(sol[j])
+		var rot: Array = main.mirrors.filter(func(m): return not m.fixed)
+		for k in int(pow(2, rot.size())):
+			for j in rot.size():
+				rot[j].set_step(3 if (k >> j) & 1 else 1)
+			if main.compute_path()["hit"]:
+				break
 		await create_timer(1.5).timeout  # kutlama tween'i bitsin
 	for _i in 10:
 		await process_frame
