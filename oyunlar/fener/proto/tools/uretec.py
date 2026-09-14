@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """Fener bölüm üreteci (tersine kurulum) + zorluk ölçer. Dönüş 90° (kilitli).
 
-Şartname: oyunlar/fener/tasarim_notlari.md bölüm 3 ve 4.
-  GÜZEL IŞIK YOLU → yem ayna → kestirmeleri kayayla kapat → aynaları yanlış
-  çevir → çözücüyle doğrula → zorluk + kalite ölç → ELE / TUT
+Şartname: oyunlar/fener/tasarim_notlari.md bölüm 3 ve 4 · DURUM.md İŞ 3, İŞ 4.
+  GÜZEL IŞIK YOLU → yem ayna → yanlış kolu derinleştir → kestirmeye kaya →
+  aynaları yanlış çevir → çözücüyle doğrula → zorluk + kalite ölç → ELE / TUT
 
-Çalıştır (proto klasöründen):  python tools/uretec.py [deneme] [tohum]
-Yazar: levels_uretilen.gd (oyun okur) · ekrana rapor.
-Harita harfleri levels.gd ile aynı: F T R M N b s .
+Çalıştır (proto klasöründen):
+  python tools/uretec.py <deneme> <tohum>        → İŞ 3: 7x12, 10 bölüm, levels_uretilen.gd
+  python tools/uretec.py <deneme> <tohum> is4    → İŞ 4: 8x14, bölücü, 8 bölüm, levels_uretilen_4.gd
+Harita harfleri levels.gd ile aynı: F T R M N b s Y .  (Y = ışık bölücü)
 """
 import math
 import random
 import sys
 
-W, H = 7, 12
+W, H = 7, 12  # İŞ 4 modunda 8x14
 DIRS = {'D': (0, 1), 'U': (0, -1), 'L': (-1, 0), 'R': (1, 0)}
 
 
@@ -33,100 +34,122 @@ def inside(x, y):
     return 0 <= x < W and 0 <= y < H
 
 
+def near(p, q):
+    return max(abs(p[0] - q[0]), abs(p[1] - q[1])) == 1
+
+
 # --- çözücü + zorluk ölçer ----------------------------------------------------
+# Işın çok kollu olabilir: bölücü (Y) gelen ışını durdurur, sağına ve soluna
+# iki kol çıkarır. Bölüm, BÜTÜN tekneler ışık alınca biter.
 
 class Level:
-    def __init__(self, grid, fener, yon, boat):
+    def __init__(self, grid, fener, yon, boats):
         self.grid = grid      # {(x,y): harf}
         self.fener = fener
         self.yon = yon
-        self.boat = boat
+        self.boats = list(boats)
 
     def rotatables(self):
         return [p for p, c in self.grid.items() if c in 'MN']
+
+    def has_split(self):
+        return 'Y' in self.grid.values()
 
     def start(self):
         return {p: (1 if self.grid[p] == 'M' else 3) for p in self.rotatables()}
 
     def trace(self, assign):
-        """Tam atama ile ışını izler → (tekneye_ulaştı, iz)."""
-        x, y = self.fener
+        """Tam atama ile tüm kolları izler → (bütün_tekneler, iz)."""
+        seen, trail, lit = set(), [], set()
         dx, dy = DIRS[self.yon]
-        seen, trail = set(), []
-        while True:
-            x += dx; y += dy
-            if not inside(x, y) or (x, y, dx, dy) in seen:
-                return False, trail
-            seen.add((x, y, dx, dy))
-            trail.append((x, y, dx, dy))
-            c = self.grid.get((x, y), '.')
-            if c == 'T':
-                return True, trail
-            if c in 'RF':
-                return False, trail
-            if c in 'bs':
-                dx, dy = refl(1 if c == 'b' else 3, dx, dy)
-            elif c in 'MN':
-                dx, dy = refl(assign[(x, y)], dx, dy)
-
-    def solve(self):
-        """İnsan gibi ışını takip eden DFS: ışın kararsız bir aynaya varınca dallanır.
-        Tüm ağacı gezer (çözüm sayısı ve geri dönüş için)."""
-        st = {'expanded': 0, 'solutions': [], 'near': 0, 'touched': set(),
-              'backtrack': 0}
-        bx, by = self.boat
-
-        def run(assign, x, y, dx, dy, seen, trail):
-            # dönüş: (yükseklik, çözüm_var)
-            since = len(trail)  # near-miss sadece son karardan sonraki parçada
+        stack = [(self.fener[0], self.fener[1], dx, dy)]
+        while stack:
+            x, y, dx, dy = stack.pop()
             while True:
                 x += dx; y += dy
                 if not inside(x, y) or (x, y, dx, dy) in seen:
-                    return self._dead(st, trail[since:])
+                    break
                 seen.add((x, y, dx, dy))
                 trail.append((x, y, dx, dy))
                 c = self.grid.get((x, y), '.')
                 if c == 'T':
-                    st['solutions'].append((dict(assign), list(trail)))
-                    return 0, True
+                    lit.add((x, y)); break
                 if c in 'RF':
-                    return self._dead(st, trail[since:])
+                    break
+                if c == 'Y':
+                    stack.append((x, y, dy, dx)); stack.append((x, y, -dy, -dx)); break
                 if c in 'bs':
                     dx, dy = refl(1 if c == 'b' else 3, dx, dy)
                 elif c in 'MN':
-                    st['touched'].add((x, y))
-                    if (x, y) in assign:
-                        dx, dy = refl(assign[(x, y)], dx, dy)
-                    else:
+                    dx, dy = refl(assign[(x, y)], dx, dy)
+        return lit == set(self.boats), trail
+
+    def solve(self):
+        """İnsan gibi ışını takip eden DFS: bir kol kararsız bir aynaya varınca
+        dallanır. Tüm ağacı gezer (çözüm sayısı, geri dönüş, near-miss)."""
+        st = {'expanded': 0, 'solutions': [], 'near': 0, 'touched': set(),
+              'backtrack': 0, 'dead': []}
+        boats = set(self.boats)
+
+        def run(assign, stack, seen, lit, trail):
+            # dönüş: (yükseklik, çözüm_var). deaths: son karardan sonraki ölümler
+            stack = list(stack)
+            deaths = []
+            while stack:
+                x, y, dx, dy, since = stack.pop()
+                while True:
+                    x += dx; y += dy
+                    if not inside(x, y) or (x, y, dx, dy) in seen:
+                        deaths.append(trail[since:]); break
+                    seen.add((x, y, dx, dy))
+                    trail.append((x, y, dx, dy))
+                    c = self.grid.get((x, y), '.')
+                    if c == 'T':
+                        lit = lit | {(x, y)}; break
+                    if c in 'RF':
+                        deaths.append(trail[since:]); break
+                    if c == 'Y':
+                        n = len(trail)
+                        stack.append((x, y, dy, dx, n)); stack.append((x, y, -dy, -dx, n))
+                        break
+                    if c in 'bs':
+                        dx, dy = refl(1 if c == 'b' else 3, dx, dy)
+                    elif c in 'MN':
+                        st['touched'].add((x, y))
+                        if (x, y) in assign:
+                            dx, dy = refl(assign[(x, y)], dx, dy)
+                            continue
+                        st['dead'].extend(deaths)
                         st['expanded'] += 1
                         res = []
                         for s in (1, 3):
                             a2 = dict(assign); a2[(x, y)] = s
                             ndx, ndy = refl(s, dx, dy)
-                            res.append(run(a2, x, y, ndx, ndy, set(seen), list(trail)))
+                            res.append(run(a2, stack + [(x, y, ndx, ndy, len(trail))],
+                                           set(seen), lit, list(trail)))
                         (h1, ok1), (h2, ok2) = res
                         if ok1 != ok2:  # yanlış kol: oyuncu kaç karar geri döner
-                            wrong_h = h2 if ok1 else h1
-                            st['backtrack'] = max(st['backtrack'], 1 + wrong_h)
+                            st['backtrack'] = max(st['backtrack'], 1 + (h2 if ok1 else h1))
                         return 1 + max(h1, h2), ok1 or ok2
+            st['dead'].extend(deaths)
+            if lit == boats:
+                st['solutions'].append((dict(assign), list(trail)))
+                return 0, True
+            unlit = boats - lit
+            for d in deaths:  # ışın sönmemiş tekneyi sıyırıp ölüyor
+                if any(near((x, y), b) for x, y, _, _ in d for b in unlit):
+                    st['near'] += 1
+            return 0, False
 
-        x, y = self.fener
         dx, dy = DIRS[self.yon]
-        run({}, x, y, dx, dy, set(), [])
+        run({}, [(self.fener[0], self.fener[1], dx, dy, 0)], set(), frozenset(), [])
         return st
-
-    def _dead(self, st, trail):
-        st.setdefault('dead', []).append(trail)
-        bx, by = self.boat
-        if any(max(abs(x - bx), abs(y - by)) == 1 for x, y, _, _ in trail):
-            st['near'] += 1  # ışın tekneyi sıyırıp ölüyor
-        return 0, False
 
     def metrics(self):
         st = self.solve()
         sols = st['solutions']
         rot = self.rotatables()
-        m = {'solution_count': len(sols), 'rotatable': len(rot)}
+        m = {'solution_count': len(sols), 'rotatable': len(rot), 'split': self.has_split()}
         if not sols:
             return m
         start = self.start()
@@ -144,93 +167,112 @@ class Level:
             cells.setdefault((x, y), set()).add('h' if dx else 'v')
         m['beam_crossings'] = sum(1 for p, a in cells.items()
                                   if len(a) == 2 and self.grid.get(p, '.') == '.')
-        # aha: çözüm ışığı hedeften önce uzaklaştırıyor mu (Manhattan, ≥2 hücre)
-        bx, by = self.boat
-        d0 = abs(self.fener[0] - bx) + abs(self.fener[1] - by)
-        dmax = max(abs(x - bx) + abs(y - by) for x, y, _, _ in trail)
-        m['aha'] = dmax - d0 >= 2
+        # aha: çözüm ışığı teknelerden önce uzaklaştırıyor mu (Manhattan, ≥2 hücre)
+        def dist(p):
+            return min(abs(p[0] - b[0]) + abs(p[1] - b[1]) for b in self.boats)
+        m['aha'] = max(dist((x, y)) for x, y, _, _ in trail) - dist(self.fener) >= 2
         m['start_solved'] = self.trace(start)[0]
-        m['trail'] = trail
         return m
 
     def rows(self):
-        out = []
-        for y in range(H):
-            r = ''
-            for x in range(W):
-                if (x, y) == self.fener:
-                    r += 'F'
-                elif (x, y) == self.boat:
-                    r += 'T'
-                else:
-                    r += self.grid.get((x, y), '.')
-            out.append(r)
-        return out
+        return [''.join(self.grid.get((x, y), '.') for x in range(W)) for y in range(H)]
 
 
 # --- üreteç -------------------------------------------------------------------
 
-def make_path(rng):
-    """Fenerden tekneye güzel bir ışık yolu: 3-9 dönüş, taze köşeler,
-    en fazla 2 dik kesişme. → (fener, yon, köşeler[(p, adım)], tekne, geçilen)"""
-    n_turns = rng.randint(3, 9)
-    fx, fy = rng.randrange(W), rng.randrange(H)
-    yon = rng.choice('DULR')
-    dx, dy = DIRS[yon]
-    used = {(fx, fy): 'X'}   # hücre → 'X' dolu, 'h'/'v'/'hv' ışın geçti
+def walk(rng, x, y, dx, dy, n_turns, used, first_min):
+    """(x,y)'den (dx,dy) yönüyle n_turns dönüşlü yol; köşeler ve bitiş taze hücre,
+    geçilen hücrede sadece dik kesişme. → (köşeler[(p, adım)], bitiş) ya da None"""
     turns = []
-    x, y = fx, fy
     for i in range(n_turns + 1):
-        L = rng.randint(2, 5) if i == 0 else rng.randint(1, 5)
+        L = rng.randint(first_min if i == 0 else 1, 5)
         for k in range(L):
             x += dx; y += dy
             if not inside(x, y):
                 return None
             u = used.get((x, y))
-            last = k == L - 1
             axis = 'h' if dx else 'v'
-            if last:  # köşe ya da tekne: taze hücre olmalı
+            if k == L - 1:  # köşe ya da bitiş
                 if u is not None:
                     return None
                 used[(x, y)] = 'X'
+            elif u is None:
+                used[(x, y)] = axis
+            elif u in 'hv' and u != axis:
+                used[(x, y)] = 'hv'  # dik kesişme
             else:
-                if u is None:
-                    used[(x, y)] = axis
-                elif u in 'hv' and u != axis:
-                    used[(x, y)] = 'hv'  # dik kesişme
-                else:
-                    return None
+                return None
         if i == n_turns:
-            return (fx, fy), yon, turns, (x, y), used
+            return turns, (x, y)
         ndx, ndy = rng.choice([(dy, dx), (-dy, -dx)])
         turns.append(((x, y), step_for(dx, dy, ndx, ndy)))
         dx, dy = ndx, ndy
     return None
 
 
-def generate(rng):
-    p = make_path(rng)
+def make_path(rng, turns_rng, split):
+    """Fenerden tekne(ler)e güzel bir ışık yolu. split: gövde → bölücü → iki kol
+    → iki tekne. → (fener, yon, köşeler, bölücü|None, tekneler, geçilen)"""
+    fx, fy = rng.randrange(W), rng.randrange(H)
+    yon = rng.choice('DULR')
+    dx, dy = DIRS[yon]
+    used = {(fx, fy): 'X'}
+    if not split:
+        r = walk(rng, fx, fy, dx, dy, rng.randint(*turns_rng), used, 2)
+        if r is None:
+            return None
+        return (fx, fy), yon, r[0], None, [r[1]], used
+    r = walk(rng, fx, fy, dx, dy, rng.randint(1, 4), used, 2)
+    if r is None:
+        return None
+    turns, sp = r
+    boats = []
+    for adx, ady in ((dy, dx), (-dy, -dx)) if False else ():
+        pass
+    # bölücüye varış yönü: son köşeden sonraki yön
+    vx, vy = (dx, dy)
+    if turns:
+        (px, py), s = turns[-1]
+        vx, vy = (1 if sp[0] > px else -1 if sp[0] < px else 0,
+                  1 if sp[1] > py else -1 if sp[1] < py else 0)
+    else:
+        vx, vy = dx, dy
+    for adx, ady in ((vy, vx), (-vy, -vx)):
+        a = walk(rng, sp[0], sp[1], adx, ady, rng.randint(2, 5), used, 1)
+        if a is None:
+            return None
+        turns += a[0]
+        boats.append(a[1])
+    return (fx, fy), yon, turns, sp, boats, used
+
+
+def generate(rng, split=False, turns_rng=(3, 9), wrong_p=0.8, fixed_p=0.2):
+    p = make_path(rng, turns_rng, split)
     if p is None:
         return None, 'yol kurulamadı'
-    fener, yon, turns, boat, used = p
+    fener, yon, turns, sp, boats, used = p
     grid = {}
     intended = {}
     for pos, s in turns:
-        if rng.random() < 0.2:
+        if rng.random() < fixed_p:
             grid[pos] = 'b' if s == 1 else 's'
         else:
             grid[pos] = 'M'
             intended[pos] = s
     if len(intended) < 2:
         return None, 'döner ayna < 2'
-    lv = Level(grid, fener, yon, boat)
-    lv.grid[fener] = 'F'
-    lv.grid[boat] = 'T'
+    grid[fener] = 'F'
+    for b in boats:
+        grid[b] = 'T'
+    if sp:
+        grid[sp] = 'Y'
+    lv = Level(grid, fener, yon, boats)
+    if not lv.trace({**{q: 1 for q in lv.rotatables()}, **intended})[0]:
+        return None, 'yol kendini kesti'
 
     # yem ayna: doğru aynanın YANLIŞ kolundaki ışının üstüne
     for _ in range(rng.randint(1, 3)):
         pos, s = rng.choice(list(intended.items()))
-        # aynaya hangi yönden gelindiğini bul: yol boyunca izle
         ok, trail = lv.trace({**{q: 1 for q in lv.rotatables()}, **intended})
         inc = next(((dx, dy) for x, y, dx, dy in trail if (x, y) == pos), None)
         if inc is None:
@@ -251,7 +293,7 @@ def generate(rng):
     # yanlış kolları derinleştir: ölü bir kolun son parçasına yeni yem ayna.
     # Oyuncu yanlış yolda birkaç karar ilerleyip sonra ölür (max_backtrack ↑)
     for _ in range(rng.randint(0, 3)):
-        dead = [t for t in lv.solve().get('dead', []) if len(t) >= 2]
+        dead = [t for t in lv.solve()['dead'] if len(t) >= 2]
         if not dead:
             break
         t = rng.choice(dead)
@@ -261,21 +303,18 @@ def generate(rng):
             lv.grid[rng.choice(cand)] = rng.choice('MN')
 
     # kestirmeleri kapat: amaçlanan dışındaki her çözüm izine kaya
-    path_cells = set(used)
     for _ in range(12):
         st = lv.solve()
         alts = [t for a, t in st['solutions']
                 if any(a.get(q) != v for q, v in intended.items())]
         if not alts:
             break
-        t = alts[0]
-        spots = [(x, y) for x, y, _, _ in t
-                 if (x, y) not in path_cells and lv.grid.get((x, y), '.') == '.']
+        spots = [(x, y) for x, y, _, _ in alts[0]
+                 if (x, y) not in used and lv.grid.get((x, y), '.') == '.']
         if not spots:
             return None, 'kestirme kapatılamadı'
         # tekneye en yakın noktaya koy: kaçış yolu teknenin dibinde ölsün (near-miss)
-        bx, by = boat
-        spots.sort(key=lambda q: abs(q[0] - bx) + abs(q[1] - by))
+        spots.sort(key=lambda q: min(abs(q[0] - b[0]) + abs(q[1] - b[1]) for b in boats))
         lv.grid[spots[0]] = 'R'
     else:
         return None, 'kestirme kapatılamadı'
@@ -283,7 +322,7 @@ def generate(rng):
     # aynaları çoğunlukla yanlış yöne çevir; yemler rastgele
     for q in lv.rotatables():
         if q in intended:
-            wrong = rng.random() < 0.8
+            wrong = rng.random() < wrong_p
             s = (3 if intended[q] == 1 else 1) if wrong else intended[q]
         else:
             s = rng.choice((1, 3))
@@ -297,7 +336,7 @@ def generate(rng):
 # --- kalite filtresi (tasarım notları 4) --------------------------------------
 
 def signature(lv):
-    return {p for p, c in lv.grid.items() if c in 'MNbsR'}
+    return {p for p, c in lv.grid.items() if c in 'MNbsRY'}
 
 
 def quality(lv, m, accepted):
@@ -326,6 +365,19 @@ def quality(lv, m, accepted):
     return None
 
 
+def hard(m):
+    """İŞ 4 zor eşiği; ilk takılan ölçüt ya da None."""
+    if m['max_backtrack'] < 4:
+        return 'geri dönüş < 4'
+    if m['solution_toggles'] < 6:
+        return 'çevirme < 6'
+    if not 2 <= m['near_misses'] <= 3:
+        return 'near-miss 2-3 dışı'
+    if not m['aha']:
+        return 'aha yok'
+    return None
+
+
 def scores(pool):
     """%30 arama · %25 geri dönüş · %20 çevirme · %15 yansıma · %10 near-miss,
     havuzda 0-1 normalize; aha bonusu +0.1, sonra yeniden 0-1."""
@@ -334,9 +386,7 @@ def scores(pool):
             ('solution_toggles', 0.20, float),
             ('solution_reflections', 0.15, float),
             ('near_misses', 0.10, float)]
-    raw = []
-    for _, m in pool:
-        raw.append([f(m[k]) for k, _, f in keys])
+    raw = [[f(m[k]) for k, _, f in keys] for _, m in pool]
     lo = [min(r[i] for r in raw) for i in range(len(keys))]
     hi = [max(r[i] for r in raw) for i in range(len(keys))]
     out = []
@@ -361,17 +411,19 @@ def pick(pool, sc):
     return chosen
 
 
-def write_gd(path, items):
+MKEYS = ('solution_toggles', 'solution_reflections', 'relevant_mirrors',
+         'irrelevant_mirrors', 'expanded_states', 'max_backtrack',
+         'near_misses', 'beam_crossings', 'aha')
+
+
+def write_gd(path, items, cmd):
     lines = ['extends RefCounted',
              '## ÜRETİLDİ — elle düzenleme. Yeniden yazmak için (proto klasöründen):',
-             '##   python tools/uretec.py <deneme> <tohum>',
+             '##   ' + cmd,
              '## Harita harfleri levels.gd ile aynı.', '', 'const ALL := [']
     for lv, m, sc, ad in items:
         lines.append('\t{"yon": "%s", "zorluk": %.2f, "sinif": "%s", "map": [' % (lv.yon, sc, ad))
-        lines.append('\t\t# ' + ' · '.join('%s=%s' % (k, m[k]) for k in (
-            'solution_toggles', 'solution_reflections', 'relevant_mirrors',
-            'irrelevant_mirrors', 'expanded_states', 'max_backtrack',
-            'near_misses', 'beam_crossings', 'aha')))
+        lines.append('\t\t# ' + ' · '.join('%s=%s' % (k, m[k]) for k in MKEYS))
         for r in lv.rows():
             lines.append('\t\t"%s",' % r)
         lines.append('\t]},')
@@ -379,16 +431,21 @@ def write_gd(path, items):
     open(path, 'w', encoding='utf-8', newline='\n').write('\n'.join(lines) + '\n')
 
 
-def main():
-    tries = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
-    seed = int(sys.argv[2]) if len(sys.argv) > 2 else 1
-    rng = random.Random(seed)
+def line(n, ad, s, m):
+    return ('  %-4s %-9s zorluk=%.2f çevir=%d yansıma=%d ayna=%d/%d arama=%d geri=%d near=%d kesişme=%d aha=%s'
+            % (n, ad, s, m['solution_toggles'], m['solution_reflections'],
+               m['relevant_mirrors'], m['rotatable'], m['expanded_states'],
+               m['max_backtrack'], m['near_misses'], m['beam_crossings'], m['aha']))
+
+
+def run_pool(rng, tries, gen_kwargs_fn, label):
     reasons, accepted, pool = {}, [], []
     produced = 0
     for _ in range(tries):
-        lv, why = generate(rng)
+        lv, why = generate(rng, **gen_kwargs_fn())
         if lv is None:
-            reasons['(üretilemedi) ' + why] = reasons.get('(üretilemedi) ' + why, 0) + 1
+            k = '(üretilemedi) ' + why
+            reasons[k] = reasons.get(k, 0) + 1
             continue
         produced += 1
         m = lv.metrics()
@@ -398,23 +455,77 @@ def main():
             continue
         accepted.append(lv)
         pool.append((lv, m))
-    print('deneme=%d · üretilen bölüm=%d · filtreden geçen=%d · elenen=%d'
-          % (tries, produced, len(pool), produced - len(pool)))
+    print('[%s] deneme=%d · üretilen bölüm=%d · filtreden geçen=%d · elenen=%d'
+          % (label, tries, produced, len(pool), produced - len(pool)))
     for k, v in sorted(reasons.items(), key=lambda kv: -kv[1]):
-        print('  %5d  %s' % (v, k))
+        print('  %6d  %s' % (v, k))
+    return pool
+
+
+def main_is3(tries, seed):
+    rng = random.Random(seed)
+    pool = run_pool(rng, tries, lambda: {}, 'İŞ 3')
     if len(pool) < 10:
         print('HATA: havuz 10dan küçük'); sys.exit(1)
     sc = scores(pool)
-    chosen = pick(pool, sc)
-    items = [(pool[i][0], pool[i][1], sc[i], ad) for i, ad in chosen]
-    write_gd('levels_uretilen.gd', items)
+    items = [(pool[i][0], pool[i][1], sc[i], ad) for i, ad in pick(pool, sc)]
+    write_gd('levels_uretilen.gd', items, 'python tools/uretec.py %d %d' % (tries, seed))
     print('seçilen 10:')
     for n, (lv, m, s, ad) in enumerate(items, 1):
-        print('  U%-2d %-5s zorluk=%.2f çevir=%d yansıma=%d ayna=%d/%d arama=%d geri=%d near=%d kesişme=%d aha=%s'
-              % (n, ad, s, m['solution_toggles'], m['solution_reflections'],
-                 m['relevant_mirrors'], m['rotatable'], m['expanded_states'],
-                 m['max_backtrack'], m['near_misses'], m['beam_crossings'], m['aha']))
+        print(line('U%d' % n, ad, s, m))
+
+
+def main_is4(tries, seed):
+    """8x14. Yarı deneme bölücülü, yarı bölücüsüz (uzun yol, %90 yanlış başlangıç).
+    Seçim: 4 bölücülü + 4 bölücüsüz, zor eşiğini geçenlerden en yüksek puanlılar."""
+    global W, H
+    W, H = 8, 14
+    rng = random.Random(seed)
+    plain = run_pool(rng, tries // 2, lambda: {'turns_rng': (5, 10), 'wrong_p': 0.9}, 'bölücüsüz')
+    split = run_pool(rng, tries // 2, lambda: {'split': True, 'wrong_p': 0.9}, 'bölücülü')
+    pool = plain + split
+    sc = scores(pool)
+    print('zor eşiği (geri ≥4 · çevir ≥6 · near 2-3 · aha):')
+    chosen = []
+    for lab, lo, hi in (('bölücülü', len(plain), len(pool)), ('bölücüsüz', 0, len(plain))):
+        why = {}
+        ok = []
+        for i in range(lo, hi):
+            w = hard(pool[i][1])
+            if w:
+                why[w] = why.get(w, 0) + 1
+            else:
+                ok.append(i)
+        print('  %-9s havuz=%d · zor eşiğini geçen=%d · takılan: %s'
+              % (lab, hi - lo, len(ok), ', '.join('%s %d' % kv for kv in
+                                                   sorted(why.items(), key=lambda kv: -kv[1]))))
+        ok.sort(key=lambda i: -sc[i])
+        picked = []
+        for i in ok:  # birbirine benzemesin
+            if all(len(signature(pool[i][0]) & signature(pool[j][0]))
+                   / max(1, len(signature(pool[i][0]) | signature(pool[j][0]))) <= 0.4
+                   for j in picked):
+                picked.append(i)
+            if len(picked) == 4:
+                break
+        if len(picked) < 4:
+            print('  UYARI: %s için 4 zor bölüm yok (%d)' % (lab, len(picked)))
+        chosen += [(i, lab) for i in picked]
+        br = [pool[i][1]['max_backtrack'] for i in range(lo, hi)]
+        print('  %-9s havuz ortalama geri dönüş=%.2f · en yüksek=%d'
+              % (lab, sum(br) / max(1, len(br)), max(br, default=0)))
+    chosen.sort(key=lambda t: sc[t[0]])  # kolaydan zora
+    items = [(pool[i][0], pool[i][1], sc[i], ad) for i, ad in chosen]
+    write_gd('levels_uretilen_4.gd', items, 'python tools/uretec.py %d %d is4' % (tries, seed))
+    print('seçilen %d:' % len(items))
+    for n, (lv, m, s, ad) in enumerate(items, 1):
+        print(line('Z%d' % n, ad, s, m))
 
 
 if __name__ == '__main__':
-    main()
+    tries = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
+    seed = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+    if len(sys.argv) > 3 and sys.argv[3] == 'is4':
+        main_is4(tries, seed)
+    else:
+        main_is3(tries, seed)
