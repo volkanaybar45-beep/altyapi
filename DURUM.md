@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener: bölüm üreteci + zorluk ölçümü (KOD, İŞ 3)
+Fener: zorluk tavanını yükselt + ışık bölücü (KOD, İŞ 4)
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
