@@ -171,7 +171,8 @@ func _celebrate() -> void:
 	tw.tween_callback(func():
 		can_continue = true
 		var last := level == Levels.ALL.size() - 1
-		info_label.text = tr("TAMAM") + "\n" + (tr("SON") if last else tr("DEVAM")))
+		title_label.text = tr("TAMAM")
+		info_label.text = tr("SON") if last else tr("DEVAM"))
 
 
 # --- girdi -------------------------------------------------------------------
