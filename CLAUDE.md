@@ -25,6 +25,16 @@ Bu dosya BİR OYUNA ait değildir; şirketin anayasasıdır. Her şey
 - Kullanıcı bir kararı tekrar ederse o karardır; itirazını bir
   kez söyle, sonra tam olarak isteneni yap
 
+## Token kuralları
+Token gerçek paradır; ucuz çalışmak da işin parçası.
+- **Her iş bitince `/clear`.** Rapor `DURUM.md`'ye yazıldıysa geçmiş yüktür.
+  Sıkıştırma (compact) beklemek daha pahalı
+- Ekran görüntüsü pahalıdır: gerekmedikçe gönderme, gerekiyorsa tek ve kırpılmış
+- Büyük dosyayı komple okuma; hedefli oku ya da ajanlara böl
+- `CLAUDE.md` ve `DURUM.md` kısa kalır (her turda yüklenir)
+- Mekanik iş: Sonnet + düşük efor. Mimari karar: Opus
+- Ajan pahalıdır: küçük işi kendin yap
+
 ## Çalışma biçimi
 - Minimum token: kısa, öz, açıklayıcı. Uzun karşılama/kapanış yok
 - Değişiklikten önce plan sun, onay bekle
