@@ -29,10 +29,12 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	# zemin: ekranı kaplasın (oran 941x1672 ≈ 720x1280)
-	var s := maxf(SIZE.x / BG.get_width(), SIZE.y / BG.get_height())
+	# zemin: görünen alanı kaplasın. keep_width: uzun telefonda (20:9) görünen
+	# yükseklik 1280'den büyük, oyun üste yaslı; zemin aşağıya kadar uzar
+	var vis := Vector2(SIZE.x, maxf(SIZE.y, get_viewport_rect().size.y))
+	var s := maxf(vis.x / BG.get_width(), vis.y / BG.get_height())
 	var bs := Vector2(BG.get_width(), BG.get_height()) * s
-	draw_texture_rect(BG, Rect2((SIZE - bs) / 2.0, bs), false)
+	draw_texture_rect(BG, Rect2(Vector2((vis.x - bs.x) / 2.0, 0), bs), false)
 	draw_texture_rect(MOON, Rect2(moon_pos - Vector2.ONE * MOON_SIZE / 2.0, Vector2.ONE * MOON_SIZE), false)
 	# sis: yatay döşenir, kayar (görsel kenarları eşleşik)
 	for band in FOG_BANDS:
