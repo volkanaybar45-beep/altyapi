@@ -78,7 +78,7 @@ func load_level(i: int) -> void:
 		m.queue_free()
 	mirrors.clear()
 	rocks.clear()
-	var d: Dictionary = Levels.ALL[i]
+	var d: Dictionary = all_levels[i]
 	fener_dir = DIRS[d["yon"]]
 	var rows: Array = d["map"]
 	for y in rows.size():
