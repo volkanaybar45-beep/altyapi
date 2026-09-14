@@ -40,6 +40,8 @@ func _initialize() -> void:
 		var pass_i: bool = not start_hit and count > 0 and tap_ok
 		ok = ok and pass_i
 		var ad := "bolum %d" % (i + 1) if i < 9 else "uretilen %d" % (i - 8)
+		if i >= 19:
+			ad += " (IS4 Z%d, tekne=%d)" % [i - 18, main.boats.size()]
 		print("%s: ayna=%d baslangic_cozulu=%s cozum=%d/%d dokunma=%s %s" % [
 			ad, rot.size(), start_hit, count, total, tap_ok, "OK" if pass_i else "HATA"])
 	print("SONUC: ", "OK" if ok else "HATA")
