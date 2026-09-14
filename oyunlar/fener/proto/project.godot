@@ -34,4 +34,4 @@ locale/fallback="tr"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.03, 0.05, 0.1, 1)
+environment/defaults/default_clear_color=Color(0.0314, 0.1255, 0.2784, 1)
