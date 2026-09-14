@@ -300,11 +300,55 @@ func _celebrate() -> void:
 		info_label.text = tr("SON") if last else tr("DEVAM"))
 
 
+## Sakin, kısa parçacık: tekne fenerinden yukarı süzülen birkaç sıcak kıvılcım.
+func _sparkle(boat: Vector2) -> void:
+	var p := CPUParticles2D.new()
+	p.position = _lantern_pos(boat)
+	p.one_shot = true
+	p.explosiveness = 0.6
+	p.amount = 14
+	p.lifetime = 1.4
+	p.direction = Vector2.UP
+	p.spread = 70.0
+	p.gravity = Vector2(0, -12)
+	p.initial_velocity_min = 18.0
+	p.initial_velocity_max = 45.0
+	p.scale_amount_min = 2.5
+	p.scale_amount_max = 4.5
+	var g := Gradient.new()
+	g.set_color(0, Color(1.0, 0.93, 0.66, 0.9))
+	g.set_color(1, Color(1.0, 0.8, 0.45, 0.0))
+	p.color_ramp = g
+	p.z_index = 3
+	add_child(p)
+	p.emitting = true
+	p.finished.connect(p.queue_free)
+
+
+func _lantern_pos(boat: Vector2) -> Vector2:
+	return boat + (BOAT_LANTERN - Vector2(256, 256)) * _boat_scale_px()
+
+
+func _boat_scale_px() -> float:
+	return cell * 1.25 / 490.0  # tekne görünür genişliği 1.25 hücre (bbox 490)
+
+
 # --- girdi -------------------------------------------------------------------
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.pressed:
 		tap(event.position)
+	elif event.is_action_pressed("ui_cancel"):
+		_to_menu()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:  # Android geri tuşu
+		_to_menu()
+
+
+func _to_menu() -> void:
+	get_tree().change_scene_to_file("res://menu.tscn")
 
 
 func tap(pos: Vector2) -> void:
