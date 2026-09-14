@@ -8,3 +8,7 @@
 - Reklam: bölüm sonrası zorunlu reklam YOK; ödüllü reklamın ödülü garanti
 - APK/AAB/keystore asla git'e girmez
 - Yayın sonrası yorumlar Araştırma'ya döner
+- **Reklam hesabı riski:** geliştirmede sadece test reklam kimliği kullanılır;
+  gerçek kimlik yayın gününe kadar koda girmez. Kendi reklamına tıklamak
+  hesabı kapattırır (geçersiz trafik). Şüphede reklam eklenmez, sürüm
+  reklamsız çıkar, onay gelince güncellemeyle eklenir
