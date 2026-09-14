@@ -61,6 +61,19 @@ değil, aynı çekirdeğin parametresi.
 Ortam serisi: sakin akşam → fırtınalı gece → buzlu deniz → tropik →
 volkanik → kutup ışıkları. Her biri arka plan + palet değişimi.
 
+### ASIL KANCA: dünyayı ışıkla geri getirmek (2026-09-14)
+Oyunun sözü "bulmaca çöz" değil, **"karanlık bir yeri geri getir."**
+
+- Ada/liman bölüm başında karanlık ve ölü görünür
+- Bölüm çözülünce sadece gemi kurtulmaz: evlerin ışıkları yanar, iskele
+  canlanır, martılar gelir, ses katmanı eklenir
+- 20 bölüm sonunda karanlık liman, yaşayan sıcak bir köye dönüşmüş olur
+- Oyuncunun cümlesi: "puzzle çözmedim, bir yeri kurtardım"
+
+**Maliyet kontrolü:** yeni sahne değil, tek arka planın üstüne sönük→yanık
+katmanlar. Her katman bir PNG + bir fade. Bu yüzden karşılanabilir.
+Uzun ömür sorununun (bölüm tekrarı) asıl cevabı budur.
+
 ### Mevsimler (kurucu fikri, 2026-09-14)
 Hava koşulları tek çatı altında: ilkbahar (dingin, açık) → yaz (güneş, parlak
 su) → sonbahar (rüzgâr, dalga) → kış (kar, buz). Yağmur, fırtına ve sis
