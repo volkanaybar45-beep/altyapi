@@ -2,6 +2,19 @@
 
 Çalışma adı. Tür: sakin blok yerleştirme. Karar: 2026-09-14.
 
+## Aşama 2 kararı: İKİ prototip yarışacak (kurucu, 2026-09-14)
+Tür kararı tahminle değil hisle verilecek. Aynı deniz temasıyla iki küçük
+prototip yapılır, kurucu telefonda ikisini de oynar, **bırakamadığı kazanır.**
+Kaybeden `oyunlar/kuytu/` içinde "ÖLDÜ + sebep" notuyla kalır.
+
+- **A — Blok yerleştirme:** ızgaraya parça koy, dolan satır/sütun temizlenir
+- **B — Match-3:** üç aynıyı eşleştir, özel parçalar satır/sütun/renk patlatır
+
+Ortak: deniz teması · **4 parça türü** (görseldeki gibi 6 değil, tahta seyrek
+kalsın) · özel parçalar · patlama efektleri · süre yok · kaybetme ekranı yok.
+Prototipte görsel üretilmez, düz renkli şekiller kullanılır — his ölçülecek,
+görsel değil.
+
 ## Tek cümle
 Izgaraya parça yerleştirip sıraları temizlediğin, süresi ve kaybı olmayan,
 istediğin an bırakıp istediğin an dönebildiğin sessiz bir bulmaca.
