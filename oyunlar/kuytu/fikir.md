@@ -38,6 +38,17 @@ istediğin an bırakıp istediğin an dönebildiğin sessiz bir bulmaca.
 - Üretim: ChatGPT (2B) → Tripo Pro (3B) → `toon_render.py`. Efektlerin
   çoğu koddan (parçacık, tween), görselden değil
 
+## Ortamlar — ilerleme hissi (kurucu fikri, 2026-09-14)
+Oyuncu ilerledikçe arka plan değişir: deniz altı → orman derinliği → …
+Her ortam bir "buraya kadar geldim" duygusu verir.
+
+- İlerleme **geri gitmez**: açılan ortam kilitlenmez, kaybedilmez
+- Geçiş yumuşak olur, kutlama ekranı oyuncuyu durdurmaz
+- Değişen: arka plan + palet + parçacık rengi. **Sabit kalan: tahta ve
+  4 parça** — hem ucuz hem oyuncu kas hafızasını kaybetmez
+- Ortam sayısı azdan başlar (3-4), tutarsa çoğalır
+- Prototipte TEK ortam yapılır; ortam serisi Aşama 3 işidir
+
 ### Varlık listesi (Aşama 2 için en az)
 1. 4 blok/parça görseli — birbirinden siluetle ayrılır, renk körlüğüne dayanıklı
 2. Tahta zemini (tek, sade)
