@@ -45,20 +45,20 @@ func _ready() -> void:
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	title_label.position.x = 24
 	info_label = _make_label(36, Color(1.0, 0.93, 0.7), 1200)
-	mode_button = Button.new()
-	mode_button.position = MODE_RECT.position
-	mode_button.size = MODE_RECT.size
-	mode_button.add_theme_font_size_override("font_size", 30)
-	mode_button.focus_mode = Control.FOCUS_NONE
-	mode_button.pressed.connect(toggle_mode)
-	add_child(mode_button)
+	skip_button = Button.new()
+	skip_button.position = SKIP_RECT.position
+	skip_button.size = SKIP_RECT.size
+	skip_button.add_theme_font_size_override("font_size", 30)
+	skip_button.focus_mode = Control.FOCUS_NONE
+	skip_button.text = tr("ATLA")
+	skip_button.pressed.connect(skip)
+	add_child(skip_button)
 	load_level(0)
 
 
-## 45° ↔ 90°. Bölüm baştan kurulur (aynalar başlangıç açısına döner).
-func toggle_mode() -> void:
-	mode90 = not mode90
-	load_level(level)
+## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın).
+func skip() -> void:
+	load_level((level + 1) % all_levels.size())
 
 
 func _make_label(font_size: int, color: Color, y: float) -> Label:
