@@ -26,7 +26,7 @@ var fener_dir: Vector2
 var boat_pos: Vector2
 var mirrors: Array = []
 var rocks: Array = []  # Vector2
-var mode_button: Button
+var skip_button: Button
 
 var path := PackedVector2Array()
 var hit := false
