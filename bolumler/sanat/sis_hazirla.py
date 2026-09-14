@@ -28,10 +28,12 @@ for y in range(H):
     for x in range(W):
         px[x, y] = int(px[x, y] * k)
 
-# yatay dikissizlik: seridi kendi kaydirilmis kopyasiyla carprazla
-kaydir = a.transform(a.size, Image.AFFINE, (1, 0, -W // 2, 0, 1, 0), fillcolor=0)
-agirlik = Image.linear_gradient("L").rotate(-90, expand=True).resize((W, H))
-a = Image.composite(a, kaydir, agirlik)
+# yatay dikissizlik: sol yari + aynasi. Iki kenar da ayni sutun oldugu icin
+# tekrarlandiginda dikis MATEMATIKSEL olarak imkansiz (olculecek: fark 0)
+sol = a.crop((0, 0, W // 2, H))
+a = Image.new("L", (W, H))
+a.paste(sol, (0, 0))
+a.paste(sol.transpose(Image.FLIP_LEFT_RIGHT), (W // 2, 0))
 
 sonuc = Image.new("RGBA", (W, H), (r, g, b, 0))
 sonuc.putalpha(a)
