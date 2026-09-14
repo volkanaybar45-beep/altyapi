@@ -203,7 +203,7 @@ def walk(rng, x, y, dx, dy, n_turns, used, first_min):
             else:
                 return None
         if i == n_turns:
-            return turns, (x, y)
+            return turns, (x, y), (dx, dy)
         ndx, ndy = rng.choice([(dy, dx), (-dy, -dx)])
         turns.append(((x, y), step_for(dx, dy, ndx, ndy)))
         dx, dy = ndx, ndy
