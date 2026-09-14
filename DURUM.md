@@ -95,52 +95,64 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-**İŞ 3 — Üreteç + zorluk ölçümü · kod yazıldı, telefonda test edilmedi** (2026-09-14)
+**İŞ 4 — Zorluk tavanı + ışık bölücü · kod yazıldı, telefonda test edilmedi** (2026-09-14)
 
 **Yapılan**
-- 45° modu ve mod düğmesi kaldırıldı; ayna her dokunuşta 90° döner. Yerine
-  "Atla ›" düğmesi kondu (kurucu üretilen bölümlere hızlı ulaşsın diye)
-- Oyun sırası: elle kurulan 9 bölüm → **üretilen 10 bölüm** (başlıkta "Üretilen N · zorluk X")
-- `tools/uretec.py`: tersine kurulum (yol → yem ayna → yanlış kolu derinleştir →
-  kestirmeye kaya → aynaları %80 yanlış çevir) + ölçer (8 metrik + aha) + kalite
-  filtresi + puan (%30/25/20/15/10, havuzda 0-1, aha +0.1). Çıktı `levels_uretilen.gd`
-  (üretilmiş dosya, elle düzenlenmez; `python tools/uretec.py 30000 1` ile tekrar üretilir)
+- **Işık bölücü** (harita harfi `Y`): sabit elmas prizma, dönmez. Gelen ışını durdurur,
+  sağına ve soluna iki kol çıkarır. Bölücülü bölümde **iki tekne** var, bölüm ikisi
+  de ışık alınca biter; ışık alan tekne bölüm bitmeden de parlıyor. "İki kol tek
+  teknede birleşir" türü yapılmadı: tek teknede kollardan biri boşa gidebiliyor,
+  ikisini birden kullanmayı zorlamak zor. Çözücü, ölçer, üreteç ve oyun bölücüyü tanıyor
+- **Izgara 8x14** (yeni bölümler), hücre 90→80px. Dokunma yarıçapı 70px aynen; zaten en
+  yakın ayna seçiliyor. Eski 7x12 bölümler değişmedi; hücre boyu haritadan hesaplanıyor
+- **Yol kurma akıllandı:** yürüyüş sadece geçerli uzunluk/yön arasından seçiyor.
+  Boşa giden deneme %96 → %30-56
+- **Zor eşiği:** geri dönüş ≥4 · çevirme ≥6 · near-miss 2-3 · aha zorunlu
+- Oyuna 8 bölüm eklendi (`levels_uretilen_4.gd`, "Üretilen 11-18"). Sıra: elle 9 → İŞ 3'ün 10 → İŞ 4'ün 8
 
-**Üretim sayıları** (30000 deneme, tohum 1): **1407 bölüm üretildi, 88 geçti, 1319 elendi**
-- 1023 · kullanılan döner ayna < %70 (yem ayna fazla)
-- 294 · near-miss 1-3 dışı (çoğu 0: ışın tekneyi hiç sıyırmıyor)
-- 1 · son 10 bölüme benzer · 1 · kesişme > 2
-- Üretilemeyen (sayılmadı): 28484 yol ızgaraya sığmadı · 89 döner ayna < 2 · 20 kestirme kapanmadı
+**Üretim** (`python tools/uretec.py 40000 1 is4`)
+- Bölücüsüz: 20000 deneme → **12335 üretildi, 2142 geçti, 10193 elendi**
+  (5986 kullanılan ayna <%70 · 3418 near-miss · 702 yansıma >9 · 50 gereksiz ayna ·
+  27 kesişme · 10 benzer). Zor eşiğini geçen: **113** (1568'i geri dönüş <4'ten takıldı)
+- Bölücülü: 20000 deneme → **7132 üretildi, 719 geçti, 6413 elendi**
+  (3402 near-miss · 2213 kullanılan ayna · 710 yansıma · 60 kesişme · 26 gereksiz · 2 benzer).
+  Zor eşiğini geçen: **161**
+- Üretilemeyen (sayılmadı): yol kurulamadı 5959 / 11211 · tekne sıkışık 843 / 1489 ·
+  kestirme kapanmadı 830 / 168
 
-**Seçilen 10** (zorluk · çevirme · yansıma · yoldaki/toplam ayna · arama · geri dönüş · aha)
-U1 kolay 0.00 · 1 · 4 · 2/2 · 2 · 1 · – | U2 kolay 0.17 · 1 · 6 · 3/4 · 4 · 2 · –
-U3 kolay 0.27 · 3 · 6 · 3/3 · 3 · 1 · aha | U4 orta 0.27 · 3 · 5 · 5/7 · 7 · 2 · –
-U5 orta 0.33 · 3 · 7 · 4/5 · 4 · 1 · aha | U6 orta 0.39 · 5 · 6 · 5/7 · 7 · 3 · –
-U7 orta 0.42 · 4 · 6 · 5/6 · 6 · 2 · aha | U8 zor 0.73 · 6 · 9 · 8/11 · 11 · 3 · aha
-U9 zor 0.87 · 9 · 9 · 9/11 · 15 · 5 · aha | U10 zor 1.00 · 6 · 7 · 7/10 · 25 · 9 · aha
+**Seçilen 8** (zorluk · çevirme · yansıma · yoldaki/toplam ayna · arama · geri dönüş · near) — hepsi zor eşiğini geçiyor, hepsinde aha var
+Z1 bölücüsüz 0.83 · 8 · 9 · 9/12 · 20 · 9 · 2 | Z2 bölücüsüz 0.85 · 8 · 9 · 9/11 · 24 · 9 · 2
+Z3 bölücüsüz 0.85 · 9 · 9 · 9/11 · 19 · 9 · 2 | Z4 bölücüsüz 0.87 · 9 · 9 · 9/12 · 22 · 9 · 2
+Z5 bölücülü 0.93 · 7 · 9 · 8/11 · 59 · 8 · 3 | Z6 bölücülü 0.95 · 9 · 9 · 9/12 · 61 · 7 · 3
+Z7 bölücülü 0.98 · 8 · 9 · 9/10 · 59 · 9 · 3 | Z8 bölücülü 1.00 · 8 · 8 · 8/11 · 82 · 10 · 3
 
-**Bulgu:** Aynı ölçer elle kurulan 9 bölüme de koşuldu. 8'inde `max_backtrack` = 1,
-yani yanlış çevirme ışını anında öldürüyor, oyuncu hatayı hemen görüyor. Kurucunun
-"çok hızlı buluyor" demesinin ölçülebilir karşılığı bu olabilir. Üretilen zorlarda
-geri dönüş 3-9: yanlış yolda birkaç ayna ilerleyip sonra ölüyor. Elle bölümlerde
-near-miss 0, aha hiç yok.
+**Bölücülü bölümlerin geri dönüşü daha mı yüksek?** Havuzda **evet**: ortalama 4.63'e
+karşı 3.07; zor eşiğini geçme oranı %22'ye karşı %5. Seçilen 8'de **hayır**: 8.5'e karşı
+9.0; ikisi de tavana yakın. Bölücünün asıl farkı **arama eforunda**: 59-82'ye karşı 19-24,
+yaklaşık 3 kat. Oyuncu iki kolu aynı anda akılda tutmak zorunda.
 
-**Test edilen:** motor testi (`tools/mantik_test.gd`, 90°) 19 bölümün hepsinde:
-başta çözülmemiş, çözüm var, dokunarak veriliyor → 19/19 OK. Çözüm sayıları Python
-ölçerle tutuyor (fark yalnız ışının değmediği aynalardan). Ekran görüntüsüne GÖZLE
-bakıldı (U1, U10 çözülmemiş + çözülmüş). 1 hata bulundu ve düzeltildi: üreteç kayayı
-teknenin dibine koyunca kaya bayrağı örtüyordu → direk kısaltıldı.
+**Test edilen:** motor testi 27 bölümün hepsinde (elle 9 + İŞ 3'ün 10 + İŞ 4'ün 8):
+başta çözülmemiş, çözüm var, dokunarak veriliyor → 27/27 OK. Çözüm sayıları Python
+ölçerle tutuyor. Çok kollu çözücü İŞ 3'ün 10 bölümünde eski metriklerin birebir
+aynısını verdi (regresyon 10/10). Ekran görüntüleri GÖZLE bakıldı (Z5 çözülmüş,
+Z8 çözülmemiş + çözülmüş).
 
-**Test edilmeyen:** telefonda açılmadı. Puanın insan süresiyle örtüşüp örtüşmediği
-bilinmiyor (şartname de "son kalibrasyonu oyuncu yapar" diyor). U10'da geri dönüş
-9: "zor" mu "yorucu" mu, kurucu söyler. "Son 10'a benzerlik" hücre örtüşmesiyle
-ölçülüyor, göz benzerliği değil.
+**İki kollu ışın karışık görünüyor mu?** İlk görüntüde **evet, yer yer**. Kollar komşu
+şeritte paralel gidince 80px hücrede haleler birleşip kalın banda dönüyordu. Hale
+inceltildi (26→18, kutlama 44→30); ikinci görüntüde şeritler ayrı okunuyor. Ayrıca 2 hata
+bulundu ve düzeltildi: iki tekne çapraz komşu olup gövdeleri biniyordu (üretece
+"tekne sıkışık" kuralı) · Atla düğmesi 0. satırdaki fener kulesini örtüyordu.
 
-**Not:** `levels_uretilen.gd` Python ile yazılıyor (Edit/Write değil). Import kapısı
-fener'de zaten çalışmıyor; import'u elle koştum, temiz.
+**Test edilmeyen:** telefonda açılmadı; 80px hücrede parmak isabeti; Z1-Z8'in gerçekten
+"çok zor" hissettirip hissettirmediği (hepsi geri dönüş 7-10: yorucu olabilir).
 
-**Öneri:** Near-miss en çok eleyen ikinci ölçüt. Üreteç kayayı bilerek teknenin
-yanına koyarsa verim artar.
+**Not:** İŞ 3 üretim komutu artık levels_uretilen.gd'yi birebir üretmiyor (ölü kol sırası
+değişti). Kurucunun oynadığı dosya git'teki haliyle korundu. Üretilen `.gd`'ler Python ile
+yazılıyor; import elle koşuldu, temiz.
+
+**Öneri:** (1) Paralel komşu şerit sayısı ölçüt olarak eklenebilir; eşiği Tasarım
+koymalı. (2) Zor bölümler yansıma tavanına (9) yığılıyor; tablo 3-9 bölücülülerde dar kalıyor,
+kol başına sayılabilir.
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-14 · Işık bölücü öne alındı (31. bölüm → hemen): kurucu "çok zor değil" dedi, saf ayna+kaya zorluk tavanı düşük
