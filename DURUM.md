@@ -10,7 +10,31 @@ Fener: görselleri oyuna bağla + ana ekran (KOD, İŞ 5) → sonra APK
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 4 — Zorluk tavanı + ışık bölücü** (2026-09-14)
+**İŞ 5 — Görsel entegrasyonu + ana ekran** (2026-09-14)
+Kurucu: "şimdilik iyi, görseller ve oyunun yapısı otursun, sonra APK ile
+birkaç kişinin fikrini alırım." Aşama 2 kapısı geçti, Aşama 3 (dikey dilim).
+Görseller hazır: `oyunlar/fener/gorseller/` (defter: `kayit.md`).
+
+1. Düz şekilleri gerçek görsellerle değiştir:
+   `fener_kulesi.png` · `ayna_plaka.png` (kod döndürür) + `ayna_taban.png`
+   (dönmez) · `tekne.png` · `kayalik.png` · `arkaplan_gece_denizi.png` ·
+   `sis_katmani.png` (alfa %35-50, yavaş yatay kayar, tile) · `ay.png`
+2. **Sabit ayna** ayrı görsel değil: plaka görseli koyultulup/karartılıp
+   kullanılabilir ama siluetten ayırt edilmeli (renk körlüğü)
+3. Işın koddan: çekirdek ≥16 px + additive parlama, renk `#FFE7A3`.
+   Zemin `#082047`; ışın sisin içinden geçerken kaybolmamalı
+4. Tamamlanma anı: ışık güzergâh boyunca yansın, tekne feneri parlasın,
+   kısa parçacık. **Sahne sakin kalsın, ekran patlamasın**
+5. **Ana ekran:** oyun adı + "Oyna" + "Ayarlar". Arka plan gece denizi + ay.
+   Metinler `tr()` ile; EN karşılıkları BOŞ bırakılır (Tasarım yazacak)
+6. Ölçüm: her görsel gerçek cihaz oranında ekran görüntüsüne alınıp GÖZLE
+   bakılacak; ışın/zemin ve tekne/zemin kontrastı raporlanacak (hedef ≥3.0)
+7. RAPOR'a ayrıca yaz: **Android export şablonu kurulu mu, APK almak için
+   ne gerekiyor** (keystore, SDK yolu). APK'yı bu işte ALMA, sadece raporla
+
+Kapsam dışı: renk filtresi, ses, reklam, kayıt sistemi, liman restorasyonu.
+
+**İŞ 4 (BİTTİ) — Zorluk tavanı + ışık bölücü** (2026-09-14)
 Kurucu üretilen 10 bölümü oynadı: **"çok zor değil."** Saf ayna+kaya ile tavan
 düşük. İki koldan yükselt. Süre/hamle sınırı/kaybetme YİNE YOK.
 
