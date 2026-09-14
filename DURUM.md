@@ -11,7 +11,31 @@ Fener: görselleri oyuna bağla + ana ekran (KOD, İŞ 5) → sonra APK
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 5 — Görsel entegrasyonu + ana ekran** (2026-09-14)
+**İŞ 6 — Görsel düzeltme turu** (2026-09-14)
+Kurucu ekran görüntüsüne baktı: "bu görseller böyle olmayacak." Haklı.
+Sahne şu an ışık oyunu gibi değil, gri bloklardan oluşan çerçeve gibi
+görünüyor. Sırayla düzelt, her maddeden sonra ekran görüntüsü al ve BAK.
+
+1. **Aynalar gri çıkıyor.** Normal (döner) aynaya sabit ayna karartması
+   uygulanıyor olabilir — kontrol et. Döner ayna: altın çerçeve GÖRÜNÜR,
+   yüzey parlak, gece zemininde en dikkat çeken ikinci şey (birincisi ışık)
+2. **Işın yeniden tasarlanacak.** Şu an düz beyaz kalın boru:
+   - İnce parlak çekirdek + geniş yumuşak hale (çekirdek ≤ halenin 1/3'ü)
+   - Köşeler kare olmasın: her yansıma noktasında küçük parlak düğüm
+   - Uzunluk boyunca hafif sönümlenme; sisin içinden geçerken hafif yayılma
+3. **Tekne %120-150 büyüsün**, üstündeki hale kalksın. Hedef en net okunan
+   nesne olmalı; feneri sıcak sarı parlasın
+4. **Fener kulesi büyüsün** ve ızgaranın içinde eşit bir hücre gibi durmasın;
+   sahnenin sahibi o. Lamba odası ışın çıkışıyla hizalı kalsın
+5. **Çakışma yok:** nesneler birbirinin üstüne binmeyecek; üreteç komşu
+   hücrelere iki büyük nesne koyuyorsa aralarını aç ya da o bölümü ele
+6. Ölç ve RAPOR'a yaz: ışın/zemin, ayna/zemin, tekne/zemin kontrastı (≥3.0)
+7. En az 3 farklı bölümden (kolay, bölücülü, zor) ekran görüntüsü al,
+   gerçek telefon oranında GÖZLE bak, sonra rapor et
+
+Kapsam dışı: ses, reklam, kayıt sistemi, liman restorasyonu, renk filtresi.
+
+**İŞ 5 (BİTTİ) — Görsel entegrasyonu + ana ekran** (2026-09-14)
 Kurucu: "şimdilik iyi, görseller ve oyunun yapısı otursun, sonra APK ile
 birkaç kişinin fikrini alırım." Aşama 2 kapısı geçti, Aşama 3 (dikey dilim).
 Görseller hazır: `oyunlar/fener/gorseller/` (defter: `kayit.md`).
