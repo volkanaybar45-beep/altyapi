@@ -104,12 +104,14 @@ func load_level(i: int) -> void:
 					mirrors.append(m)
 				_:
 					push_error("bilinmeyen harita karakteri '%s' bolum %d" % [c, i + 1])
-	mode_button.text = tr("ACI_90") if mode90 else tr("ACI_45")
 	completed = false
 	can_continue = false
 	glow = 0.0
 	boat_scale = 1.0
-	title_label.text = tr("BOLUM") % (i + 1)
+	if i < Levels.ALL.size():
+		title_label.text = tr("BOLUM") % (i + 1)
+	else:
+		title_label.text = tr("URETILEN") % [i - Levels.ALL.size() + 1, d["zorluk"]]
 	info_label.text = ""
 	update_ray()
 
