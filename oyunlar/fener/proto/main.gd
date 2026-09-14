@@ -13,6 +13,7 @@ const TOWER_LAMP := Vector2(252, 109)   # fener_kulesi.png içinde lamba odası 
 const BOAT_LANTERN := Vector2(298, 226)  # tekne.png içinde tekne feneri
 const RIM_COLOR := Color("#8FA9C9")  # tekne kenarı: ay ışığı; deniz zeminine kontrast ~6
 const RIM_W := 3.0
+const BEAM_TOP := 76.0  # ışın üstte bu y'de biter (başlık şeridi altı)
 const Levels := preload("res://levels.gd")
 const LevelsGen := preload("res://levels_uretilen.gd")  # tools/uretec.py yazar (İŞ 3)
 const LevelsGen4 := preload("res://levels_uretilen_4.gd")  # tools/uretec.py ... is4
