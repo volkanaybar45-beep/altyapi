@@ -1,0 +1,10 @@
+*.apk
+*.aab
+*.keystore
+*.jks
+.env
+.godot/
+build/
+export/
+__pycache__/
+*.glb.import

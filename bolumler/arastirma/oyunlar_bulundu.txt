@@ -1,0 +1,102 @@
+Google Play arama sonuclari
+
+
+==============================================================================
+ARAMA: match 3 offline   [en/us]
+==============================================================================
+  4.66  bedava    Match Carnival: Match 3 Game             casual.match3.theme.parks.puzzles
+  4.64  bedava    Avalon Jewels Match-3                    com.anawiki.avalonjewelsmatch3
+  4.75  bedava    Jewels Magic: Mystery Match 3            com.bitmango.go.jewelsmagicmysterymatch3
+  4.82  bedava    Clockmaker: Jewel Match 3 Game           com.belkatechnologies.clockmaker
+  4.75  bedava    Jewels Legend - Match 3 Puzzle           com.linkdesks.jewellegend
+  4.94  bedava    Tile Match puzzle - Tiletopia            in.playsimple.triple.tile.matchgame.pair.three.puzzle.object.royale
+  4.40  UCRETLI   Jewels Match 3 Puzzle: Offline           com.playtake.puzzle.match3
+  4.58  bedava    Candy Smash Mania: Match 3 Pop           com.candysmashmania.sweetcrush.free
+
+==============================================================================
+ARAMA: match 3 no internet no wifi   [en/us]
+==============================================================================
+  4.66  bedava    Match Carnival: Match 3 Game             casual.match3.theme.parks.puzzles
+  4.85  bedava    Tile Match - No Wifi                     com.go7game.tilematch
+  4.66  bedava    MONOPOLY Match                           com.beematchltd.monopolymatch
+  4.61  bedava    Jewel Match Dragon - No Wifi             granddream.puzzlegame.jewelblast
+  4.81  bedava    Match Fever - Match 3 Puzzles            com.match.fever.dream.puzzlegame.free
+  4.66  bedava    Match Factory!                           net.peakgames.match
+  4.66  bedava    Jewel Blast Dragon - No Wifi             com.go7game.jewelclassic
+  4.69  bedava    Match Match Match!                       com.fiogonia.mmm
+
+==============================================================================
+ARAMA: match 3 animals   [en/us]
+==============================================================================
+  4.59  bedava    Indy Cat: Match 3 Adventure              com.playflock.indicatfb
+   --   bedava    Match 3 Animals: Tile Puzzle             com.oniksstudio.match3animals
+  4.84  bedava    Piggy Kingdom                            com.olleyo.piggy.king.free
+  4.79  bedava    Sweetie Legends                          com.qingyuegames.petmatch
+  4.65  bedava    Cookie Cats                              dk.tactile.cookiecats
+   --   bedava    Animal Tile Master: Match 3              com.xpup.animal3tile
+  4.59  bedava    Tropicats: Tropical Match3               net.wooga.tropicats_tropical_cats_puzzle_paradise
+  4.70  bedava    Aqua Match                               com.mg0.pf
+
+==============================================================================
+ARAMA: free match 3 no ads   [en/us]
+==============================================================================
+  4.66  bedava    Match Carnival: Match 3 Game             casual.match3.theme.parks.puzzles
+  4.63  bedava    Match Busters 3D Matching Game           com.puzzle.fun.free.matching3d
+  4.70  bedava    Lollipop 3: Match 3 Puzzles              com.puzzle1studio.go.lollipopsweetheroesmatch3
+  4.76  bedava    Match 3D Saga - Puzzle Games             happy.puzzle.match3d.pair.master.games.free
+  4.74  bedava    ReGarden Match - Match 3 Games           com.yfactorysoft.GardenMatch.gp
+  4.66  bedava    Match Factory!                           net.peakgames.match
+  4.68  bedava    MonsterBusters: Match 3 Puzzle           com.purplekiwii.mb
+  4.94  bedava    Tile Match: Triple Puzzle Game           com.bigc.tile.match.triple
+
+==============================================================================
+ARAMA: relaxing match 3 puzzle   [en/us]
+==============================================================================
+  4.59  bedava    Relaxing Match Game                      home.match3.matching.puzzle.relaxing.brain.fun.lockdown.calm.forest.nature.stress.relief.games
+  4.38  bedava    Magica Travel: Match 3 Puzzle            quickclickgames.magicaTA
+  4.34  bedava    X Garden Relax Match 3 Design            com.cerisegames.thelastgarden
+  4.37  bedava    Triple Match 3D                          com.master.triple3d.find
+  4.79  bedava    Triple Master® - Match 3 Tiles           com.free.tile.match.puzzles
+  4.68  bedava    MonsterBusters: Match 3 Puzzle           com.purplekiwii.mb
+  4.94  bedava    Tile Match: Triple Puzzle Game           com.bigc.tile.match.triple
+  4.83  bedava    Triple Tile: Match Puzzle Game           com.tripledot.triple.tile.match.pair.game.three.master.object
+
+==============================================================================
+ARAMA: mining puzzle game   [en/us]
+==============================================================================
+  4.23  bedava    Metropolis Tycoon: Mining Game           com.rockbite.digdeep
+  2.88  bedava    Mining Mania Rush Idle                   com.mining.mania.rush.craft.rock.pickaxe.ore.mine
+  4.34  UCRETLI   Keep on Mining!                          com.EagleEyeGames.KeeponMining
+  4.00  bedava    Mine Quest 2: RPG Mining Game            br.com.tapps.minequest2
+  4.13  bedava    Dig out! Gold Mine Game                  com.bandagames.miner
+  4.33  UCRETLI   Keep on Mining! - Worlds                 com.eagleeyegames.keeponminingworlds
+  4.54  bedava    Idle Miner Tycoon: Gold Games            com.fluffyfairygames.idleminertycoon
+  4.25  bedava    Mining Inc.                              com.gpp.mininginc
+
+==============================================================================
+ARAMA: hayvan bulmaca oyunu   [tr/tr]
+==============================================================================
+  4.20  bedava    Hayvan Yapboz Oyunu - Çocuklar           com.imayi.animalpuzzle
+  3.58  bedava    Çocuklar için hayvan bulmaca             com.iabuzz.puzzle4kidsAnimals
+   --   UCRETLI   Hayvan: çocuk bebek oyunları!            com.averina.puzzleanimals
+  4.90  bedava    Find The Cat 2 - Spot It!                com.agavegames.findthecat2
+  4.48  bedava    Connect Animal Classic Travel            com.HT93Studio.AnimalConnect
+  4.29  UCRETLI   Çocuklar bulmaca - Hayvanlar             com.ibuzz.apk.puzzle4kids82
+  4.87  bedava    Find The Cat - Spot It!                  com.ventogames.findthecat
+  2.75  bedava    Çocuklar Için Hayvan Yapboz              com.farmanimals.toddlerpuzzles
+
+==============================================================================
+ARAMA: madenci bulmaca   [tr/tr]
+==============================================================================
+  4.25  bedava    Mine Rescue!                             com.carry1st.minerescue
+  4.12  bedava    Mine Rescue 2 Gold Mining Game           com.carry1st.miner.rescue.dig.mine.game
+  4.26  bedava    Gold Rush Madenci Simülatörü             com.GoldRush3D.MinerSimulator
+  3.81  bedava    Gold Miner: Fun Mining Games             com.hs.metal.detector.hole.digging.games
+  4.44  bedava    Maden Koşusu                             games.tatsumaki.minerush
+  4.61  bedava    Idle Miner Tycoon Maden Oyunu            com.fluffyfairygames.idleminertycoon
+  3.82  bedava    Gold and Goblins - Maden Oyunu           com.redcell.goldandgoblins
+  4.36  bedava    Pocket Sort: Bulmaca Oyunu               com.pocket.sort.coin.puzzle.game
+
+
+Begendiklerini yorum_cek.py icindeki OYUNLAR sozlugune ekle:
+    "Oyun Adi": "com.paket.adi",
