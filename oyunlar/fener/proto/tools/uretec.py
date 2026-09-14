@@ -190,7 +190,7 @@ def seg_ok(x, y, dx, dy, L, used):
         if k == L:
             if u is not None:
                 return False
-        elif u is not None and not (u in 'hv' and u != ('h' if dx else 'v')):
+        elif u is not None and not (u in ('h', 'v') and u != ('h' if dx else 'v')):
             return False
     return True
 
