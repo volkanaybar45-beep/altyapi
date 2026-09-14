@@ -24,8 +24,8 @@ func turn() -> void:
 			tw.tween_property(self, "rotation_degrees", step * 45.0 + a, 0.05)
 		return
 	set_step(step + 2)
-	scale = Vector2(1.25, 1.25)
-	create_tween().tween_property(self, "scale", Vector2.ONE, 0.15)
+	scale = Vector2.ONE * base * 1.25
+	create_tween().tween_property(self, "scale", Vector2.ONE * base, 0.15)
 
 
 func segment() -> Array:
