@@ -159,6 +159,8 @@ func _process(delta: float) -> void:
 	if hit and not completed:
 		_celebrate()
 	queue_redraw()
+	for l in beam_layers:
+		l.queue_redraw()
 
 
 # --- ışın --------------------------------------------------------------------
