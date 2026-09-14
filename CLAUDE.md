@@ -1,13 +1,19 @@
 # Çalışma Kuralları — oyundan bağımsız altyapı
 
-Bu dosya BİR OYUNA ait değildir. Yaban/Maden silindiğinde ayakta
-kalan şey budur: nasıl çalıştığımız. Yeni bir proje açılırken bu
-dosya oraya kopyalanır, üstüne o projenin kuralları yazılır.
+Bu dosya BİR OYUNA ait değildir; şirketin anayasasıdır. Her şey
+`C:\Altyapi` içinde yürür, dışarıda çalışma dosyası olmaz. Atılan
+şey silinmez, `cop/`'a taşınır.
+
+**Oturum başında oku:** `DURUM.md` (tek pano) → gerekirse `SIRKET.md`.
 
 ## Roller
-- **SENARYO Claude:** kararları yazar, koda dokunmaz
-- **KOD Claude:** kodu yazar, `tasks/todo.md` ve `tasks/lessons.md`
-  günceller, kararları okur ama yazmaz
+- **Kurucu (kullanıcı):** son nokta testçisi + yayıncı
+- **Patron (Claude, ana ekran):** yönetir, karar yazar, işi
+  bölümlere/ajanlara dağıtır, denetler. Kod yazmaz
+- **KOD Claude (ayrı ekran, `/kod`):** sadece DURUM.md'deki iş
+  emrini yapar, RAPOR yazar, karar yazmaz
+- **Bölümler:** `bolumler/*/GOREV.md` · ajanlar: `.claude/agents/`
+- Dersler ilgili bölümün GOREV.md'sine yazılır
 
 ## Karar yetkisi
 - Küçük ve geri dönülebilir kararları kendin ver, sorma
