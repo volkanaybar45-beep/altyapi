@@ -1,10 +1,18 @@
 extends Node2D
 ## Ayna: ışık için bir doğru parçası. Döner ayna dokununca 90° döner
-## (iki çapraz arasında; kurucu kararı, kilitli). Sabit ayna dönmez; silueti
-## farklı: kalın blok + vidalar, hale yok.
+## (iki çapraz arasında; kurucu kararı, kilitli).
+## Görsel: döner ayna = dönen plaka + dönmeyen taban + hale.
+## Sabit ayna = karartılmış plaka + iki uçta taşan kıskaç, taban ve hale YOK.
+## Ayırt etme silüetle (renk körlüğü), karartma sadece destek.
+
+const PLATE := preload("res://gorseller/ayna_plaka.png")
+const BASE_TEX := preload("res://gorseller/ayna_taban.png")
 
 const LENGTH := 90.0
 const TAP_RADIUS := 70.0
+const PLATE_BBOX_W := 488.0  # ayna_plaka.png içindeki görünür genişlik (512'lik tuval)
+const PLATE_H := 230.0       # görünür yükseklik
+const KNOB_Y := 30.0         # ayna_taban.png: mil topuzunun y'si (256'lık tuval)
 
 var step := 0  # 0..7, her adım 45°
 var fixed := false
@@ -24,7 +32,7 @@ func turn() -> void:
 			tw.tween_property(self, "rotation_degrees", step * 45.0 + a, 0.05)
 		return
 	set_step(step + 2)
-	scale = Vector2.ONE * base * 1.25
+	scale = Vector2.ONE * base * 1.15
 	create_tween().tween_property(self, "scale", Vector2.ONE * base, 0.15)
 
 
@@ -40,14 +48,21 @@ func reflect(d: Vector2) -> Vector2:
 
 
 func _draw() -> void:
-	var half := Vector2(LENGTH * 0.5, 0)
+	# plaka: görünür genişliği ışık doğrusundan biraz uzun
+	var sc := LENGTH * 1.1 / PLATE_BBOX_W
+	var ps := Vector2(PLATE.get_width(), PLATE.get_height()) * sc
 	if fixed:
-		draw_line(-half, half, Color(0.22, 0.25, 0.32), 22.0)
-		draw_line(-half + Vector2(0, -8), half + Vector2(0, -8), Color(0.62, 0.68, 0.78), 5.0)
-		for x in [-half.x + 10.0, half.x - 10.0]:
-			draw_rect(Rect2(Vector2(x - 5, 0), Vector2(10, 10)), Color(0.1, 0.1, 0.12))
+		draw_texture_rect(PLATE, Rect2(-ps / 2.0, ps), false, Color(0.42, 0.44, 0.52))
+		var hx := PLATE_BBOX_W * sc / 2.0
+		var ch := PLATE_H * sc + 18.0  # kıskaç plakadan taşar → farklı silüet
+		for x in [-hx, hx - 14.0]:
+			draw_rect(Rect2(Vector2(x, -ch / 2.0), Vector2(14, ch)), Color(0.12, 0.13, 0.16))
+			draw_rect(Rect2(Vector2(x + 3, -ch / 2.0 + 3), Vector2(8, ch - 6)), Color(0.3, 0.32, 0.38))
 		return
-	draw_circle(Vector2.ZERO, TAP_RADIUS * 0.6, Color(1, 1, 1, 0.06))
-	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.6, 0.0, TAU, 32, Color(1, 1, 1, 0.12), 2.0)
-	draw_line(-half, half, Color(0.78, 0.88, 0.98), 8.0)
-	draw_circle(Vector2.ZERO, 7.0, Color(0.5, 0.58, 0.7))
+	# taban dönmez: düğümün dönüşünü geri al
+	draw_set_transform(Vector2.ZERO, -rotation, Vector2.ONE)
+	var bsz := 60.0
+	draw_texture_rect(BASE_TEX, Rect2(Vector2(-bsz / 2.0, -bsz * KNOB_Y / 256.0), Vector2(bsz, bsz)), false)
+	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.62, 0.0, TAU, 40, Color(0.85, 0.93, 1.0, 0.22), 2.0)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	draw_texture_rect(PLATE, Rect2(-ps / 2.0, ps), false)
