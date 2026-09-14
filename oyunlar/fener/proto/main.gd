@@ -15,9 +15,10 @@ const FENER_RADIUS := 24.0
 const ROCK_RADIUS := 36.0
 const EPS := 0.5
 const DIRS := {"D": Vector2.DOWN, "U": Vector2.UP, "L": Vector2.LEFT, "R": Vector2.RIGHT}
-const MODE_RECT := Rect2(520, 12, 180, 64)
+const SKIP_RECT := Rect2(540, 12, 160, 64)
 
-static var mode90 := false  # kurucu karşılaştırması: false = 45° (8 yön), true = 90° (4 yön)
+## Elle kurulan 9 bölüm, ardından üreteçten 10 bölüm (kurucu karşılaştırması).
+static var all_levels: Array = Levels.ALL + LevelsGen.ALL
 
 var level := 0
 var fener_pos: Vector2
