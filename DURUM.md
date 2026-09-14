@@ -120,64 +120,70 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-**İŞ 4 — Zorluk tavanı + ışık bölücü · kod yazıldı, telefonda test edilmedi** (2026-09-14)
+**İŞ 5 — Görsel entegrasyonu + ana ekran · kod yazıldı, telefonda test edilmedi** (2026-09-14)
 
 **Yapılan**
-- **Işık bölücü** (harita harfi `Y`): sabit elmas prizma, dönmez. Gelen ışını durdurur,
-  sağına ve soluna iki kol çıkarır. Bölücülü bölümde **iki tekne** var, bölüm ikisi
-  de ışık alınca biter; ışık alan tekne bölüm bitmeden de parlıyor. "İki kol tek
-  teknede birleşir" türü yapılmadı: tek teknede kollardan biri boşa gidebiliyor,
-  ikisini birden kullanmayı zorlamak zor. Çözücü, ölçer, üreteç ve oyun bölücüyü tanıyor
-- **Izgara 8x14** (yeni bölümler), hücre 90→80px. Dokunma yarıçapı 70px aynen; zaten en
-  yakın ayna seçiliyor. Eski 7x12 bölümler değişmedi; hücre boyu haritadan hesaplanıyor
-- **Yol kurma akıllandı:** yürüyüş sadece geçerli uzunluk/yön arasından seçiyor.
-  Boşa giden deneme %96 → %30-56
-- **Zor eşiği:** geri dönüş ≥4 · çevirme ≥6 · near-miss 2-3 · aha zorunlu
-- Oyuna 8 bölüm eklendi (`levels_uretilen_4.gd`, "Üretilen 11-18"). Sıra: elle 9 → İŞ 3'ün 10 → İŞ 4'ün 8
+- 8 görsel oyunda: `proto/gorseller/`'e **kopyalandı** (Godot proje dışını APK'ya koyamaz);
+  oradaki `kayit.md` asıl deftere işaret ediyor. Defterde 8'i de kayıtlı, eksik yok
+- Kule: lamba odası ışının çıktığı hücrede, kule hep dik · tekne · kayalık · gece
+  denizi zemini · ay · iki sis bandı (alfa %40 ve %35, yavaş, zıt yönde kayar, döşeme)
+- **Ayna:** plaka döner, taban dönmez. **Sabit ayna** = aynı plaka karartılmış + iki
+  uçta plakadan taşan koyu kıskaç, tabanı ve halesi yok → silüet farklı
+  (renk körlüğünde de ayırt edilir)
+- **Işın:** çekirdek 16px `#FFE7A3` (normal karışım) + ayrı katmanda toplamalı (additive) parlama. Işın
+  sisin, zeminin ÜSTÜNDE; aynalar, kule ve tekne ise ışının üstünde
+- **Tamamlanma:** parlama güzergâh boyunca yayılır, tekne feneri yanar, fenerden
+  14 sıcak kıvılcım yukarı süzülür (tek sefer, 1.4 sn). Sahne sakin
+- **Ana ekran** (`menu.tscn`, açılış sahnesi): "Fener Bekçisi" + Oyna + Ayarlar
+  ("Henüz ayar yok" + Geri). Android geri tuşu: oyundan menüye, menüden çıkış
+- Metinler `tr()`, CSV'ye `en` sütunu eklendi, **boş**. EN projeye BAĞLANMADI: boş EN
+  yüklenirse İngilizce telefonda metin boş çıkabilir; Tasarım doldurunca tek satır
 
-**Üretim** (`python tools/uretec.py 40000 1 is4`)
-- Bölücüsüz: 20000 deneme → **12335 üretildi, 2142 geçti, 10193 elendi**
-  (5986 kullanılan ayna <%70 · 3418 near-miss · 702 yansıma >9 · 50 gereksiz ayna ·
-  27 kesişme · 10 benzer). Zor eşiğini geçen: **113** (1568'i geri dönüş <4'ten takıldı)
-- Bölücülü: 20000 deneme → **7132 üretildi, 719 geçti, 6413 elendi**
-  (3402 near-miss · 2213 kullanılan ayna · 710 yansıma · 60 kesişme · 26 gereksiz · 2 benzer).
-  Zor eşiğini geçen: **161**
-- Üretilemeyen (sayılmadı): yol kurulamadı 5959 / 11211 · tekne sıkışık 843 / 1489 ·
-  kestirme kapanmadı 830 / 168
+**Kontrast** (WCAG, deniz zemini ölçüldü: orta #041A3C, alt #02122D, iş emri zemini #082047)
+- Işın çekirdeği / zemin: **12.2-15.3** ✓
+- Tekne görseli / zemin: **1.95** ✗ (koyu mavi-gri gövde gece denizine karışıyor).
+  Görsel değiştirilmeden siluete ay ışığı renginde 3px kenar çizgisi eklendi
+  (`#8FA9C9`): kenar / zemin **6.6-7.7** ✓. Gövdenin kendisi hâlâ 1.95
+- Ayrıca: ayna plakası 8.4 · fener kulesi 6.8 · **kayalık 1.8** (hedef yok ama düşük)
 
-**Seçilen 8** (zorluk · çevirme · yansıma · yoldaki/toplam ayna · arama · geri dönüş · near) — hepsi zor eşiğini geçiyor, hepsinde aha var
-Z1 bölücüsüz 0.83 · 8 · 9 · 9/12 · 20 · 9 · 2 | Z2 bölücüsüz 0.85 · 8 · 9 · 9/11 · 24 · 9 · 2
-Z3 bölücüsüz 0.85 · 9 · 9 · 9/11 · 19 · 9 · 2 | Z4 bölücüsüz 0.87 · 9 · 9 · 9/12 · 22 · 9 · 2
-Z5 bölücülü 0.93 · 7 · 9 · 8/11 · 59 · 8 · 3 | Z6 bölücülü 0.95 · 9 · 9 · 9/12 · 61 · 7 · 3
-Z7 bölücülü 0.98 · 8 · 9 · 9/10 · 59 · 9 · 3 | Z8 bölücülü 1.00 · 8 · 8 · 8/11 · 82 · 10 · 3
+**GÖZLE BAKILDI** (720x1600 = 20:9 ve 720x1280): ana ekran, elle bölüm 4
+(çözülmemiş + kutlama), üretilen 16 (yoğun 8x14), üretilen 17 (bölücülü, kutlama).
+Bakınca 5 hata bulundu ve düzeltildi:
+1. Işın aynaların üstündeydi, plakanın açısı okunmuyordu → ışın nesnelerin altına alındı
+2. Toplamalı hale fazla genişti, ekran "patlıyordu" → daraltıldı
+3. Tekne gece denizinde kayboluyordu → kenar çizgisi
+4. 8x14'te çapraz komşu plakalar biniyordu → plaka %110'dan %95'e
+5. Yukarı çıkan ışın başlığın üstünden geçiyordu; 20:9'da ışın y=1280'de kesiliyordu → düzeltildi
 
-**Bölücülü bölümlerin geri dönüşü daha mı yüksek?** Havuzda **evet**: ortalama 4.63'e
-karşı 3.07; zor eşiğini geçme oranı %22'ye karşı %5. Seçilen 8'de **hayır**: 8.5'e karşı
-9.0; ikisi de tavana yakın. Bölücünün asıl farkı **arama eforunda**: 59-82'ye karşı 19-24,
-yaklaşık 3 kat. Oyuncu iki kolu aynı anda akılda tutmak zorunda.
+**Test edilen:** motor testi 27/27 OK (görsel değişikliği fiziği bozmadı). Import temiz.
 
-**Test edilen:** motor testi 27 bölümün hepsinde (elle 9 + İŞ 3'ün 10 + İŞ 4'ün 8):
-başta çözülmemiş, çözüm var, dokunarak veriliyor → 27/27 OK. Çözüm sayıları Python
-ölçerle tutuyor. Çok kollu çözücü İŞ 3'ün 10 bölümünde eski metriklerin birebir
-aynısını verdi (regresyon 10/10). Ekran görüntüleri GÖZLE bakıldı (Z5 çözülmüş,
-Z8 çözülmemiş + çözülmüş).
+**Test edilmeyen:** telefonda açılmadı; Ayarlar paneli ekran görüntüsüyle bakılmadı;
+Android geri tuşu denenmedi; sis kayması canlı izlenmedi (tek kare görüldü).
+20:9'da oyun alanı üste yaslı, altta ~320px boş deniz kalıyor. Kurucu bakmalı.
 
-**İki kollu ışın karışık görünüyor mu?** İlk görüntüde **evet, yer yer**. Kollar komşu
-şeritte paralel gidince 80px hücrede haleler birleşip kalın banda dönüyordu. Hale
-inceltildi (26→18, kutlama 44→30); ikinci görüntüde şeritler ayrı okunuyor. Ayrıca 2 hata
-bulundu ve düzeltildi: iki tekne çapraz komşu olup gövdeleri biniyordu (üretece
-"tekne sıkışık" kuralı) · Atla düğmesi 0. satırdaki fener kulesini örtüyordu.
+**Android / APK (ALINMADI, sadece durum)**
+- Export şablonu **kurulu**: `C:/DevTools/Godot/4.7.1/editor_data/export_templates/4.7.1.stable/`
+  (android_debug.apk, android_release.apk, android_source.zip)
+- JDK 17: `C:/DevTools/Java/jdk-17` · Android SDK: `C:/Android/Sdk` (build-tools, platform-tools,
+  cmdline-tools, ndk var). İkisi de editör ayarında tanımlı
+- Debug keystore **var** (`editor_data/keystores/debug.keystore`)
+- `proto/export_presets.cfg` **var**: Android, arm64, gradle kapalı. Şifre alanı yok
+  (Godot 4 şifreleri git dışı `.godot/export_credentials.cfg`'de tutar)
+- **APK öncesi gerekenler:**
+  (1) `package/unique_name` hâlâ `com.example.$genname` → kalıcı paket adı seçilmeli
+  (sonradan değişmez; patron kararı)
+  (2) version/name boş · uygulama ikonu yok (Godot ikonu çıkar)
+  (3) Birkaç kişiye dağıtım için **debug APK yeter** (hazır). Play Store için **release
+  keystore** gerek: JDK'daki `keytool` ile üretilir, **git'e girmez, ayrıca yedeklenmeli**
+  (kaybolursa uygulama güncellenemez)
+  (4) Komut: `Godot_console.exe --headless --path proto --export-debug "Android" <yol>.apk`
 
-**Test edilmeyen:** telefonda açılmadı; 80px hücrede parmak isabeti; Z1-Z8'in gerçekten
-"çok zor" hissettirip hissettirmediği (hepsi geri dönüş 7-10: yorucu olabilir).
+**Ders:** `main.gd`'nin çizim bölümünü bir kez Python ile değiştirdim (kural: sadece
+Edit/Write). Import kapısını elle koştum, temizdi. Bir de: yeni hook, paralel Edit'lerde
+ara durumdaki (henüz tanımlanmamış sabit) hatayı bildiriyor. Zararsız, ama çıktısı boş
+geliyor ("No stderr output"): hook hatayı stdout'a yazıyor, Claude Code stderr gösteriyor.
 
-**Not:** İŞ 3 üretim komutu artık levels_uretilen.gd'yi birebir üretmiyor (ölü kol sırası
-değişti). Kurucunun oynadığı dosya git'teki haliyle korundu. Üretilen `.gd`'ler Python ile
-yazılıyor; import elle koşuldu, temiz.
-
-**Öneri:** (1) Paralel komşu şerit sayısı ölçüt olarak eklenebilir; eşiği Tasarım
-koymalı. (2) Zor bölümler yansıma tavanına (9) yığılıyor; tablo 3-9 bölücülülerde dar kalıyor,
-kol başına sayılabilir.
+**Öneri:** Kayalık kontrastı 1.8; tekne gibi kenar çizgisi ya da görseli açmak Sanat'a sorulsun.
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-14 · Paket adı: `com.volkagames.fenerbekcisi` (kalıcı, mağazada değişmez). Uygulama adı "Fener Bekçisi"
