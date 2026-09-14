@@ -86,8 +86,10 @@ mevsimlerin içine dağılır.
 - Hava, oyunu ZORLAŞTIRMAZ; sadece dekordur. Zorluk bulmacadan gelir
   (istisna: sis ve fırtına, merdivende bilinçli mekanik olarak duruyor)
 
-**ÇIKARILANLAR:** "zamanlama" mekaniği (geri sayım = sakinlik sözünü bozar) ve
-"günlük görevler" (zorunluluk). Günlük görev yerine baskısız öneri olabilir.
+**ÇIKARILANLAR:** "zamanlama" mekaniği (geri sayım), **"sınırlı hamle"**,
+"günlük görevler", enerji/can sistemi, çoklu para birimi, koleksiyon/karakter
+geliştirme. Gerekçe: ilk üçü baskı üretir (sakinlik sözü), son üçü tek kişiyi
+batırır. İlk sürümde meta sistem YOK — önce 20 çok iyi bölüm.
 
 **Alınanlar:** kırık ayna (tamir et) · ışık renkleri · hareketli platform ·
 özel ışık hedefleri · kozmetik fener geliştirme · hikâye parçaları/mektuplar.
