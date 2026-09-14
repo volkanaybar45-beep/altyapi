@@ -1,7 +1,12 @@
-keys,tr
-BOLUM,Bölüm %d
-TAMAM,Tekne yolunu buldu
-DEVAM,Devam için dokun
-SON,Prototip sonu — baştan için dokun
-ATLA,Atla ›
-URETILEN,"Üretilen %d · zorluk %.2f"
+keys,tr,en
+BOLUM,Bölüm %d,
+TAMAM,Tekne yolunu buldu,
+DEVAM,Devam için dokun,
+SON,Prototip sonu — baştan için dokun,
+ATLA,Atla ›,
+URETILEN,"Üretilen %d · zorluk %.2f",
+OYUN_ADI,Fener Bekçisi,
+OYNA,Oyna,
+AYARLAR,Ayarlar,
+AYAR_YOK,Henüz ayar yok,
+GERI,Geri,

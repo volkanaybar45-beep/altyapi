@@ -370,27 +370,16 @@ func tap(pos: Vector2) -> void:
 
 
 # --- çizim -------------------------------------------------------------------
+# Işın ayrı katmanlarda (isin_katmani.gd). Burada: kaya, bölücü, fener, tekne.
 
 func _draw() -> void:
-	# ışın
-	var core := Color(1.0, 0.92, 0.6)
-	var beam_w := 6.0 + 2.0 * sin(time * 3.0) * 0.5
-	for p in paths:
-		for i in p.size() - 1:
-			# hale ince: komşu şeritte paralel giden iki kol tek banda karışmasın
-			draw_line(p[i], p[i + 1], Color(1.0, 0.85, 0.4, 0.15), 18.0 * k)
-			draw_line(p[i], p[i + 1], core, beam_w)
-	if glow > 0.0:
-		for p in paths:
-			_draw_glow(p)
-
-	# kayalık: üç taş
+	# kayalık
+	var rs := cell * 1.1 / 490.0  # görünür genişlik 1.1 hücre (bbox 490)
 	for r in rocks:
-		draw_circle(r + Vector2(-12, 8) * k, 26.0 * k, Color(0.24, 0.22, 0.22))
-		draw_circle(r + Vector2(14, 10) * k, 22.0 * k, Color(0.2, 0.19, 0.19))
-		draw_circle(r + Vector2(0, -10) * k, 24.0 * k, Color(0.3, 0.28, 0.27))
+		var sz := Vector2(ROCK.get_width(), ROCK.get_height()) * rs
+		draw_texture_rect(ROCK, Rect2(r - sz / 2.0, sz), false)
 
-	# bölücü: elmas prizma (ayna çizgisi, kaya dairesi ve sabit blokla karışmasın)
+	# bölücü: elmas prizma (ayna plakası, kaya ve sabit kıskaçla karışmasın)
 	for sp in splitters:
 		var r := SPLIT_RADIUS * k * 1.15
 		var dia := PackedVector2Array([sp + Vector2(0, -r), sp + Vector2(r, 0),
@@ -401,39 +390,24 @@ func _draw() -> void:
 		draw_line(sp + Vector2(-r, 0) * 0.5, sp + Vector2(r, 0) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 		draw_line(sp + Vector2(0, -r) * 0.5, sp + Vector2(0, r) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 
-	# fener: kule (ışının tersine) + lamba
-	draw_line(fener_pos, fener_pos - fener_dir * 70.0 * k, Color(0.35, 0.38, 0.45), 36.0 * k)
-	draw_circle(fener_pos, 40.0 * k, Color(1.0, 0.85, 0.4, 0.2))
-	draw_circle(fener_pos, FENER_RADIUS, Color(1.0, 0.92, 0.6))
+	# fener: lamba odası ışının çıktığı hücre merkezinde, kule hep dik
+	var ts := cell * 1.25 / 490.0  # kule görünür yüksekliği 1.25 hücre
+	draw_texture_rect(TOWER, Rect2(fener_pos - TOWER_LAMP * ts, Vector2(TOWER.get_width(), TOWER.get_height()) * ts), false)
+	draw_circle(fener_pos, 30.0 * k, Color(1.0, 0.9, 0.6, 0.25))
 
 	# tekneler: ışık alan, bölüm bitmeden de parlar (iki kolda hangisi vardı görünsün)
-	var bob := Vector2(0, sin(time * 1.5) * 4.0)
+	var bob := Vector2(0, sin(time * 1.5) * 3.0)
+	var bsc := _boat_scale_px() * boat_scale
 	for j in boats.size():
-		var s := boat_scale * k
 		var c: Vector2 = boats[j] + bob
 		var on := lit.has(j)
-		var hull := Color(1.0, 0.7, 0.4) if on else Color(0.75, 0.45, 0.3)
-		if on and not completed:
-			draw_circle(c, BOAT_RADIUS * k * 1.3, Color(1.0, 0.9, 0.5, 0.12))
-		draw_rect(Rect2(c + Vector2(-50, 0) * s, Vector2(100, 26) * s), hull)
-		# direk kısa: üst hücredeki kaya (near-miss için sık) bayrağı örtmesin
-		draw_line(c, c + Vector2(0, -40) * s, Color(0.85, 0.85, 0.85), 4.0)
-		draw_rect(Rect2(c + Vector2(4, -38) * s, Vector2(28, 26) * s), Color(0.9, 0.9, 0.85))
-		if completed:
-			draw_circle(c, BOAT_RADIUS * k * 1.6 * glow, Color(1.0, 0.9, 0.5, 0.15 * glow))
-
-
-## Kutlamada parlama her kolda başından sonuna doğru yayılır.
-func _draw_glow(p: PackedVector2Array) -> void:
-	var total := 0.0
-	for i in p.size() - 1:
-		total += p[i].distance_to(p[i + 1])
-	var left := total * glow
-	for i in p.size() - 1:
-		var seg_len := p[i].distance_to(p[i + 1])
-		if left <= 0.0:
-			break
-		var b := p[i + 1] if left >= seg_len else p[i].lerp(p[i + 1], left / seg_len)
-		draw_line(p[i], b, Color(1.0, 0.95, 0.75, 0.35), 30.0 * k)
-		draw_line(p[i], b, Color(1, 1, 1), 10.0)
-		left -= seg_len
+		if on:
+			draw_circle(c, BOAT_RADIUS * k * 1.3, Color(1.0, 0.9, 0.55, 0.14))
+		var sz := Vector2(BOAT.get_width(), BOAT.get_height()) * bsc
+		draw_texture_rect(BOAT, Rect2(c - sz / 2.0, sz), false)
+		# tekne feneri: ışık alınca yanar, tamamlanınca iyice parlar
+		var lp := c + (BOAT_LANTERN - Vector2(256, 256)) * bsc
+		var a := (0.35 if on else 0.0) + 0.45 * lantern
+		if a > 0.0:
+			draw_circle(lp, 22.0 * k * (1.0 + lantern), Color(1.0, 0.85, 0.45, a * 0.35))
+			draw_circle(lp, 7.0 * k, Color(1.0, 0.95, 0.75, a))

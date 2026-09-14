@@ -171,3 +171,32 @@ yok. **Kayıtsız görsel/ses dosyası YOK.** Uydurulmuş kayıt da yok.
 Boş şablon yazıldı: `C:\Altyapi\oyunlar\fener\gorseller\kayit.md`
 Sütunlar: dosya adı · tarih · araç · prompt · format.
 İlk PNG inmeden satır yazılmaz.
+
+---
+
+## Sıradaki görsel üretimi (2026-09-14, sıraya göre)
+
+**Şimdi gerekmiyor** — APK testi önce. Test "oyun tutuyor mu" sorusunu
+cevaplayacak; aşağıdakiler ancak cevap olumluysa üretilir.
+
+### A · Meta: canlanan liman (İŞ 6 ile)
+1. Liman illüstrasyonu — KARANLIK hâli (dikey, ana ekran zemini)
+2. Işık katmanları (saydam PNG, aynı hizada): ev camları · iskele lambaları ·
+   fener halesi · su yansıması · martılar · duman/baca. 8-10 küçük dosya
+   — **tek tek fade edilecek, ayrı sahne değil**
+3. Bölge kartpostalı: 5 bölümde bir, bölge başına 1 görsel
+
+### B · Mekanik görselleri
+4. Prizma / ışık bölücü (şu an kod çizimi)
+5. Renk filtresi (~41. bölüm mekaniği)
+6. Sabit ayna — plakanın koyu varyantı yetmezse ayrı siluet
+
+### C · Ortamlar (mevsim/hava)
+7. Fırtınalı gece · buzlu deniz · kutup ışıkları arka planları
+   (aynı kompozisyon, farklı palet)
+8. Yağmur/kar parçacık dokusu (1-2 küçük PNG, gerisi kod)
+
+### D · Mağaza (yayın öncesi)
+9. İkon: fener → altın ışık → ayna → tekne. 48 px'te okunmalı, yazı yok
+10. Ekran görüntüleri (3): ışık zinciri · fırtınalı zor bölüm · karanlık→aydınlık liman
+11. Oyun adı logosu (TR/EN aynı)
