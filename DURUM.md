@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener Bekçisi prototipi — KOD ekranında, iş emri aşağıda
+Fener prototipi 2. tur: zorluk katmanları + 45°/90° karşılaştırması (KOD)
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
