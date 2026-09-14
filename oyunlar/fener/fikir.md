@@ -61,6 +61,18 @@ değil, aynı çekirdeğin parametresi.
 Ortam serisi: sakin akşam → fırtınalı gece → buzlu deniz → tropik →
 volkanik → kutup ışıkları. Her biri arka plan + palet değişimi.
 
+### Mevsimler (kurucu fikri, 2026-09-14)
+Hava koşulları tek çatı altında: ilkbahar (dingin, açık) → yaz (güneş, parlak
+su) → sonbahar (rüzgâr, dalga) → kış (kar, buz). Yağmur, fırtına ve sis
+mevsimlerin içine dağılır.
+
+- **Takvime BAĞLANMAZ, ilerlemeye bağlanır.** Gerçek tarihe bağlanırsa
+  "kaçırdım" hissi doğar; bizim kaçındığımız baskı budur. Oyuncu kendi
+  hızında yaşar, hiçbir şeyi kaçırmaz
+- Maliyeti düşük: palet + parçacık + arka plan tonu. Yeni mekanik gerekmez
+- Hava, oyunu ZORLAŞTIRMAZ; sadece dekordur. Zorluk bulmacadan gelir
+  (istisna: sis ve fırtına, merdivende bilinçli mekanik olarak duruyor)
+
 **ÇIKARILANLAR:** "zamanlama" mekaniği (geri sayım = sakinlik sözünü bozar) ve
 "günlük görevler" (zorunluluk). Günlük görev yerine baskısız öneri olabilir.
 
