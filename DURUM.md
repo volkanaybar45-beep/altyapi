@@ -10,25 +10,25 @@ Kuytu — Prototip A (blok yerleştirme). KOD ekranında, iş emri aşağıda
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 1 — Kuytu Prototip A: blok yerleştirme** (2026-09-14)
-Önce `oyunlar/kuytu/fikir.md` oku. Amaç: türü hisle seçmek. Görsel üretme,
-düz renkli şekil kullan. Godot 4.7.1: `C:/DevTools/Godot/4.7.1/`
+**İŞ 1 — Ateşböceği Bahçesi prototipi** (2026-09-14)
+Önce `oyunlar/atesbocegi/fikir.md` oku. Amaç: dokunuşun iyi gelip gelmediğini
+ölçmek. Görsel üretme; nokta, daire, çizgi yeter. Godot 4.7.1:
+`C:/DevTools/Godot/4.7.1/`
 
-1. Proje: `oyunlar/kuytu/proto_a/` · dikey (portre) · mobil çözünürlük
-2. 8×8 ızgara, altta 3 parça havuzu (tetris benzeri şekiller), sürükle-bırak
-3. Dolan satır VE sütun temizlenir; aynı hamlede birden fazlası temizlenirse
-   kombo sayılır (şimdilik sadece ekranda sayı olarak)
-4. **Süre yok, hamle sınırı yok, kaybetme ekranı yok.** Hiçbir parça
-   sığmıyorsa: en dolu satırı temizle ve devam et (geçici çözüm, his
-   prototipte ölçülecek)
-5. Sade tutma efekti: yerleşme ve temizlenme için kısa tween — henüz "vay"
-   efekti yapma, o tür seçildikten sonra
-6. Skor görünür ama küçük. Ekranda başka HUD yok
-7. Metin: `tr("ANAHTAR")` ile, TR karşılıkları geçici olarak sende
-8. Çalıştır, ekran görüntüsü al, GÖZLE BAK (sayı yeşil yeterli değil)
-9. Bitince RAPOR'u doldur; APK isteme, önce masaüstünde görelim
+1. Proje: `oyunlar/atesbocegi/proto/` · dikey (portre) · mobil çözünürlük
+2. Koyu zemin, üzerine 20-30 ateşböceği (küçük parlak nokta), hafifçe süzülür
+3. Parmağı basılı tutup yakın böcekler üzerinden geçir → zincir kurulur;
+   parmak kalkınca zincir tamamlanır. Menzil dışındakine atlanamaz
+4. Zincir tamamlanınca: ışık dalgası yayılsın, zincirdekiler parlasın,
+   yerlerine yenileri yavaşça gelsin
+5. **Süre yok, kaybetme yok, hata yok.** Kısa zincir de geçerlidir
+6. Zincir uzunluğu ekranda küçük bir sayı; başka HUD yok
+7. En az 2 varyant dene: zincir menzili dar/geniş — hangisi iyi hissettiriyor
+8. Metin varsa `tr("ANAHTAR")`
+9. Çalıştır, ekran görüntüsü al, GÖZLE BAK. Bitince RAPOR'u doldur
 
-Kapsam dışı: match-3 (İŞ 2), görsel üretimi, ana ekran, ortamlar, reklam.
+Kapsam dışı: Fener prototipi (İŞ 2), görsel üretimi, ana ekran, ses, reklam,
+seviye/ilerleme sistemi.
 
 ## KOD RAPORU (KOD yazar)
 _yok_
