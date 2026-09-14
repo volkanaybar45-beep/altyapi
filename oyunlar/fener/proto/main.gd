@@ -142,6 +142,7 @@ func load_level(i: int) -> void:
 	completed = false
 	can_continue = false
 	glow = 0.0
+	lantern = 0.0
 	boat_scale = 1.0
 	var n_hand := Levels.ALL.size()
 	if i < n_hand:
