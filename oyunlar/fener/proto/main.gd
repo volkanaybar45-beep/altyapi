@@ -53,6 +53,7 @@ var time := 0.0
 var title_label: Label
 var info_label: Label
 var beam_layers: Array = []
+var rim_layer: Node2D
 var lantern := 0.0  # tamamlanınca tekne feneri parlaması (0..1)
 
 
