@@ -15,7 +15,8 @@ func _ready() -> void:
 		var m := CanvasItemMaterial.new()
 		m.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 		material = m
-	z_index = 2
+	# nesnelerin ALTINDA: ayna plakasının açısı, kule ve tekne ışının üstünde okunsun
+	z_index = -1
 
 
 func _draw() -> void:
