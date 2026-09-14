@@ -32,6 +32,17 @@ görünüyor. Sırayla düzelt, her maddeden sonra ekran görüntüsü al ve BAK
 6. Ölç ve RAPOR'a yaz: ışın/zemin, ayna/zemin, tekne/zemin kontrastı (≥3.0)
 7. En az 3 farklı bölümden (kolay, bölücülü, zor) ekran görüntüsü al,
    gerçek telefon oranında GÖZLE bak, sonra rapor et
+8. **Tekne gövdesi 1.95 kontrast — kenar çizgisi yamadır, yetmez.** Görselin
+   kendisi açılsın (render parlaklığı yükseltilerek yeniden üretilebilir,
+   `toon_render.py … z 0.30 - 0.45` gibi). Kayalık 1.8'de kalabilir: o engel,
+   okunması gereken nesne değil
+9. **Paket adı ve sürüm** (patron kararı, panoda): Benzersiz isim
+   `com.volkagames.fenerbekcisi` · uygulama adı `Fener Bekçisi` ·
+   sürüm adı `0.1`
+10. **Uzun telefon (20:9):** altta ~320 px boş deniz kalıyor. Oyun alanı
+    dikeyde ortalansın ya da ızgara bu boşluğu kullansın
+11. Uygulama ikonu: **şimdilik geçici** bir ikon yeter (mağaza ikonu ayrı iş).
+    Fener + ışık + tekne kompozisyonu yayın öncesi üretilecek
 
 Kapsam dışı: ses, reklam, kayıt sistemi, liman restorasyonu, renk filtresi.
 
