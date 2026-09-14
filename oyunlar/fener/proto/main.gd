@@ -227,9 +227,13 @@ func _celebrate() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.pressed:
 		tap(event.position)
+	elif event is InputEventKey and event.pressed and event.keycode == KEY_M:
+		toggle_mode()
 
 
 func tap(pos: Vector2) -> void:
+	if MODE_RECT.has_point(pos):
+		return  # düğmenin kendisi halleder
 	if completed:
 		if can_continue:
 			load_level((level + 1) % Levels.ALL.size())
