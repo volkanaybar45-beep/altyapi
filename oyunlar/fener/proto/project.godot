@@ -25,6 +25,8 @@ pointing/emulate_touch_from_mouse=true
 
 [internationalization]
 
+; EN sütunu ceviri.csv'de BOŞ (Tasarım yazacak). Boş EN yüklenirse İngilizce
+; cihazda metinler boş çıkabilir; o yüzden EN dolana kadar sadece TR bağlı.
 locale/translations=PackedStringArray("res://metin/ceviri.tr.translation")
 locale/fallback="tr"
 
