@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Kuytu — Aşama 1 belgesi yazıldı, kurucu onayı bekleniyor (`oyunlar/kuytu/fikir.md`)
+Kuytu — Prototip A (blok yerleştirme). KOD ekranında, iş emri aşağıda
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
