@@ -1,21 +1,30 @@
 extends Node2D
-## Fener Bekçisi — prototip. Aynaya dokun, 45° döner; ışın her karede
-## yeniden hesaplanır. Süre yok, hamle sınırı yok, kaybetme yok.
+## Fener Bekçisi — prototip. Aynaya dokun, 45° (ya da 90°) döner; ışın her
+## karede yeniden hesaplanır. Süre yok, hamle sınırı yok, kaybetme yok.
 
 const Mirror := preload("res://mirror.gd")
 const Levels := preload("res://levels.gd")
 
 const SIZE := Vector2(720, 1280)
-const MAX_BOUNCES := 24
+const CELL := 90.0
+const ORIGIN := Vector2(90, 150)  # ızgara (0,0) hücresinin merkezi
+const MAX_BOUNCES := 40
 const BOAT_RADIUS := 42.0
 const FENER_RADIUS := 24.0
+const ROCK_RADIUS := 36.0
 const EPS := 0.5
+const DIRS := {"D": Vector2.DOWN, "U": Vector2.UP, "L": Vector2.LEFT, "R": Vector2.RIGHT}
+const MODE_RECT := Rect2(520, 12, 180, 64)
+
+static var mode90 := false  # kurucu karşılaştırması: false = 45° (8 yön), true = 90° (4 yön)
 
 var level := 0
 var fener_pos: Vector2
 var fener_dir: Vector2
 var boat_pos: Vector2
 var mirrors: Array = []
+var rocks: Array = []  # Vector2
+var mode_button: Button
 
 var path := PackedVector2Array()
 var hit := false
