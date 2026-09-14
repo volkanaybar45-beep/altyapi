@@ -1,5 +1,6 @@
 extends SceneTree
-## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 1..9> <cozulu 0/1> [mod 45/90]
+## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 1..19> <cozulu 0/1>
+## (10-19 = üretilen 1-10)
 ## --headless KULLANMA (GPU render gerekir). Çözüm kaba kuvvetle bulunur.
 
 
