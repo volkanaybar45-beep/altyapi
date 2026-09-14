@@ -6,9 +6,8 @@ Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 İlk oyun fikri — Aşama 1 (`bolumler/yapim/ASAMA_KAPILARI.md`)
 
 ## SIRADA
-1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
-2. İlk oyun fikri — araştırma verisinden
-3. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
+1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
+2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
 _yok_
