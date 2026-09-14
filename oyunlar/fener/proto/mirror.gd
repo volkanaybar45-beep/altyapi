@@ -8,6 +8,7 @@ const TAP_RADIUS := 70.0
 
 var step := 0  # 0..7, her adım 45°
 var fixed := false
+var base := 1.0  # çizim ölçeği (8x14 ızgarada hücre küçük); fizik etkilenmez
 
 
 func set_step(s: int) -> void:
