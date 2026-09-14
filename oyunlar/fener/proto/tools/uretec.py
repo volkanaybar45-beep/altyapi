@@ -349,10 +349,11 @@ def scores(pool):
 
 
 def pick(pool, sc):
-    """3 kolay · 4 orta · 3 zor: sıralı havuzun üçte birlerinden eşit aralıkla."""
+    """3 kolay · 4 orta · 3 zor. Kolay/orta: alt ve orta üçte birden eşit
+    aralıkla; zor: havuzun en zor 3'ü (derin bölümler az, üst üçte bir sulanıyor)."""
     order = sorted(range(len(pool)), key=lambda i: sc[i])
     n = len(order)
-    thirds = [order[:n // 3], order[n // 3: 2 * n // 3], order[2 * n // 3:]]
+    thirds = [order[:n // 3], order[n // 3: 2 * n // 3], order[-3:]]
     chosen = []
     for part, k, ad in zip(thirds, (3, 4, 3), ('kolay', 'orta', 'zor')):
         idx = [part[round(j * (len(part) - 1) / max(1, k - 1))] for j in range(k)]
