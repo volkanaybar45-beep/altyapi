@@ -64,6 +64,7 @@ func _ready() -> void:
 		layer.additive = add
 		add_child(layer)
 		beam_layers.append(layer)
+	_make_rim_layer()
 	title_label = _make_label(34, Color(0.85, 0.9, 1.0, 0.5), 16)
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 	title_label.position.x = 24
