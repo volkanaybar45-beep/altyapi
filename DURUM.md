@@ -10,7 +10,23 @@ Fener prototipi 2. tur: zorluk katmanları + 45°/90° karşılaştırması (KOD
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 1 — Fener Bekçisi prototipi** (2026-09-14)
+**İŞ 2 — Fener prototipi, zorluk turu** (2026-09-14)
+Kurucu masaüstünde oynadı: "keyifli ama çok hızlı buluyor yolunu."
+Mekanik geçti, ZORLUK yetersiz. Süre/hamle sınırı/kaybetme EKLEME.
+
+1. Işığı kesen **kayalık** ekle (ışın çarpınca durur)
+2. **Sabit ayna** ekle: görünüşte farklı, çevrilemez (siluetle ayırt edilir —
+   renk değil, Yaban dersi)
+3. Zorluğu "çevirme sayısıyla" değil **yapıyla** artır: ışığın sırayla birden
+   fazla aynadan geçmesi gereken bölümler
+4. 6 bölüm daha kur: giderek zorlaşsın, sonuncusu kurucuyu 1-2 dakika düşündürsün
+5. **45° (8 yön) ve 90° (4 yön) iki sürüm** yap, biri tuşla/ayarla seçilebilsin —
+   kurucu ikisini de deneyip karar verecek
+6. Ekran görüntüsü al, GÖZLE BAK. Bitince RAPOR'u doldur
+
+Kapsam dışı: görsel üretimi, ses, ana ekran, reklam, bölüm üreteci (sonraki iş).
+
+**İŞ 1 (BİTTİ) — Fener Bekçisi prototipi** (2026-09-14)
 Önce `oyunlar/fener/fikir.md` oku. Amaç: ayna çevirip ışığı yönlendirmenin
 tatmin edici olup olmadığını ölçmek. Görsel üretme; çizgi, daire, dikdörtgen
 yeter. Godot 4.7.1: `C:/DevTools/Godot/4.7.1/`
