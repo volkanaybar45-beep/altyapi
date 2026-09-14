@@ -116,6 +116,7 @@ class Level:
         return st
 
     def _dead(self, st, trail):
+        st.setdefault('dead', []).append(trail)
         bx, by = self.boat
         if any(max(abs(x - bx), abs(y - by)) == 1 for x, y, _, _ in trail):
             st['near'] += 1  # ışın tekneyi sıyırıp ölüyor
