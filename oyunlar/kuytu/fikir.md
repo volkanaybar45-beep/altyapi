@@ -51,6 +51,21 @@ istediğin an bırakıp istediğin an dönebildiğin sessiz bir bulmaca.
 - Üretim: ChatGPT (2B) → Tripo Pro (3B) → `toon_render.py`. Efektlerin
   çoğu koddan (parçacık, tween), görselden değil
 
+## Özel parçalar (kurucu, 2026-09-14)
+4 normal parçanın yanında 2-3 özel parça bulunur:
+- Seçilen rengin tahtadaki hepsini patlatan
+- Yatay sıranın tamamını temizleyen
+- Dikey sıranın tamamını temizleyen
+
+Özel parça normalden ilk bakışta AYIRT EDİLİR (Yaban dersi: ayırt edilemeyen
+özel taş üç kez gözden kaçtı). Patlama anı oyunun "vay" dediği yerdir.
+
+## Referans notu
+Kurucunun beğendiği referans: deniz temalı tahta + kombo patlaması.
+Referanstaki iki şey ALINMAZ: yoğun tahta (6+ parça türü) ve günlük görev
+listesi ("TODAY'S TASKS") — ikisi de şirket kurallarına aykırı. Günlük görev
+yerine, oyuncunun kendi hızında ilerlediği ortam serisi kullanılır.
+
 ## Ortamlar — ilerleme hissi (kurucu fikri, 2026-09-14)
 Oyuncu ilerledikçe arka plan değişir: deniz altı → orman derinliği → …
 Her ortam bir "buraya kadar geldim" duygusu verir.
