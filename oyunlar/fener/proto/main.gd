@@ -153,6 +153,12 @@ func compute_path() -> Dictionary:
 			best_t = tf
 			best_m = null
 			to_boat = false
+		for r in rocks:
+			var tr_ := _ray_circle_t(pos, dir, r, ROCK_RADIUS)
+			if tr_ > EPS and tr_ < best_t:
+				best_t = tr_
+				best_m = null
+				to_boat = false
 		pos = pos + dir * best_t
 		pts.append(pos)
 		if to_boat:
