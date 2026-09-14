@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Aşama kapılarını tanımla (fikir → prototip → dikey dilim → üretim → yayın)
+İlk oyun fikri — Aşama 1 (`bolumler/yapim/ASAMA_KAPILARI.md`)
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
