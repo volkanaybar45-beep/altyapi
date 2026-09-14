@@ -10,25 +10,26 @@ Ateşböceği Bahçesi prototipi — KOD ekranında, iş emri aşağıda
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 1 — Ateşböceği Bahçesi prototipi** (2026-09-14)
-Önce `oyunlar/atesbocegi/fikir.md` oku. Amaç: dokunuşun iyi gelip gelmediğini
-ölçmek. Görsel üretme; nokta, daire, çizgi yeter. Godot 4.7.1:
-`C:/DevTools/Godot/4.7.1/`
+**İŞ 1 — Fener Bekçisi prototipi** (2026-09-14)
+Önce `oyunlar/fener/fikir.md` oku. Amaç: ayna çevirip ışığı yönlendirmenin
+tatmin edici olup olmadığını ölçmek. Görsel üretme; çizgi, daire, dikdörtgen
+yeter. Godot 4.7.1: `C:/DevTools/Godot/4.7.1/`
 
-1. Proje: `oyunlar/atesbocegi/proto/` · dikey (portre) · mobil çözünürlük
-2. Koyu zemin, üzerine 20-30 ateşböceği (küçük parlak nokta), hafifçe süzülür
-3. Parmağı basılı tutup yakın böcekler üzerinden geçir → zincir kurulur;
-   parmak kalkınca zincir tamamlanır. Menzil dışındakine atlanamaz
-4. Zincir tamamlanınca: ışık dalgası yayılsın, zincirdekiler parlasın,
-   yerlerine yenileri yavaşça gelsin
-5. **Süre yok, kaybetme yok, hata yok.** Kısa zincir de geçerlidir
-6. Zincir uzunluğu ekranda küçük bir sayı; başka HUD yok
-7. En az 2 varyant dene: zincir menzili dar/geniş — hangisi iyi hissettiriyor
-8. Metin varsa `tr("ANAHTAR")`
-9. Çalıştır, ekran görüntüsü al, GÖZLE BAK. Bitince RAPOR'u doldur
+1. Proje: `oyunlar/fener/proto/` · dikey (portre) · mobil çözünürlük
+2. Sahne: koyu zemin, bir fener (ışık kaynağı), 3-5 ayna, bir tekne (hedef)
+3. Aynaya dokununca 45° döner. Işın fenerden çıkar, aynalardan yansır,
+   tekneye ulaşırsa bölüm tamam
+4. Işın her karede yeniden hesaplanır ve çizilir — oyuncu ışığı canlı görür
+5. Ulaşınca: ışık güzergâh boyunca parlasın, kısa bir kutlama (tween yeter)
+6. **Süre yok, hamle sınırı yok, kaybetme yok.** İstediği kadar çevirir
+7. 3 bölüm elle kur: kolay (2 ayna) · orta (3-4) · şaşırtan (ışın kesişiyor)
+8. **Ölç ve RAPOR'a yaz: bir bölümü kurmak kaç dakika sürdü?** Bu sayı
+   oyunun tek kişiyle sürdürülebilir olup olmadığını belirleyecek
+9. Metin varsa `tr("ANAHTAR")`
+10. Çalıştır, ekran görüntüsü al, GÖZLE BAK. Bitince RAPOR'u doldur
 
-Kapsam dışı: Fener prototipi (İŞ 2), görsel üretimi, ana ekran, ses, reklam,
-seviye/ilerleme sistemi.
+Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, ses,
+reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
 _yok_
