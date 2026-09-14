@@ -76,47 +76,52 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-**İŞ 2 — Fener zorluk turu · kod yazıldı, telefonda test edilmedi** (2026-09-14)
-(İŞ 1 raporu git geçmişinde; özü: mekanik çalışıyor, bölüm ızgaraya indirgeniyor.)
+**İŞ 3 — Üreteç + zorluk ölçümü · kod yazıldı, telefonda test edilmedi** (2026-09-14)
 
-**Yapılan:** `oyunlar/fener/proto/`
-- **Kaya** (üç taşlı küme): ışın çarpınca durur
-- **Sabit ayna:** kalın koyu blok + iki vida, halesi yok (döner ayna: ince parlak
-  çizgi + hale + mil). Ayırt etme silüetle, renkle değil. Dokununca titriyor, dönmüyor
-- **45°/90° seçimi:** sağ üstte "Açı 45° / Açı 90°" düğmesi (+ M tuşu). Basınca
-  bölüm baştan kurulur. 90° modunda her dokunuş iki çapraz arasında geçiş
-- **Bölümler ASCII haritaya geçti** (`levels.gd`, 7x12 ızgara): 9 bölüm (eski 3 + yeni 6)
-  4 kaya+sabit ayna tanışma · 5 kayalar yanlış yolu keser · 6 yandan fener ·
-  7 köşeden köşeye · 8 iki kol, biri kayada biter · 9 sekiz ayna, dokuz yansıma,
-  ışın kendini defalarca kesiyor, tekneye götürür gibi görünen yem ayna var
+**Yapılan**
+- 45° modu ve mod düğmesi kaldırıldı; ayna her dokunuşta 90° döner. Yerine
+  "Atla ›" düğmesi kondu (kurucu üretilen bölümlere hızlı ulaşsın diye)
+- Oyun sırası: elle kurulan 9 bölüm → **üretilen 10 bölüm** (başlıkta "Üretilen N · zorluk X")
+- `tools/uretec.py`: tersine kurulum (yol → yem ayna → yanlış kolu derinleştir →
+  kestirmeye kaya → aynaları %80 yanlış çevir) + ölçer (8 metrik + aha) + kalite
+  filtresi + puan (%30/25/20/15/10, havuzda 0-1, aha +0.1). Çıktı `levels_uretilen.gd`
+  (üretilmiş dosya, elle düzenlenmez; `python tools/uretec.py 30000 1` ile tekrar üretilir)
 
-**Zorluk (çözücü ölçümü, 90° modu):** bölüm 5-7 = 16-32 kombinasyonda tek çözüm;
-8 = 128'de 4; 9 = 256'da 2 (fark yem aynada, yol tek). "1-2 dk düşündürür mü"
-ölçülemedi, bunu ancak kurucu söyler.
+**Üretim sayıları** (30000 deneme, tohum 1): **1407 bölüm üretildi, 88 geçti, 1319 elendi**
+- 1023 · kullanılan döner ayna < %70 (yem ayna fazla)
+- 294 · near-miss 1-3 dışı (çoğu 0: ışın tekneyi hiç sıyırmıyor)
+- 1 · son 10 bölüme benzer · 1 · kesişme > 2
+- Üretilemeyen (sayılmadı): 28484 yol ızgaraya sığmadı · 89 döner ayna < 2 · 20 kestirme kapanmadı
 
-**Bölüm kurma süresi:** 6 yeni bölüm ~15 dk (bölüm başı 2-3 dk), 9. bölüm ~5 dk.
-Tahmin, kronometre yok, KOD Claude süresi. Hızın sebebi ASCII harita + çözücü:
-taslak yaz → çözücü "çözüm yok / 18 çözüm" der → düzelt.
+**Seçilen 10** (zorluk · çevirme · yansıma · yoldaki/toplam ayna · arama · geri dönüş · aha)
+U1 kolay 0.00 · 1 · 4 · 2/2 · 2 · 1 · – | U2 kolay 0.17 · 1 · 6 · 3/4 · 4 · 2 · –
+U3 kolay 0.27 · 3 · 6 · 3/3 · 3 · 1 · aha | U4 orta 0.27 · 3 · 5 · 5/7 · 7 · 2 · –
+U5 orta 0.33 · 3 · 7 · 4/5 · 4 · 1 · aha | U6 orta 0.39 · 5 · 6 · 5/7 · 7 · 3 · –
+U7 orta 0.42 · 4 · 6 · 5/6 · 6 · 2 · aha | U8 zor 0.73 · 6 · 9 · 8/11 · 11 · 3 · aha
+U9 zor 0.87 · 9 · 9 · 9/11 · 15 · 5 · aha | U10 zor 1.00 · 6 · 7 · 7/10 · 25 · 9 · aha
 
-**Tasarım bulgusu:** 45° modunda ayna ışına paralel çevrilince ışık içinden geçiyor.
-Tekne fenerle aynı hizadaysa tek dokunuşla kestirme oluyor (bir taslak 45°'de 18
-çözüm verdi). Kural `levels.gd` başına yazıldı: tekne fenerle aynı hizaya konmaz.
-90° modunda bu kaçak yok, bölümler iki modda da çözülüyor.
+**Bulgu:** Aynı ölçer elle kurulan 9 bölüme de koşuldu. 8'inde `max_backtrack` = 1,
+yani yanlış çevirme ışını anında öldürüyor, oyuncu hatayı hemen görüyor. Kurucunun
+"çok hızlı buluyor" demesinin ölçülebilir karşılığı bu olabilir. Üretilen zorlarda
+geri dönüş 3-9: yanlış yolda birkaç ayna ilerleyip sonra ölüyor. Elle bölümlerde
+near-miss 0, aha hiç yok.
 
-**Test edilen:** `tools/mantik_test.gd` her bölümü iki modda motorun kendisiyle kaba
-kuvvetle çözüyor. Başta çözülmemiş, çözüm var, çözüm dokunarak (tap) veriliyor: 18/18 OK.
-Python çözücüyle sayılar birebir tuttu. Ekran görüntüleri (4, 6, 9; iki mod) GÖZLE
-bakıldı. 1 hata bulundu ve düzeltildi: 9. bölümde kaya teknenin bayrağını örtüyordu.
+**Test edilen:** motor testi (`tools/mantik_test.gd`, 90°) 19 bölümün hepsinde:
+başta çözülmemiş, çözüm var, dokunarak veriliyor → 19/19 OK. Çözüm sayıları Python
+ölçerle tutuyor (fark yalnız ışının değmediği aynalardan). Ekran görüntüsüne GÖZLE
+bakıldı (U1, U10 çözülmemiş + çözülmüş). 1 hata bulundu ve düzeltildi: üreteç kayayı
+teknenin dibine koyunca kaya bayrağı örtüyordu → direk kısaltıldı.
 
-**Test edilmeyen:** telefonda açılmadı; mod düğmesine dokunmanın aynı anda bölümü
-geçirmemesi (kod korumalı, denenmedi), sabit aynanın titremesinin hissi, 70px dokunma
-yarıçapı, 9. bölümün gerçek süresi.
+**Test edilmeyen:** telefonda açılmadı. Puanın insan süresiyle örtüşüp örtüşmediği
+bilinmiyor (şartname de "son kalibrasyonu oyuncu yapar" diyor). U10'da geri dönüş
+9: "zor" mu "yorucu" mu, kurucu söyler. "Son 10'a benzerlik" hücre örtüşmesiyle
+ölçülüyor, göz benzerliği değil.
 
-**Ders:** Ayna fiziği tween'li `rotation`'dan değil `step`'ten okunuyor. Titreme
-animasyonu ışını oynatmasın diye (kanonik kaynak dersi).
+**Not:** `levels_uretilen.gd` Python ile yazılıyor (Edit/Write değil). Import kapısı
+fener'de zaten çalışmıyor; import'u elle koştum, temiz.
 
-**Öneri:** Çözücü (`tools/mantik_test.gd` mantığı) bölüm üretecinin yarısı; üreteç
-işi buna dayanabilir.
+**Öneri:** Near-miss en çok eleyen ikinci ölçüt. Üreteç kayayı bilerek teknenin
+yanına koyarsa verim artar.
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-14 · **Ayna dönüş adımı 90°, KİLİTLİ** (kurucu onayı). 45° elendi: ışın aynaya paralelken sızıyor, kestirme açıyor; iki modu birden desteklemek her bölümü iki kez tasarlamak demek
