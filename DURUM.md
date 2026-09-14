@@ -10,7 +10,26 @@ Fener: zorluk tavanını yükselt + ışık bölücü (KOD, İŞ 4)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 3 — Bölüm üreteci + zorluk ölçümü** (2026-09-14)
+**İŞ 4 — Zorluk tavanı + ışık bölücü** (2026-09-14)
+Kurucu üretilen 10 bölümü oynadı: **"çok zor değil."** Saf ayna+kaya ile tavan
+düşük. İki koldan yükselt. Süre/hamle sınırı/kaybetme YİNE YOK.
+
+1. **Işık bölücü** (planda 31. bölümdü, öne alındı): ışını ikiye ayıran nesne.
+   Tek fener → iki kol → iki tekne (ya da iki kol birleşip tek tekneye).
+   Çözücü, ölçer ve üreteç bölücüyü tanımalı
+2. **Izgarayı büyüt:** 7×12 dar kaldı, üreteç yolu sığdıramadığı için 28484
+   deneme boşa gitti. Daha büyük ızgara + gerekiyorsa dokunma hedefini koru
+3. **Zor bölüm eşiklerini yükselt:** zor sınıfı için `max_backtrack ≥ 4`,
+   `solution_toggles ≥ 6`, `near_misses` 2-3, **"aha" ZORUNLU**
+4. Üreteci koştur, yeni **8 bölüm** seç: 4 bölücülü, 4 bölücüsüz ama en zor
+   eşikleri geçen. Mevcutların yanına ekle
+5. RAPOR: yeni eşiklerle kaç üretildi/elendi, seçilenlerin metrikleri, ve
+   **bölücülü bölümlerin geri dönüş değeri bölücüsüzlerden yüksek mi**
+6. Ekran görüntüsü al, GÖZLE BAK (iki kollu ışın karışık görünüyor mu?)
+
+Kapsam dışı: renk filtresi, görsel entegrasyonu, ses, reklam, ana ekran.
+
+**İŞ 3 (BİTTİ) — Bölüm üreteci + zorluk ölçümü** (2026-09-14)
 Önce `oyunlar/fener/tasarim_notlari.md` oku (bölüm 3 ve 4 bu işin şartnamesi).
 Kurucu kararı: **dönüş adımı 90°, KİLİTLİ.** 45° kodu kaldırılır; ileride
 gerekirse ayrı bir "eğik ayna" nesnesi olarak döner, ayar olarak değil.
