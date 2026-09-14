@@ -104,12 +104,17 @@ func compute_path() -> Dictionary:
 			best_t = tb
 			best_m = null
 			to_boat = true
+		var tf := _ray_circle_t(pos, dir, fener_pos, FENER_RADIUS)
+		if tf > EPS and tf < best_t:  # geri dönen ışın fenerde durur
+			best_t = tf
+			best_m = null
+			to_boat = false
 		pos = pos + dir * best_t
 		pts.append(pos)
 		if to_boat:
 			return {"points": pts, "hit": true}
 		if best_m == null:
-			break  # ekran kenarı
+			break  # ekran kenarı ya da fener
 		dir = best_m.reflect(dir)
 	return {"points": pts, "hit": false}
 
