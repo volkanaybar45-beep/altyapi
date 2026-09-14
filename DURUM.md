@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Kuytu — Prototip A (blok yerleştirme). KOD ekranında, iş emri aşağıda
+Ateşböceği Bahçesi prototipi — KOD ekranında, iş emri aşağıda
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
