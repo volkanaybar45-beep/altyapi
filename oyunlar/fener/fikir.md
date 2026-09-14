@@ -13,7 +13,27 @@ bölüm açılır.
 Süre yok, hamle sınırı yok, yanlış hamle cezası yok. İstediğin kadar çevir.
 
 ## Neden "vay" der
-Sis, gece denizi, ışık huzmesi. Işın gemiye vardığında fener sahnesi aydınlanır.
+Sis, gece denizi, ışık huzmesi. Zincir tamamlanınca ışık bütün güzergâh
+boyunca bir anda yanar, sis açılır, tekne düdük çalıp limana girer.
+
+## Neden bu oyun (kurucu gerekçesi, 2026-09-14)
+- Tek cümlelik vaat: **"Işığı gemiye ulaştır."** Reklam videosunda 3 saniyede
+  gösterilir. Match-3 ve blok yerleştirmenin olmayan avantajı bu
+- Aranan his: "bunu daha önce görmedim ama nasıl oynandığını hemen anladım"
+- Tema değiştirmek yeni oyun yapmaz — meyve yerine balık koymak sıyrılma değildir
+
+## Çekirdeği genişletme merdiveni (yeni sistem yazmadan)
+Aynı mekanik, artan varyasyon: sis · yağmur · kırık ayna · renkli ışık
+(renk filtresi) · aynı anda iki gemi · hareketli ayna. Her biri yeni kod
+değil, aynı çekirdeğin parametresi.
+
+## Reklam modeli (oyunu bozmadan)
+- Bölüm sonu ödülünü ×2 yapan isteğe bağlı reklam
+- İsteğe bağlı ipucu
+- İkinci şans (ama bizde kaybetme yok; "bölümü atla" olarak düşünülecek)
+- Zorunlu araya giren reklam YOK. Ödül her hâlükârda garanti verilir
+- Not: "reklam destekli oyunlar indirmelerin %83'ü" verisi kurucudan geldi,
+  BİZ DOĞRULAMADIK. Karar buna dayanmıyor
 
 ## AÇIK RİSK — dürüst kayıt
 Bu bir **bölüm oyunu**: her bölüm elle tasarlanır. Oyuncu bölümleri tüketir,
