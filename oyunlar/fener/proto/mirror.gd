@@ -1,7 +1,7 @@
 extends Node2D
-## Ayna: ışık için bir doğru parçası. Döner ayna dokununca `inc` adım
-## (45° modunda 1, 90° modunda 2) döner. Sabit ayna dönmez; silueti farklı:
-## kalın blok + vidalar, hale yok.
+## Ayna: ışık için bir doğru parçası. Döner ayna dokununca 90° döner
+## (iki çapraz arasında; kurucu kararı, kilitli). Sabit ayna dönmez; silueti
+## farklı: kalın blok + vidalar, hale yok.
 
 const LENGTH := 90.0
 const TAP_RADIUS := 70.0
