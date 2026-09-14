@@ -47,6 +47,30 @@ Aynı mekanik, artan varyasyon: sis · yağmur · kırık ayna · renkli ışık
 (renk filtresi) · aynı anda iki gemi · hareketli ayna. Her biri yeni kod
 değil, aynı çekirdeğin parametresi.
 
+### Seviye merdiveni (referans 3'ten, 2026-09-14)
+| Bölüm | İçerik |
+|---|---|
+| 1-10 | Temel mekanik: ayna çevir, ışığı gemiye ulaştır |
+| 11-20 | Yeni öğeler: kayalık, sabit ayna, prizma |
+| 21-30 | Zorlu düzenler (aynı öğeler, daha iyi bulmaca) |
+| 31-40 | Hava koşulları: sis, yağmur |
+| 41-50 | Çoklu hedef: birden fazla gemi, renk eşleştirme |
+| 51-70 | Hareketli öğeler: kayan platform, dönen ayna |
+| 71+ | Usta seviyeler |
+
+Ortam serisi: sakin akşam → fırtınalı gece → buzlu deniz → tropik →
+volkanik → kutup ışıkları. Her biri arka plan + palet değişimi.
+
+**ÇIKARILANLAR:** "zamanlama" mekaniği (geri sayım = sakinlik sözünü bozar) ve
+"günlük görevler" (zorunluluk). Günlük görev yerine baskısız öneri olabilir.
+
+**Alınanlar:** kırık ayna (tamir et) · ışık renkleri · hareketli platform ·
+özel ışık hedefleri · kozmetik fener geliştirme · hikâye parçaları/mektuplar.
+
+### İsim ve slogan (aday)
+**Fener Bekçisi — "Küçük Işıklar, Büyük Yolculuklar"**
+Mağaza vaadi: tek parmakla oynanır · offline · reklam destekli · sakin.
+
 ## Reklam modeli (oyunu bozmadan)
 - Bölüm sonu ödülünü ×2 yapan isteğe bağlı reklam
 - İsteğe bağlı ipucu
