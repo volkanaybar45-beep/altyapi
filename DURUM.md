@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener: görselleri oyuna bağla + ana ekran (KOD, İŞ 5) → sonra APK
+Fener: görsel düzeltme turu (KOD, İŞ 6) → sonra APK
 
 ## SIRADA
 1. İngilizce metinler (Tasarım yazar) — mağaza öncesi, test Türkçe olduğu için ertelendi
