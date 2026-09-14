@@ -185,7 +185,7 @@ func _target_cell() -> Vector2i:
 
 
 ## Parçanın sol üst köşesinin düştüğü hücre (ölçek 1 varsayılır — tween ortasında da kararlı).
-func _target_cell_for(p: Node2D) -> Vector2i:
+func _target_cell_for(p: Piece) -> Vector2i:
 	var top_left: Vector2 = p.position - p.pixel_size() / 2.0 - board_view.position
 	return Vector2i(roundi(top_left.x / CELL), roundi(top_left.y / CELL))
 
