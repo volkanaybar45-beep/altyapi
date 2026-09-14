@@ -9,6 +9,11 @@
   python tools/uretec.py <deneme> <tohum>        → İŞ 3: 7x12, 10 bölüm, levels_uretilen.gd
   python tools/uretec.py <deneme> <tohum> is4    → İŞ 4: 8x14, bölücü, 8 bölüm, levels_uretilen_4.gd
 Harita harfleri levels.gd ile aynı: F T R M N b s Y .  (Y = ışık bölücü)
+
+NOT: İŞ 4'te çözücü çok kollu oldu; metrikler İŞ 3 bölümlerinde birebir aynı
+çıkıyor (doğrulandı), ama ölü kolların sırası değiştiği için İŞ 3 komutu
+kurucunun oynadığı levels_uretilen.gd'yi artık birebir üretmiyor. O dosyanın
+aslı git'te (commit 60580e4); üzerine yazma.
 """
 import math
 import random
@@ -259,7 +264,7 @@ def walk(rng, x, y, dx, dy, n_turns, used, first_min, smart=False):
     return None
 
 
-def make_path(rng, turns_rng, split):
+def make_path(rng, turns_rng, split, smart=False):
     """Fenerden tekne(ler)e güzel bir ışık yolu. split: gövde → bölücü → iki kol
     → iki tekne. → (fener, yon, köşeler, bölücü|None, tekneler, geçilen)"""
     fx, fy = rng.randrange(W), rng.randrange(H)
@@ -267,17 +272,17 @@ def make_path(rng, turns_rng, split):
     dx, dy = DIRS[yon]
     used = {(fx, fy): 'X'}
     if not split:
-        r = walk(rng, fx, fy, dx, dy, rng.randint(*turns_rng), used, 2)
+        r = walk(rng, fx, fy, dx, dy, rng.randint(*turns_rng), used, 2, smart)
         if r is None:
             return None
         return (fx, fy), yon, r[0], None, [r[1]], used
-    r = walk(rng, fx, fy, dx, dy, rng.randint(1, 4), used, 2)
+    r = walk(rng, fx, fy, dx, dy, rng.randint(1, 4), used, 2, smart)
     if r is None:
         return None
     turns, sp, (vx, vy) = r  # bölücüye varış yönü
     boats = []
     for adx, ady in ((vy, vx), (-vy, -vx)):  # iki kol: sağ ve sol
-        a = walk(rng, sp[0], sp[1], adx, ady, rng.randint(2, 5), used, 1)
+        a = walk(rng, sp[0], sp[1], adx, ady, rng.randint(2, 5), used, 1, smart)
         if a is None:
             return None
         turns += a[0]
@@ -285,8 +290,8 @@ def make_path(rng, turns_rng, split):
     return (fx, fy), yon, turns, sp, boats, used
 
 
-def generate(rng, split=False, turns_rng=(3, 9), wrong_p=0.8, fixed_p=0.2):
-    p = make_path(rng, turns_rng, split)
+def generate(rng, split=False, turns_rng=(3, 9), wrong_p=0.8, fixed_p=0.2, smart=False):
+    p = make_path(rng, turns_rng, split, smart)
     if p is None:
         return None, 'yol kurulamadı'
     fener, yon, turns, sp, boats, used = p
@@ -520,8 +525,8 @@ def main_is4(tries, seed):
     global W, H
     W, H = 8, 14
     rng = random.Random(seed)
-    plain = run_pool(rng, tries // 2, lambda: {'turns_rng': (5, 10), 'wrong_p': 0.9}, 'bölücüsüz')
-    split = run_pool(rng, tries // 2, lambda: {'split': True, 'wrong_p': 0.9}, 'bölücülü')
+    plain = run_pool(rng, tries // 2, lambda: {'turns_rng': (5, 10), 'wrong_p': 0.9, 'smart': True}, 'bölücüsüz')
+    split = run_pool(rng, tries // 2, lambda: {'split': True, 'wrong_p': 0.9, 'smart': True}, 'bölücülü')
     pool = plain + split
     sc = scores(pool)
     print('zor eşiği (geri ≥4 · çevir ≥6 · near 2-3 · aha):')
