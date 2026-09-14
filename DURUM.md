@@ -6,7 +6,8 @@ Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 Fener: görselleri oyuna bağla + ana ekran (KOD, İŞ 5) → sonra APK
 
 ## SIRADA
-1. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
+1. İngilizce metinler (Tasarım yazar) — mağaza öncesi, test Türkçe olduğu için ertelendi
+2. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
