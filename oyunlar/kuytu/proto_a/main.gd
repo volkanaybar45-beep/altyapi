@@ -30,7 +30,7 @@ var tray: Array = [null, null, null]
 var score_label: Label
 var combo_label: Label
 
-var _dragging: Node2D = null
+var _dragging: Piece = null
 var _drag_index := -1
 var _drag_touch := -1
 var _combo_tween: Tween
