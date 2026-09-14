@@ -13,7 +13,6 @@ func _initialize() -> void:
 	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	root.add_child(vp)
 	var main = load("res://main.tscn").instantiate()
-	main.mode90 = args.size() > 3 and args[3] == "90"
 	vp.add_child(main)
 	for _i in 3:
 		await process_frame
