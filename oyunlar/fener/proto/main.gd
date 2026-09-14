@@ -286,6 +286,9 @@ func _ray_bounds_t(ro: Vector2, rd: Vector2) -> float:
 
 func _celebrate() -> void:
 	completed = true
+	for b in boats:
+		_sparkle(b)
+	create_tween().tween_property(self, "lantern", 1.0, 0.9).set_trans(Tween.TRANS_SINE)
 	var tw := create_tween()
 	tw.tween_property(self, "glow", 1.0, 0.7).set_trans(Tween.TRANS_SINE)
 	tw.tween_property(self, "boat_scale", 1.4, 0.15)
