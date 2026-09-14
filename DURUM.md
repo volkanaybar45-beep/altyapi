@@ -10,7 +10,35 @@ Fener: bölüm üreteci + zorluk ölçümü (KOD, İŞ 3)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 2 — Fener prototipi, zorluk turu** (2026-09-14)
+**İŞ 3 — Bölüm üreteci + zorluk ölçümü** (2026-09-14)
+Önce `oyunlar/fener/tasarim_notlari.md` oku (bölüm 3 ve 4 bu işin şartnamesi).
+Kurucu kararı: **dönüş adımı 90°, KİLİTLİ.** 45° kodu kaldırılır; ileride
+gerekirse ayrı bir "eğik ayna" nesnesi olarak döner, ayar olarak değil.
+
+1. 45° modunu ve mod düğmesini kaldır; `levels.gd` bölümlerini 90°'ye göre
+   doğrula (çözücü hepsini tekrar geçsin)
+2. **Zorluk ölçer:** tasarım notları 3'teki metrikleri çıkar —
+   `solution_count` · `solution_toggles` · `solution_reflections` ·
+   `relevant_mirrors` / `irrelevant_mirrors` · `expanded_states` ·
+   `max_backtrack` · `near_misses` · `beam_crossings`.
+   Puan = %30 arama eforu + %25 geri dönüş + %20 çevirme + %15 yansıma +
+   %10 near-miss, havuzda 0-1'e normalize
+3. **Üreteç (tersine kurulum):** önce güzel ışık yolu üret → kaya koy →
+   kestirmeleri kapat → aynaları yanlış yöne çevir → çözücüyle doğrula →
+   zorluk ve kalite ölç → ELE / TUT. "Çözülebiliyor = iyi" KABUL EDİLMEZ
+4. **Kalite filtresi** (tasarım notları 4'teki tablo) uygulanır. Ayrıca
+   "aha" işareti: çözüm, ışığı hedeften önce UZAKLAŞTIRMAYI gerektiriyorsa
+   bölüm puanı artar
+5. Üreteci koştur, filtreden geçen **10 bölüm** seç: 3 kolay · 4 orta ·
+   3 zor. Mevcut bölümlerin yerine değil, yanına koy (kurucu karşılaştıracak)
+6. RAPOR'a yaz: kaç bölüm üretildi, kaçı elendi, hangi ölçütten elendi,
+   seçilen 10 bölümün zorluk puanları
+7. Ekran görüntüsü al, GÖZLE BAK
+
+Kapsam dışı: ışık bölücü ve renk filtresi (V1'de var ama sonraki iş),
+görsel entegrasyonu, ses, reklam, ana ekran.
+
+**İŞ 2 (BİTTİ) — Fener prototipi, zorluk turu** (2026-09-14)
 Kurucu masaüstünde oynadı: "keyifli ama çok hızlı buluyor yolunu."
 Mekanik geçti, ZORLUK yetersiz. Süre/hamle sınırı/kaybetme EKLEME.
 
