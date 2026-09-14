@@ -6,7 +6,7 @@ Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 Fener: zorluk tavanını yükselt + ışık bölücü (KOD, İŞ 4)
 
 ## SIRADA
-1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap — prototip başlamadan önce
+1. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
