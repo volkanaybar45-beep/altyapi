@@ -16,6 +16,15 @@ Açılış: `C:\Altyapi`'de yeni Claude Code aç, `/kod` yaz.
 - Prob geçse bile ekran görüntüsüne BAK
 - Hata sonrası ders → RAPOR'a yaz, patron ilgili GOREV.md'ye taşır
 
+## Güvenlik (anayasadaki politikanın kod karşılığı)
+- Anahtar/parola/keystore koda ve depoya girmez; gerekirse ortam değişkeni
+- Kayıt dosyası okunurken: alan tipleri doğrulanır, eksik alan varsayılana
+  düşer, `eval`/dinamik kod çalıştırma YOK. Bozuk kayıt çökme değil sıfırlama
+- `OS.execute`, dosya sistemi ve ağ çağrıları gerekmedikçe kullanılmaz
+- Android izin listesi boş tutulur; eklenen her izin RAPOR'da gerekçelenir
+- Analitik/çökme raporu eklenecekse önce patrona sorulur (veri toplar)
+- Hata mesajları oyuncuya dosya yolu/iç bilgi göstermez
+
 ## Dersler
 - (2026-09-14) Godot import kapısı `--import` ile parse hatası yakalamıyor; `.gd` için `--check-only --script` kullanılır
 - (2026-09-14) Hook'a gelen dosya yolunun sonunda Windows satır sonu (`\r`) olabilir; `tr -d '\r'` ile temizlenmezse uzantı eşleşmesi sessizce başarısız olur ve kapı HİÇ çalışmaz
