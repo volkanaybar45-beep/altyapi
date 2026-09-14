@@ -18,7 +18,7 @@ const ROCK_RADIUS := 36.0
 const SPLIT_RADIUS := 28.0
 const EPS := 0.5
 const DIRS := {"D": Vector2.DOWN, "U": Vector2.UP, "L": Vector2.LEFT, "R": Vector2.RIGHT}
-const SKIP_RECT := Rect2(540, 12, 160, 64)
+const SKIP_RECT := Rect2(540, 8, 160, 56)  # alt kenar < 0. satırdaki fener kulesinin tepesi (68)
 
 ## Elle 9 · üretilen 10 (İŞ 3) · üretilen 8 (İŞ 4, 8x14, bölücülü) — kurucu karşılaştırması.
 static var all_levels: Array = Levels.ALL + LevelsGen.ALL + LevelsGen4.ALL
