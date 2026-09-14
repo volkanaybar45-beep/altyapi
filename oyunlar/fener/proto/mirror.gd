@@ -8,7 +8,6 @@ const TAP_RADIUS := 70.0
 
 var step := 0  # 0..7, her adım 45°
 var fixed := false
-var inc := 1
 
 
 func set_step(s: int) -> void:
