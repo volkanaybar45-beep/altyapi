@@ -4,6 +4,22 @@ Lisans kanıt zinciri. Kayıtsız dosya oyuna giremez.
 İzinli zemin: ChatGPT (OpenAI) + Tripo Pro **Gizli**. Dreamina YASAK.
 Tripo `.glb` üretim anında indirilir (7 günde siliniyor).
 
+## Oyuna giren 3B zincir (2026-09-14)
+Beş referans PNG → **Tripo Pro (Gizli)** → `.glb` (`glb/` klasöründe, indirildi) →
+`bolumler/sanat/toon_render.py` → saydam PNG. Prompt'lar aşağıdaki tabloda,
+referans satırlarında.
+
+| Oyun dosyası | .glb | Render komutu | Not |
+|---|---|---|---|
+| fener_kulesi.png | glb/fener_kulesi.glb | `toon_render.py … z` | 512 px |
+| ayna_plaka.png | glb/ayna_plaka.glb | `toon_render.py … z` | 512 px, kod 2B döndürür |
+| ayna_taban.png | glb/ayna_taban.glb | `toon_render.py … z` | 256 px |
+| tekne.png | glb/tekne.glb | `toon_render.py … z` | 512 px. **`x` yanlış çıktı** (tekne önden göründü), `z` doğru |
+| kayalik.png | glb/kayalik.glb | `toon_render.py … z 0.30 - 0.32` | 512 px. Varsayılan render gece sahnesinde fazla açıktı, parlaklık 0.52→0.32 |
+
+Gözle kontrol: hepsi gerçek arka plan üzerinde gerçek ölçekte bakıldı (540×960).
+İki hata bulundu ve düzeltildi (tekne açısı, kayalık parlaklığı).
+
 | Dosya adı | Tarih | Araç | Prompt | Format |
 |---|---|---|---|---|
 | ref_fener_kulesi.png | 2026-09-14 | ChatGPT (OpenAI) | A single stylized lighthouse tower for a mobile game icon, front three-quarter view, standing upright and centered, tapered cylindrical body in pale bone-white stone with one narrow horizontal band of weathered slate grey, a small glazed lamp room at the top glowing warm lantern yellow, a simple railing, no rocks and no ground beneath it, clean toon shading with flat color areas and a bold uniform dark outline, no more than two tones per surface, no fine texture detail, soft cartoon proportions, isolated object on a plain flat neutral grey background, no shadow, no text, no other objects. | PNG 1232×1232, 2B referans (Tripo girdisi) |
