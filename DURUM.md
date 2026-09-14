@@ -10,7 +10,25 @@ Kuytu — Prototip A (blok yerleştirme). KOD ekranında, iş emri aşağıda
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-_yok_
+**İŞ 1 — Kuytu Prototip A: blok yerleştirme** (2026-09-14)
+Önce `oyunlar/kuytu/fikir.md` oku. Amaç: türü hisle seçmek. Görsel üretme,
+düz renkli şekil kullan. Godot 4.7.1: `C:/DevTools/Godot/4.7.1/`
+
+1. Proje: `oyunlar/kuytu/proto_a/` · dikey (portre) · mobil çözünürlük
+2. 8×8 ızgara, altta 3 parça havuzu (tetris benzeri şekiller), sürükle-bırak
+3. Dolan satır VE sütun temizlenir; aynı hamlede birden fazlası temizlenirse
+   kombo sayılır (şimdilik sadece ekranda sayı olarak)
+4. **Süre yok, hamle sınırı yok, kaybetme ekranı yok.** Hiçbir parça
+   sığmıyorsa: en dolu satırı temizle ve devam et (geçici çözüm, his
+   prototipte ölçülecek)
+5. Sade tutma efekti: yerleşme ve temizlenme için kısa tween — henüz "vay"
+   efekti yapma, o tür seçildikten sonra
+6. Skor görünür ama küçük. Ekranda başka HUD yok
+7. Metin: `tr("ANAHTAR")` ile, TR karşılıkları geçici olarak sende
+8. Çalıştır, ekran görüntüsü al, GÖZLE BAK (sayı yeşil yeterli değil)
+9. Bitince RAPOR'u doldur; APK isteme, önce masaüstünde görelim
+
+Kapsam dışı: match-3 (İŞ 2), görsel üretimi, ana ekran, ortamlar, reklam.
 
 ## KOD RAPORU (KOD yazar)
 _yok_
