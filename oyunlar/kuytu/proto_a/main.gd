@@ -192,7 +192,7 @@ func _target_cell_for(p: Piece) -> Vector2i:
 
 # --- hamle -------------------------------------------------------------------
 
-func _place(i: int, p: Node2D, at: Vector2i) -> void:
+func _place(i: int, p: Piece, at: Vector2i) -> void:
 	board.place(p.shape, p.color_idx, at)
 	for off in p.shape:
 		var cell: Vector2i = at + off
