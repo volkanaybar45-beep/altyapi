@@ -3,12 +3,13 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Şirket altyapısının kurulması — kuruldu, KOD ekranı henüz açılmadı
+Dersleri damıt: `bolumler/yapim/dersler_ham_yaban.md` (492 KB) → bölüm GOREV.md'lerine kısa dersler
 
 ## SIRADA
-1. Dersleri damıt: `bolumler/yapim/dersler_ham_yaban.md` (492 KB) → bölüm bazlı kısa dersler
+1. Aşama kapıları (Supercell tipi): fikir → prototip → dikey dilim → üretim → yayın; her kapıda "devam/öldür"
 2. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
 3. İlk oyun fikri — araştırma verisinden
+4. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
 _yok_
