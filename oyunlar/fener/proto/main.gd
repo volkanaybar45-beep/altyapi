@@ -4,6 +4,13 @@ extends Node2D
 ## Işık bölücü ışını ikiye ayırır; bölüm BÜTÜN tekneler ışık alınca biter.
 
 const Mirror := preload("res://mirror.gd")
+const Arka := preload("res://arka.gd")
+const IsinKatmani := preload("res://isin_katmani.gd")
+const TOWER := preload("res://gorseller/fener_kulesi.png")
+const BOAT := preload("res://gorseller/tekne.png")
+const ROCK := preload("res://gorseller/kayalik.png")
+const TOWER_LAMP := Vector2(252, 109)   # fener_kulesi.png içinde lamba odası (512'lik tuval)
+const BOAT_LANTERN := Vector2(298, 226)  # tekne.png içinde tekne feneri
 const Levels := preload("res://levels.gd")
 const LevelsGen := preload("res://levels_uretilen.gd")  # tools/uretec.py yazar (İŞ 3)
 const LevelsGen4 := preload("res://levels_uretilen_4.gd")  # tools/uretec.py ... is4
