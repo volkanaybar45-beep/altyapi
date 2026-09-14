@@ -1,9 +1,10 @@
 extends Node2D
-## Fener Bekçisi — prototip. Aynaya dokun, 45° (ya da 90°) döner; ışın her
-## karede yeniden hesaplanır. Süre yok, hamle sınırı yok, kaybetme yok.
+## Fener Bekçisi — prototip. Aynaya dokun, 90° döner (iki çapraz arasında);
+## ışın her karede yeniden hesaplanır. Süre yok, hamle sınırı yok, kaybetme yok.
 
 const Mirror := preload("res://mirror.gd")
 const Levels := preload("res://levels.gd")
+const LevelsGen := preload("res://levels_uretilen.gd")  # tools/uretec.py yazar
 
 const SIZE := Vector2(720, 1280)
 const CELL := 90.0
