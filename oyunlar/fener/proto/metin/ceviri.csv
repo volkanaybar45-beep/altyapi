@@ -3,5 +3,5 @@ BOLUM,Bölüm %d
 TAMAM,Tekne yolunu buldu
 DEVAM,Devam için dokun
 SON,Prototip sonu — baştan için dokun
-ACI_45,Açı 45°
-ACI_90,Açı 90°
+ATLA,Atla ›
+URETILEN,"Üretilen %d · zorluk %.2f"
