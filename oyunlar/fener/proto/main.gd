@@ -279,8 +279,9 @@ func _draw() -> void:
 	var c := boat_pos + bob
 	var hull := Color(0.75, 0.45, 0.3) if not completed else Color(1.0, 0.7, 0.4)
 	draw_rect(Rect2(c + Vector2(-50, 0) * s, Vector2(100, 26) * s), hull)
-	draw_line(c, c + Vector2(0, -60) * s, Color(0.85, 0.85, 0.85), 4.0)
-	draw_rect(Rect2(c + Vector2(4, -56) * s, Vector2(32, 36) * s), Color(0.9, 0.9, 0.85))
+	# direk kısa: üst hücredeki kaya (near-miss için sık) bayrağı örtmesin
+	draw_line(c, c + Vector2(0, -40) * s, Color(0.85, 0.85, 0.85), 4.0)
+	draw_rect(Rect2(c + Vector2(4, -38) * s, Vector2(28, 26) * s), Color(0.9, 0.9, 0.85))
 	if completed:
 		draw_circle(c, BOAT_RADIUS * 1.6 * glow, Color(1.0, 0.9, 0.5, 0.15 * glow))
 
