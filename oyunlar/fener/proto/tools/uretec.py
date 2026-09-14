@@ -305,6 +305,11 @@ def generate(rng, split=False, turns_rng=(3, 9), wrong_p=0.8, fixed_p=0.2, smart
             intended[pos] = s
     if len(intended) < 2:
         return None, 'döner ayna < 2'
+    # tekneler birbirine ve fenere komşu olmasın (gövdeler üst üste biniyordu)
+    spots = [fener] + boats
+    if any(max(abs(p[0] - q[0]), abs(p[1] - q[1])) < 2
+           for i, p in enumerate(spots) for q in spots[i + 1:]):
+        return None, 'tekne sıkışık'
     grid[fener] = 'F'
     for b in boats:
         grid[b] = 'T'
