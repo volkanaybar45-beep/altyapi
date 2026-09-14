@@ -75,16 +75,35 @@ func load_level(i: int) -> void:
 	for m in mirrors:
 		m.queue_free()
 	mirrors.clear()
+	rocks.clear()
 	var d: Dictionary = Levels.ALL[i]
-	fener_pos = d["fener"]
-	fener_dir = (d["yon"] as Vector2).normalized()
-	boat_pos = d["tekne"]
-	for p in d["aynalar"]:
-		var m := Mirror.new()
-		m.position = p
-		m.set_step(0)
-		add_child(m)
-		mirrors.append(m)
+	fener_dir = DIRS[d["yon"]]
+	var rows: Array = d["map"]
+	for y in rows.size():
+		var row: String = rows[y]
+		for x in row.length():
+			var c := row[x]
+			var p := ORIGIN + Vector2(x, y) * CELL
+			match c:
+				".":
+					pass
+				"F":
+					fener_pos = p
+				"T":
+					boat_pos = p
+				"R":
+					rocks.append(p)
+				"M", "N", "b", "s":
+					var m := Mirror.new()
+					m.position = p
+					m.fixed = c == "b" or c == "s"
+					m.inc = 2 if mode90 else 1
+					m.set_step(1 if c == "M" or c == "b" else 3)
+					add_child(m)
+					mirrors.append(m)
+				_:
+					push_error("bilinmeyen harita karakteri '%s' bolum %d" % [c, i + 1])
+	mode_button.text = tr("ACI_90") if mode90 else tr("ACI_45")
 	completed = false
 	can_continue = false
 	glow = 0.0
