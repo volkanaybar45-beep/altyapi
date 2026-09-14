@@ -225,19 +225,9 @@ def make_path(rng, turns_rng, split):
     r = walk(rng, fx, fy, dx, dy, rng.randint(1, 4), used, 2)
     if r is None:
         return None
-    turns, sp = r
+    turns, sp, (vx, vy) = r  # bölücüye varış yönü
     boats = []
-    for adx, ady in ((dy, dx), (-dy, -dx)) if False else ():
-        pass
-    # bölücüye varış yönü: son köşeden sonraki yön
-    vx, vy = (dx, dy)
-    if turns:
-        (px, py), s = turns[-1]
-        vx, vy = (1 if sp[0] > px else -1 if sp[0] < px else 0,
-                  1 if sp[1] > py else -1 if sp[1] < py else 0)
-    else:
-        vx, vy = dx, dy
-    for adx, ady in ((vy, vx), (-vy, -vx)):
+    for adx, ady in ((vy, vx), (-vy, -vx)):  # iki kol: sağ ve sol
         a = walk(rng, sp[0], sp[1], adx, ady, rng.randint(2, 5), used, 1)
         if a is None:
             return None
