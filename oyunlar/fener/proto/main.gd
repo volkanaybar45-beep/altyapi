@@ -8,6 +8,7 @@ const Levels := preload("res://levels.gd")
 const SIZE := Vector2(720, 1280)
 const MAX_BOUNCES := 24
 const BOAT_RADIUS := 42.0
+const FENER_RADIUS := 24.0
 const EPS := 0.5
 
 var level := 0
