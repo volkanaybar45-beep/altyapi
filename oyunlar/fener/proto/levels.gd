@@ -4,8 +4,7 @@ extends RefCounted
 ## M döner ayna, "\" başlar · N döner ayna, "/" başlar
 ## b sabit ayna "\" · s sabit ayna "/"
 ## yon: fenerin baktığı yön (D aşağı, U yukarı, L sol, R sağ)
-## Kural: tekne fenerle aynı hizaya konmaz (45° modunda ayna paralel
-## çevrilince ışın içinden geçer, kestirme olur).
+## Dönüş 90° (kilitli): döner ayna yalnız "\" ile "/" arasında değişir.
 
 const ALL := [
 	{"yon": "D", "map": [  # 1 · 2 ayna
