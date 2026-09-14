@@ -78,10 +78,11 @@ class Level:
 
         def run(assign, x, y, dx, dy, seen, trail):
             # dönüş: (yükseklik, çözüm_var)
+            since = len(trail)  # near-miss sadece son karardan sonraki parçada
             while True:
                 x += dx; y += dy
                 if not inside(x, y) or (x, y, dx, dy) in seen:
-                    return self._dead(st, trail)
+                    return self._dead(st, trail[since:])
                 seen.add((x, y, dx, dy))
                 trail.append((x, y, dx, dy))
                 c = self.grid.get((x, y), '.')
@@ -89,7 +90,7 @@ class Level:
                     st['solutions'].append((dict(assign), list(trail)))
                     return 0, True
                 if c in 'RF':
-                    return self._dead(st, trail)
+                    return self._dead(st, trail[since:])
                 if c in 'bs':
                     dx, dy = refl(1 if c == 'b' else 3, dx, dy)
                 elif c in 'MN':
