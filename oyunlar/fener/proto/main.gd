@@ -194,6 +194,7 @@ func _process(delta: float) -> void:
 	queue_redraw()
 	for l in beam_layers:
 		l.queue_redraw()
+	rim_layer.queue_redraw()
 
 
 # --- ışın --------------------------------------------------------------------
