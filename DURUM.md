@@ -32,7 +32,37 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-_yok_
+**İŞ 1 — Fener prototipi · kod yazıldı, telefonda test edilmedi** (2026-09-14)
+
+**Yapılan:** `oyunlar/fener/proto/` (main.gd, mirror.gd, levels.gd, metin/ceviri.csv).
+720x1280 portre, düz şekiller. Dokununca ayna 45° döner; ışın her karede yeniden
+hesaplanır; tekneye değince parlama fenerden tekneye yayılır + tekne zıplar;
+dokununca sonraki bölüm. Süre/hamle/kaybetme yok. 3 bölüm (2 · 4 · 4 ayna,
+3.'de ışın kendi yolunu kesiyor). Metinler `tr()`, sadece TR sütunu (EN'i Tasarım yazar).
+Eski Kuytu prototip kodu silinmedi, `cop/`'a taşındı (anayasa kuralı).
+
+**Bölüm kurma süresi (ölçüm):** kolay ~3 dk · orta ~5 dk · şaşırtan ~10 dk.
+Dürüst not: bu KOD Claude'un süresi, kronometreyle değil tahmini; insan tasarımcı
+için ölçü değil. Asıl bulgu: 45° adımlı aynada ışın hep dik/yatay gider, bölüm
+bir ızgaraya indirgeniyor → elle kurmak ucuz, **üreteç yazmak da kolay görünüyor**
+(tersinden: tekneden fenere yol çiz, köşelere ayna koy).
+
+**Test edilen:** `tools/mantik_test.gd` — her bölüm başta çözülmemiş, çözüm
+gerçek dokunma fonksiyonuyla (tap) verilince tekneye ulaşıyor: 3/3 OK.
+`tools/ekran_probe.gd` ile ekran görüntüsü alınıp GÖZLE bakıldı; 3 hata bulunup
+düzeltildi (geri dönen ışın fenerin içinden geçiyordu · kule başlığı örtüyordu ·
+alt yazı kesiliyordu).
+
+**Test edilmeyen:** telefonda hiç açılmadı; dokunma hissi, parmak isabeti
+(ayna dokunma yarıçapı 70px), kutlamanın canlı akışı, farklı ekran oranları.
+
+**Ders:** import kapısı hook'u sadece `*yaban*` yolunda çalışıyor — fener'de hata
+yakalamıyor, import'u elle koştum (SIRADA 1 ile aynı iş). İlk importta `.translation`
+henüz üretilmediği için 1 kez hata basıyor; ikincide temiz.
+
+**Öneri:** (1) 8 yönden 2'si aynı işi görüyor (45°=225°); oyuncu fazla dokunuyor —
+4 adım (sadece iki çapraz + düz) daha tatmin edici olabilir, kurucu hissine bakılsın.
+(2) Bölüm üreteci denemesi ucuz, İŞ olarak düşünülebilir.
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-14 · Tek klasör: her şey `C:\Altyapi` içinde; çöp `cop/`'a, zamanı gelince temizlenir
