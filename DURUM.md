@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener: zorluk tavanını yükselt + ışık bölücü (KOD, İŞ 4)
+Fener: görselleri oyuna bağla + ana ekran (KOD, İŞ 5) → sonra APK
 
 ## SIRADA
 1. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
