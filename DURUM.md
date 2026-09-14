@@ -6,8 +6,7 @@ Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 Aşama kapılarını tanımla (fikir → prototip → dikey dilim → üretim → yayın)
 
 ## SIRADA
-1. ~~Aşama kapıları~~ ŞU AN'da (Supercell tipi): fikir → prototip → dikey dilim → üretim → yayın; her kapıda "devam/öldür"
-2. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
+1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
 3. İlk oyun fikri — araştırma verisinden
 4. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
