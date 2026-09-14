@@ -38,7 +38,7 @@
           },
           {
             "type": "command",
-            "command": "python -c \"import json,sys; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path','') or d.get('tool_response',{}).get('filePath',''))\" | { read -r f; case \"$f\" in *.gd|*.tscn|*.tres|*.godot) ;; *) exit 0 ;; esac; case \"$f\" in *yaban*) ;; *) exit 0 ;; esac; export APPDATA=\"C:/Users/VOLKAG~1/AppData/Local/Temp/claude/godot_hook_appdata_yaban\"; mkdir -p \"$APPDATA\"; out=$(timeout 120 \"C:/DevTools/Godot/4.7.1/Godot_v4.7.1-stable_win64_console.exe\" --headless --path \"C:/Yaban/yaban\" --import 2>&1 | grep -iE \"SCRIPT ERROR|Parse Error|ERROR: |Failed to load script\" | head -15); if [ -n \"$out\" ]; then echo \"GODOT IMPORT KAPISI - hata var, duzelt:\"; echo \"$out\"; exit 2; fi; exit 0; }",
+            "command": "python -c \"import json,sys; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path','') or d.get('tool_response',{}).get('filePath',''))\" | { read -r f; case \"$f\" in *.gd|*.tscn|*.tres|*.godot) ;; *) exit 0 ;; esac; f=${f//\\\\//}; d=$(dirname -- \"$f\"); p=\"\"; for i in 1 2 3 4 5 6 7 8; do [ -f \"$d/project.godot\" ] && { p=\"$d\"; break; }; d=$(dirname -- \"$d\"); done; [ -n \"$p\" ] || exit 0; export APPDATA=\"C:/Users/VOLKAG~1/AppData/Local/Temp/claude/godot_hook_appdata\"; mkdir -p \"$APPDATA\"; out=$(timeout 120 \"C:/DevTools/Godot/4.7.1/Godot_v4.7.1-stable_win64_console.exe\" --headless --path \"$p\" --import 2>&1 | grep -iE \"SCRIPT ERROR|Parse Error|ERROR: |Failed to load script\" | head -15); if [ -n \"$out\" ]; then echo \"GODOT IMPORT KAPISI - hata var, duzelt:\"; echo \"$out\"; exit 2; fi; exit 0; }",
             "timeout": 150
           }
         ]
