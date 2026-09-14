@@ -48,37 +48,47 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-**İŞ 1 — Fener prototipi · kod yazıldı, telefonda test edilmedi** (2026-09-14)
+**İŞ 2 — Fener zorluk turu · kod yazıldı, telefonda test edilmedi** (2026-09-14)
+(İŞ 1 raporu git geçmişinde; özü: mekanik çalışıyor, bölüm ızgaraya indirgeniyor.)
 
-**Yapılan:** `oyunlar/fener/proto/` (main.gd, mirror.gd, levels.gd, metin/ceviri.csv).
-720x1280 portre, düz şekiller. Dokununca ayna 45° döner; ışın her karede yeniden
-hesaplanır; tekneye değince parlama fenerden tekneye yayılır + tekne zıplar;
-dokununca sonraki bölüm. Süre/hamle/kaybetme yok. 3 bölüm (2 · 4 · 4 ayna,
-3.'de ışın kendi yolunu kesiyor). Metinler `tr()`, sadece TR sütunu (EN'i Tasarım yazar).
-Eski Kuytu prototip kodu silinmedi, `cop/`'a taşındı (anayasa kuralı).
+**Yapılan:** `oyunlar/fener/proto/`
+- **Kaya** (üç taşlı küme): ışın çarpınca durur
+- **Sabit ayna:** kalın koyu blok + iki vida, halesi yok (döner ayna: ince parlak
+  çizgi + hale + mil). Ayırt etme silüetle, renkle değil. Dokununca titriyor, dönmüyor
+- **45°/90° seçimi:** sağ üstte "Açı 45° / Açı 90°" düğmesi (+ M tuşu). Basınca
+  bölüm baştan kurulur. 90° modunda her dokunuş iki çapraz arasında geçiş
+- **Bölümler ASCII haritaya geçti** (`levels.gd`, 7x12 ızgara): 9 bölüm (eski 3 + yeni 6)
+  4 kaya+sabit ayna tanışma · 5 kayalar yanlış yolu keser · 6 yandan fener ·
+  7 köşeden köşeye · 8 iki kol, biri kayada biter · 9 sekiz ayna, dokuz yansıma,
+  ışın kendini defalarca kesiyor, tekneye götürür gibi görünen yem ayna var
 
-**Bölüm kurma süresi (ölçüm):** kolay ~3 dk · orta ~5 dk · şaşırtan ~10 dk.
-Dürüst not: bu KOD Claude'un süresi, kronometreyle değil tahmini; insan tasarımcı
-için ölçü değil. Asıl bulgu: 45° adımlı aynada ışın hep dik/yatay gider, bölüm
-bir ızgaraya indirgeniyor → elle kurmak ucuz, **üreteç yazmak da kolay görünüyor**
-(tersinden: tekneden fenere yol çiz, köşelere ayna koy).
+**Zorluk (çözücü ölçümü, 90° modu):** bölüm 5-7 = 16-32 kombinasyonda tek çözüm;
+8 = 128'de 4; 9 = 256'da 2 (fark yem aynada, yol tek). "1-2 dk düşündürür mü"
+ölçülemedi, bunu ancak kurucu söyler.
 
-**Test edilen:** `tools/mantik_test.gd` — her bölüm başta çözülmemiş, çözüm
-gerçek dokunma fonksiyonuyla (tap) verilince tekneye ulaşıyor: 3/3 OK.
-`tools/ekran_probe.gd` ile ekran görüntüsü alınıp GÖZLE bakıldı; 3 hata bulunup
-düzeltildi (geri dönen ışın fenerin içinden geçiyordu · kule başlığı örtüyordu ·
-alt yazı kesiliyordu).
+**Bölüm kurma süresi:** 6 yeni bölüm ~15 dk (bölüm başı 2-3 dk), 9. bölüm ~5 dk.
+Tahmin, kronometre yok, KOD Claude süresi. Hızın sebebi ASCII harita + çözücü:
+taslak yaz → çözücü "çözüm yok / 18 çözüm" der → düzelt.
 
-**Test edilmeyen:** telefonda hiç açılmadı; dokunma hissi, parmak isabeti
-(ayna dokunma yarıçapı 70px), kutlamanın canlı akışı, farklı ekran oranları.
+**Tasarım bulgusu:** 45° modunda ayna ışına paralel çevrilince ışık içinden geçiyor.
+Tekne fenerle aynı hizadaysa tek dokunuşla kestirme oluyor (bir taslak 45°'de 18
+çözüm verdi). Kural `levels.gd` başına yazıldı: tekne fenerle aynı hizaya konmaz.
+90° modunda bu kaçak yok, bölümler iki modda da çözülüyor.
 
-**Ders:** import kapısı hook'u sadece `*yaban*` yolunda çalışıyor — fener'de hata
-yakalamıyor, import'u elle koştum (SIRADA 1 ile aynı iş). İlk importta `.translation`
-henüz üretilmediği için 1 kez hata basıyor; ikincide temiz.
+**Test edilen:** `tools/mantik_test.gd` her bölümü iki modda motorun kendisiyle kaba
+kuvvetle çözüyor. Başta çözülmemiş, çözüm var, çözüm dokunarak (tap) veriliyor: 18/18 OK.
+Python çözücüyle sayılar birebir tuttu. Ekran görüntüleri (4, 6, 9; iki mod) GÖZLE
+bakıldı. 1 hata bulundu ve düzeltildi: 9. bölümde kaya teknenin bayrağını örtüyordu.
 
-**Öneri:** (1) 8 yönden 2'si aynı işi görüyor (45°=225°); oyuncu fazla dokunuyor —
-4 adım (sadece iki çapraz + düz) daha tatmin edici olabilir, kurucu hissine bakılsın.
-(2) Bölüm üreteci denemesi ucuz, İŞ olarak düşünülebilir.
+**Test edilmeyen:** telefonda açılmadı; mod düğmesine dokunmanın aynı anda bölümü
+geçirmemesi (kod korumalı, denenmedi), sabit aynanın titremesinin hissi, 70px dokunma
+yarıçapı, 9. bölümün gerçek süresi.
+
+**Ders:** Ayna fiziği tween'li `rotation`'dan değil `step`'ten okunuyor. Titreme
+animasyonu ışını oynatmasın diye (kanonik kaynak dersi).
+
+**Öneri:** Çözücü (`tools/mantik_test.gd` mantığı) bölüm üretecinin yarısı; üreteç
+işi buna dayanabilir.
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-14 · Tek klasör: her şey `C:\Altyapi` içinde; çöp `cop/`'a, zamanı gelince temizlenir
