@@ -76,20 +76,21 @@ func _run() -> void:
 	check(main.tray[1] == p1, "geçersiz bırakma parçayı havuzda bırakır")
 
 	# 7) tıkanma: tahta dolu, hiçbir parça sığmıyor -> en dolu satır temizlenir
+	# dama deseni: yan yana iki boş yok -> ikili parça sığmaz; satır 2 bir fazla dolu
 	main.board.reset()
 	for r in 8:
 		for c in 8:
-			if not (r == 0 and c == 0):
+			if (r + c) % 2 == 1:
 				main.board.cells[r][c] = 1
-	main.board.cells[5][0] = Board.EMPTY  # satır 5 en boş olmasın diye diğerleri eşit; 0 ve 5 yedi dolu
-	var big := [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
+	main.board.cells[2][0] = 1
+	var domino := [Vector2i(0, 0), Vector2i(1, 0)]
 	for i in 3:
 		if main.tray[i] != null:
-			main.tray[i].shape = big
+			main.tray[i].shape = domino
 	check(not main._any_fits(), "kurulum: hiçbir parça sığmıyor")
 	var n: int = main._resolve_stuck()
 	check(main._any_fits(), "tıkanma sonrası en az bir parça sığar")
-	check(n == 1 and main.board.filled_in_row(7) == 0, "en dolu satır (eşitlikte alttaki) temizlendi, %d satır" % n)
+	check(n == 1 and main.board.filled_in_row(2) == 0, "en dolu satır (2) temizlendi, %d satır" % n)
 
 	# 8) kombo: satır + sütun aynı anda
 	main.board.reset()
