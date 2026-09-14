@@ -180,9 +180,58 @@ class Level:
 
 # --- üreteç -------------------------------------------------------------------
 
-def walk(rng, x, y, dx, dy, n_turns, used, first_min):
+def seg_ok(x, y, dx, dy, L, used):
+    """L adımlık parça geçerli mi (walk ile aynı kurallar, yazmadan)."""
+    for k in range(1, L + 1):
+        px, py = x + dx * k, y + dy * k
+        if not inside(px, py):
+            return False
+        u = used.get((px, py))
+        if k == L:
+            if u is not None:
+                return False
+        elif u is not None and not (u in 'hv' and u != ('h' if dx else 'v')):
+            return False
+    return True
+
+
+def seg_write(x, y, dx, dy, L, used):
+    axis = 'h' if dx else 'v'
+    for k in range(1, L):
+        p = (x + dx * k, y + dy * k)
+        used[p] = axis if p not in used else 'hv'
+    used[(x + dx * L, y + dy * L)] = 'X'
+    return x + dx * L, y + dy * L
+
+
+def walk_smart(rng, x, y, dx, dy, n_turns, used, first_min):
+    """walk ile aynı sözleşme; ama sadece geçerli uzunluk/yön arasından seçer
+    (İŞ 4: 8x14'te rastgele yürüyüş %96 boşa gidiyordu)."""
+    turns = []
+    for i in range(n_turns + 1):
+        Ls = [L for L in range(first_min if i == 0 else 1, 6) if seg_ok(x, y, dx, dy, L, used)]
+        if i < n_turns:  # köşeden sonra en az bir yöne 1 adım gidilebilmeli
+            Ls = [L for L in Ls if any(
+                seg_ok(x + dx * L, y + dy * L, ndx, ndy, 1, {**used, (x + dx * L, y + dy * L): 'X'})
+                for ndx, ndy in ((dy, dx), (-dy, -dx)))]
+        if not Ls:
+            return None
+        x, y = seg_write(x, y, dx, dy, rng.choice(Ls), used)
+        if i == n_turns:
+            return turns, (x, y), (dx, dy)
+        opts = [(ndx, ndy) for ndx, ndy in ((dy, dx), (-dy, -dx))
+                if seg_ok(x, y, ndx, ndy, 1, used)]
+        ndx, ndy = rng.choice(opts)
+        turns.append(((x, y), step_for(dx, dy, ndx, ndy)))
+        dx, dy = ndx, ndy
+    return None
+
+
+def walk(rng, x, y, dx, dy, n_turns, used, first_min, smart=False):
     """(x,y)'den (dx,dy) yönüyle n_turns dönüşlü yol; köşeler ve bitiş taze hücre,
-    geçilen hücrede sadece dik kesişme. → (köşeler[(p, adım)], bitiş) ya da None"""
+    geçilen hücrede sadece dik kesişme. → (köşeler[(p, adım)], bitiş, son yön) ya da None"""
+    if smart:
+        return walk_smart(rng, x, y, dx, dy, n_turns, used, first_min)
     turns = []
     for i in range(n_turns + 1):
         L = rng.randint(first_min if i == 0 else 1, 5)
