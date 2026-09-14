@@ -233,10 +233,8 @@ def generate(rng):
         inc = next(((dx, dy) for x, y, dx, dy in trail if (x, y) == pos), None)
         if inc is None:
             continue
-        # trail'de yön, aynadan ÇIKIŞ yönü; gelişi geri çöz
-        wdx, wdy = refl(s, *inc)  # çıkıştan gelişe (yansıma kendi tersidir)
-        other = 3 if s == 1 else 1
-        odx, ody = refl(other, wdx, wdy)
+        # iz, hücreye VARIŞ yönünü tutar; yanlış kol = öteki çaprazdan çıkış
+        odx, ody = refl(3 if s == 1 else 1, *inc)
         cand = []
         x, y = pos
         for k in range(1, 6):
