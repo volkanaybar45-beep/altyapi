@@ -99,7 +99,6 @@ func load_level(i: int) -> void:
 					var m := Mirror.new()
 					m.position = p
 					m.fixed = c == "b" or c == "s"
-					m.inc = 2 if mode90 else 1
 					m.set_step(1 if c == "M" or c == "b" else 3)
 					add_child(m)
 					mirrors.append(m)
