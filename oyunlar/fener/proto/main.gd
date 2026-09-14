@@ -303,16 +303,20 @@ func _ray_circle_t(ro: Vector2, rd: Vector2, c: Vector2, r: float) -> float:
 	return -b - sqrt(disc)
 
 
+## Ekran kenarı. Üstte başlık/Atla şeridinin altında biter (yazının üstünden
+## geçmesin); altta görünen alanın sonuna kadar (20:9'da 1280'den uzun).
+## Izgaranın dışında nesne olmadığından fiziği değiştirmez.
 func _ray_bounds_t(ro: Vector2, rd: Vector2) -> float:
+	var bottom := maxf(SIZE.y, get_viewport_rect().size.y)
 	var t := INF
 	if rd.x > 1e-6:
 		t = minf(t, (SIZE.x - ro.x) / rd.x)
 	elif rd.x < -1e-6:
 		t = minf(t, -ro.x / rd.x)
 	if rd.y > 1e-6:
-		t = minf(t, (SIZE.y - ro.y) / rd.y)
+		t = minf(t, (bottom - ro.y) / rd.y)
 	elif rd.y < -1e-6:
-		t = minf(t, -ro.y / rd.y)
+		t = minf(t, (BEAM_TOP - ro.y) / rd.y)
 	return t
 
 
