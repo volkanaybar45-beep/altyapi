@@ -1,5 +1,6 @@
 extends SceneTree
-## Her bölüm (elle 9 + üretilen 10), 90°: başlangıçta çözülmemiş mi, çözüm var mı?
+## Her bölüm (elle 9 + üretilen 10 + İŞ 4 üretilen 8), 90°: başlangıçta
+## çözülmemiş mi, çözüm var mı? (bölücülü: bütün tekneler ışık almalı)
 ## Bulunan ilk çözüm gerçek dokunma yoluyla (tap) tekrar verilip doğrulanır.
 ## Çalıştır: --headless --path . -s tools/mantik_test.gd
 
