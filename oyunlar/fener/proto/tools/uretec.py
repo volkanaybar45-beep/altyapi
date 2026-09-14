@@ -248,6 +248,18 @@ def generate(rng):
         if cand:
             lv.grid[rng.choice(cand)] = rng.choice('MN')
 
+    # yanlış kolları derinleştir: ölü bir kolun son parçasına yeni yem ayna.
+    # Oyuncu yanlış yolda birkaç karar ilerleyip sonra ölür (max_backtrack ↑)
+    for _ in range(rng.randint(0, 3)):
+        dead = [t for t in lv.solve().get('dead', []) if len(t) >= 2]
+        if not dead:
+            break
+        t = rng.choice(dead)
+        cand = [(x, y) for x, y, _, _ in t[1:]
+                if (x, y) not in used and (x, y) not in lv.grid]
+        if cand:
+            lv.grid[rng.choice(cand)] = rng.choice('MN')
+
     # kestirmeleri kapat: amaçlanan dışındaki her çözüm izine kaya
     path_cells = set(used)
     for _ in range(12):
