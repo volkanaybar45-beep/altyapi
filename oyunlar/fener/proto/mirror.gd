@@ -48,8 +48,8 @@ func reflect(d: Vector2) -> Vector2:
 
 
 func _draw() -> void:
-	# plaka: görünür genişliği ışık doğrusundan biraz uzun
-	var sc := LENGTH * 1.1 / PLATE_BBOX_W
+	# plaka: görünür genişlik ışık doğrusunun %95'i (8x14'te çapraz komşular binmesin)
+	var sc := LENGTH * 0.95 / PLATE_BBOX_W
 	var ps := Vector2(PLATE.get_width(), PLATE.get_height()) * sc
 	if fixed:
 		draw_texture_rect(PLATE, Rect2(-ps / 2.0, ps), false, Color(0.42, 0.44, 0.52))
