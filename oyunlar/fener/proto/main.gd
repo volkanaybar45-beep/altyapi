@@ -211,9 +211,9 @@ func _draw() -> void:
 		_draw_glow()
 
 	# fener: kule + lamba
-	draw_rect(Rect2(fener_pos + Vector2(-22, -120), Vector2(44, 110)), Color(0.35, 0.38, 0.45))
+	draw_rect(Rect2(fener_pos + Vector2(-18, -72), Vector2(36, 62)), Color(0.35, 0.38, 0.45))
 	draw_circle(fener_pos, 40.0, Color(1.0, 0.85, 0.4, 0.2))
-	draw_circle(fener_pos, 24.0, Color(1.0, 0.92, 0.6))
+	draw_circle(fener_pos, FENER_RADIUS, Color(1.0, 0.92, 0.6))
 
 	# tekne
 	var bob := Vector2(0, sin(time * 1.5) * 4.0)
