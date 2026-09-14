@@ -228,7 +228,7 @@ func _place(i: int, p: Piece, at: Vector2i) -> void:
 func _resolve_stuck() -> int:
 	var delay := 0.45
 	var rows_cleared := 0
-	for guard in Board.SIZE:
+	for _guard in Board.SIZE:
 		if _any_fits():
 			break
 		var r := board.most_full_row()
