@@ -368,6 +368,6 @@ func _draw_glow(p: PackedVector2Array) -> void:
 		if left <= 0.0:
 			break
 		var b := p[i + 1] if left >= seg_len else p[i].lerp(p[i + 1], left / seg_len)
-		draw_line(p[i], b, Color(1.0, 0.95, 0.75, 0.35), 44.0 * k)
+		draw_line(p[i], b, Color(1.0, 0.95, 0.75, 0.35), 30.0 * k)
 		draw_line(p[i], b, Color(1, 1, 1), 10.0)
 		left -= seg_len
