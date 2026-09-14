@@ -1,6 +1,8 @@
 extends SceneTree
-## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 1..19> <cozulu 0/1>
-## (10-19 = üretilen 1-10)
+## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 0..27> <cozulu 0/1> [yukseklik] [bekle_sn]
+##   bolum 0 = ana ekran · 10-19 = üretilen (İŞ 3) · 20-27 = üretilen (İŞ 4)
+##   yukseklik: 1280 (9:16) · 1600 (20:9, çoğu güncel telefon). Genişlik hep 720.
+##   bekle_sn: çözüldükten sonra bekleme (0.5 → kutlamanın ortası, 1.5 → sonu)
 ## --headless KULLANMA (GPU render gerekir). Çözüm kaba kuvvetle bulunur.
 
 
@@ -9,23 +11,28 @@ func _initialize() -> void:
 	var out: String = args[0]
 	var lv := int(args[1]) - 1
 	var solved := args.size() > 2 and args[2] == "1"
+	var h := int(args[3]) if args.size() > 3 else 1280
+	var wait := float(args[4]) if args.size() > 4 else 1.5
 	var vp := SubViewport.new()
-	vp.size = Vector2i(720, 1280)
+	vp.size = Vector2i(720, h)
 	vp.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	vp.transparent_bg = false
 	root.add_child(vp)
-	var main = load("res://main.tscn").instantiate()
+	var scene: String = "res://menu.tscn" if lv < 0 else "res://main.tscn"
+	var main = load(scene).instantiate()
 	vp.add_child(main)
 	for _i in 3:
 		await process_frame
-	main.load_level(lv)
-	if solved:
-		var rot: Array = main.mirrors.filter(func(m): return not m.fixed)
-		for k in int(pow(2, rot.size())):
-			for j in rot.size():
-				rot[j].set_step(3 if (k >> j) & 1 else 1)
-			if main.compute_path()["hit"]:
-				break
-		await create_timer(1.5).timeout  # kutlama tween'i bitsin
+	if lv >= 0:
+		main.load_level(lv)
+		if solved:
+			var rot: Array = main.mirrors.filter(func(m): return not m.fixed)
+			for k in int(pow(2, rot.size())):
+				for j in rot.size():
+					rot[j].set_step(3 if (k >> j) & 1 else 1)
+				if main.compute_path()["hit"]:
+					break
+			await create_timer(wait).timeout
 	for _i in 10:
 		await process_frame
 	vp.get_texture().get_image().save_png(out)
