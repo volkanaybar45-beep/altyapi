@@ -27,8 +27,8 @@ func _draw() -> void:
 	for p in paths:
 		if additive:
 			# dar tutuldu: komşu şeritte paralel iki kol tek banda karışmasın
-			_line(p, Color(1.0, 0.8, 0.45, 0.16 + 0.04 * pulse), 44.0 * k)
-			_line(p, Color(1.0, 0.88, 0.6, 0.30), 26.0 * k)
+			_line(p, Color(1.0, 0.8, 0.45, 0.12 + 0.04 * pulse), 34.0 * k)
+			_line(p, Color(1.0, 0.88, 0.6, 0.22), 22.0 * k)
 		else:
 			_line(p, CORE, CORE_W)
 			_line(p, Color(1, 1, 0.95), 5.0)
