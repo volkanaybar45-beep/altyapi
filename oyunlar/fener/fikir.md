@@ -22,6 +22,15 @@ boyunca bir anda yanar, sis açılır, tekne düdük çalıp limana girer.
 - Aranan his: "bunu daha önce görmedim ama nasıl oynandığını hemen anladım"
 - Tema değiştirmek yeni oyun yapmaz — meyve yerine balık koymak sıyrılma değildir
 
+## Gemi çeşitliliği (karar, 2026-09-14)
+**Tek model, çok renk.** Yeni model = Tripo + render + defter; oyuncunun
+gördüğü fark küçük. Renk varyantı koddan (aynı görsel, ton değişimi) bedava.
+- Renk ileride MEKANİK olur: renk filtresi gelince kırmızı tekne kırmızı ışık ister
+- Bölücülü bölümlerde iki tekne renkle ayrılır, ikinci modele gerek yok
+- Çeşitlilik hissini ortam ve mevsimler taşır: aynı tekne, farklı deniz
+- İkinci siluet SADECE oyuncunun ayırt etmesi gereken bir kural doğarsa gelir
+  (örn. büyük gemi iki ışık ister)
+
 ## Referans 2 — yoğun mockup'lar (2026-09-14)
 Kurucu üç ChatGPT mockup'ı getirdi: fotogerçekçi ada, şelale, kasaba, çok
 sayıda ayna, prizma, HUD dolu.
