@@ -16,6 +16,10 @@ Açılış: `C:\Altyapi`'de yeni Claude Code aç, `/kod` yaz.
 - Prob geçse bile ekran görüntüsüne BAK
 - Hata sonrası ders → RAPOR'a yaz, patron ilgili GOREV.md'ye taşır
 
+## Dersler
+- (2026-09-14) Godot import kapısı `--import` ile parse hatası yakalamıyor; `.gd` için `--check-only --script` kullanılır
+- (2026-09-14) Hook'a gelen dosya yolunun sonunda Windows satır sonu (`\r`) olabilir; `tr -d '\r'` ile temizlenmezse uzantı eşleşmesi sessizce başarısız olur ve kapı HİÇ çalışmaz
+
 ## Dersler (Yaban'dan damıtıldı, 2026-09-14)
 - Yeni sabit/kenar payı/koordinat sistemi eklediğinde onu kullanması gereken TÜM yerleri grep'le tara
 - Enum/if-elif zincirine dal eklerken o değeri tüketen her yeri tara; zincirin sonuna açık hata koy (sessiz fallthrough)
