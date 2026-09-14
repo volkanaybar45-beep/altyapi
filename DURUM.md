@@ -143,6 +143,8 @@ fener'de zaten çalışmıyor; import'u elle koştum, temiz.
 yanına koyarsa verim artar.
 
 ## KARARLAR (tarihli, tek satır)
+- 2026-09-14 · Işık bölücü öne alındı (31. bölüm → hemen): kurucu "çok zor değil" dedi, saf ayna+kaya zorluk tavanı düşük
+- 2026-09-14 · Görsel hattı tamam: 5 Tripo varlığı + arka plan + sis + ay, hepsi defterde. Tekne `z` görünümünde render edilir (`x` yanlış), kayalık parlaklık 0.32'ye kısılır
 - 2026-09-14 · **Ayna dönüş adımı 90°, KİLİTLİ** (kurucu onayı). 45° elendi: ışın aynaya paralelken sızıyor, kestirme açıyor; iki modu birden desteklemek her bölümü iki kez tasarlamak demek
 - 2026-09-14 · Tasarım ve yayın planı yazıldı: `oyunlar/fener/tasarim_notlari.md` + `yayin_plani.md` (ChatGPT danışması, patron süzdü)
 - 2026-09-14 · V1'de sadece iki yeni mekanik: ışık bölücü (~31) ve renk filtresi (~41). Fazlası kapsam şişmesi
