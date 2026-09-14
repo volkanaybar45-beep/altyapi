@@ -155,6 +155,8 @@ koymalı. (2) Zor bölümler yansıma tavanına (9) yığılıyor; tablo 3-9 bö
 kol başına sayılabilir.
 
 ## KARARLAR (tarihli, tek satır)
+- 2026-09-14 · Kurucu İŞ 4 bölümlerini oynadı: **"15'ten sonra zorlamaya başladı"** — hedeflenen eğri tutuyor, zorluk ölçeri insan hissiyle ilk kez örtüştü (arama eforu 19-82 vs önceki tur 2-25)
+- 2026-09-14 · Işık bölücü tek teknede birleşen kol olarak DEĞİL, iki tekneli olarak uygulandı (tek teknede kollardan biri boşa gidiyor)
 - 2026-09-14 · Işık bölücü öne alındı (31. bölüm → hemen): kurucu "çok zor değil" dedi, saf ayna+kaya zorluk tavanı düşük
 - 2026-09-14 · Görsel hattı tamam: 5 Tripo varlığı + arka plan + sis + ay, hepsi defterde. Tekne `z` görünümünde render edilir (`x` yanlış), kayalık parlaklık 0.32'ye kısılır
 - 2026-09-14 · **Ayna dönüş adımı 90°, KİLİTLİ** (kurucu onayı). 45° elendi: ışın aynaya paralelken sızıyor, kestirme açıyor; iki modu birden desteklemek her bölümü iki kez tasarlamak demek
