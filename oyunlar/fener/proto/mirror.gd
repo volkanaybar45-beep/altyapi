@@ -29,7 +29,7 @@ func turn() -> void:
 
 
 func segment() -> Array:
-	var half := Vector2(LENGTH * 0.5, 0).rotated(step * PI / 4.0)
+	var half := Vector2(LENGTH * 0.5 * base, 0).rotated(step * PI / 4.0)
 	return [global_position - half, global_position + half]
 
 
