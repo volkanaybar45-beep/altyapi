@@ -134,7 +134,7 @@ func _input(event: InputEvent) -> void:
 ## Havuzdaki bir parçaya basıldıysa sürüklemeye başlar.
 func press(pos: Vector2) -> bool:
 	for i in tray.size():
-		var p: Node2D = tray[i]
+		var p: Piece = tray[i]
 		if p == null:
 			continue
 		if Rect2(_slot_center(i) - TRAY_SLOT / 2.0, TRAY_SLOT).has_point(pos):
