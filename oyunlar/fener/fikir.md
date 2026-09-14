@@ -22,6 +22,26 @@ boyunca bir anda yanar, sis açılır, tekne düdük çalıp limana girer.
 - Aranan his: "bunu daha önce görmedim ama nasıl oynandığını hemen anladım"
 - Tema değiştirmek yeni oyun yapmaz — meyve yerine balık koymak sıyrılma değildir
 
+## Referans 2 — yoğun mockup'lar (2026-09-14)
+Kurucu üç ChatGPT mockup'ı getirdi: fotogerçekçi ada, şelale, kasaba, çok
+sayıda ayna, prizma, HUD dolu.
+
+**ALINMADI, gerekçesiyle:**
+- Yoğunluk ışını öldürüyor. Oyunun kahramanı ışık çizgisi; kalabalık sahnede
+  kayboluyor. Bizim ekran koyu ve boş kalacak ki ışık parlasın
+- Fotogerçekçi üslup tek kişiyle her bölüm için üretilemez (içerik değirmeni)
+- HUD'daki altın, ipucu sayacı, 5 güçlendirici → "para tuzağı yok, zorunlu
+  hiçbir şey yok" sözüne aykırı
+
+**ALINDI:**
+1. **Prizma:** ışığı renklere ayıran nesne. Çekirdeğe yeni sistem yazmadan
+   oturur, bölüm çeşitliliğini katlar
+2. **Çoklu hedef:** "3 tekneyi aynı anda limana al", renk eşleştirmeli
+3. Sis/fırtına havası — zaten merdivende vardı, referans haklılığını gösterdi
+
+**Üslup kararı:** koyu gece · az nesne · sade siluet · **tek parlak şey ışık.**
+Referansın kalabalığı değil, kalabalığın hissi.
+
 ## Çekirdeği genişletme merdiveni (yeni sistem yazmadan)
 Aynı mekanik, artan varyasyon: sis · yağmur · kırık ayna · renkli ışık
 (renk filtresi) · aynı anda iki gemi · hareketli ayna. Her biri yeni kod
