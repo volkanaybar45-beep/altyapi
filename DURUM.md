@@ -119,6 +119,7 @@ animasyonu ışını oynatmasın diye (kanonik kaynak dersi).
 işi buna dayanabilir.
 
 ## KARARLAR (tarihli, tek satır)
+- 2026-09-14 · **Ayna dönüş adımı 90°, KİLİTLİ** (kurucu onayı). 45° elendi: ışın aynaya paralelken sızıyor, kestirme açıyor; iki modu birden desteklemek her bölümü iki kez tasarlamak demek
 - 2026-09-14 · Tasarım ve yayın planı yazıldı: `oyunlar/fener/tasarim_notlari.md` + `yayin_plani.md` (ChatGPT danışması, patron süzdü)
 - 2026-09-14 · V1'de sadece iki yeni mekanik: ışık bölücü (~31) ve renk filtresi (~41). Fazlası kapsam şişmesi
 - 2026-09-14 · İlk sürüm 70 değil **40-45 bölüm**; kalanı güncelleme paketi olarak gelir
