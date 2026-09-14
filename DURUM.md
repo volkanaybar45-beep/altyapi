@@ -7,8 +7,8 @@ Aşama kapılarını tanımla (fikir → prototip → dikey dilim → üretim �
 
 ## SIRADA
 1. Godot araçlarını (import kapısı hook'u, oyun-calistir skill) oyundan bağımsız yap
-3. İlk oyun fikri — araştırma verisinden
-4. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
+2. İlk oyun fikri — araştırma verisinden
+3. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
 _yok_
