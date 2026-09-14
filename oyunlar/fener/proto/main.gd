@@ -220,7 +220,7 @@ func _celebrate() -> void:
 	tw.tween_property(self, "boat_scale", 1.0, 0.25).set_trans(Tween.TRANS_BACK)
 	tw.tween_callback(func():
 		can_continue = true
-		var last := level == Levels.ALL.size() - 1
+		var last := level == all_levels.size() - 1
 		title_label.text = tr("TAMAM")
 		info_label.text = tr("SON") if last else tr("DEVAM"))
 
@@ -230,16 +230,14 @@ func _celebrate() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.pressed:
 		tap(event.position)
-	elif event is InputEventKey and event.pressed and event.keycode == KEY_M:
-		toggle_mode()
 
 
 func tap(pos: Vector2) -> void:
-	if MODE_RECT.has_point(pos):
+	if SKIP_RECT.has_point(pos):
 		return  # düğmenin kendisi halleder
 	if completed:
 		if can_continue:
-			load_level((level + 1) % Levels.ALL.size())
+			skip()
 		return
 	var best = null
 	var best_d := Mirror.TAP_RADIUS
