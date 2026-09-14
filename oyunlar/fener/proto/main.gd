@@ -261,8 +261,14 @@ func _draw() -> void:
 	if glow > 0.0:
 		_draw_glow()
 
-	# fener: kule + lamba
-	draw_rect(Rect2(fener_pos + Vector2(-18, -72), Vector2(36, 62)), Color(0.35, 0.38, 0.45))
+	# kayalık: üç taş
+	for r in rocks:
+		draw_circle(r + Vector2(-12, 8), 26.0, Color(0.24, 0.22, 0.22))
+		draw_circle(r + Vector2(14, 10), 22.0, Color(0.2, 0.19, 0.19))
+		draw_circle(r + Vector2(0, -10), 24.0, Color(0.3, 0.28, 0.27))
+
+	# fener: kule (ışının tersine) + lamba
+	draw_line(fener_pos, fener_pos - fener_dir * 70.0, Color(0.35, 0.38, 0.45), 36.0)
 	draw_circle(fener_pos, 40.0, Color(1.0, 0.85, 0.4, 0.2))
 	draw_circle(fener_pos, FENER_RADIUS, Color(1.0, 0.92, 0.6))
 
