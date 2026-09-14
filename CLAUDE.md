@@ -25,6 +25,22 @@ Bu dosya BİR OYUNA ait değildir; şirketin anayasasıdır. Her şey
 - Kullanıcı bir kararı tekrar ederse o karardır; itirazını bir
   kez söyle, sonra tam olarak isteneni yap
 
+## Güvenlik ve veri politikası
+Oyuncu verisi emanettir; sızdırılırsa geri alınamaz.
+- **Sır koda girmez:** anahtar, parola, imza dosyası, reklam/ağ anahtarı
+  depoya konmaz. `.gitignore`: `*.keystore *.jks .env export_presets.cfg`
+- **Gereksiz veri toplanmaz.** Toplanmayan veri sızmaz. Oyun offline çalışır;
+  ad, e-posta, konum, rehber, cihaz kimliği istenmez
+- **İzin istenmez:** oyunun çalışması için gerekmeyen hiçbir Android izni
+  eklenmez (kamera, konum, rehber, depolama)
+- Kayıt dosyası oyuncunun cihazında kalır; sunucuya gönderilmez
+- Dışarıdan gelen her veri (kayıt dosyası, indirilen içerik) doğrulanır;
+  ham veri koda/komuta çevrilmez
+- Üçüncü taraf SDK (reklam) eklenirse ne topladığı OKUNUR ve `DURUM.md`'ye
+  yazılır. Okunmamış SDK oyuna girmez
+- Mağaza "Veri güvenliği" formu gerçeği yazar; şüphede en dar beyan seçilir
+- Açık bulunursa önce kapatılır, sonra konuşulur
+
 ## Token kuralları
 Token gerçek paradır; ucuz çalışmak da işin parçası.
 - **Her iş bitince `/clear`.** Rapor `DURUM.md`'ye yazıldıysa geçmiş yüktür.
