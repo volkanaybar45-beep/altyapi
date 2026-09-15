@@ -24,6 +24,7 @@ const ROCK_W := 0.95          # engel kayası genişliği → boy 0.75 hücre
 const ROCK_CUT := 420.0
 const ROCK_AX := 255.5
 const GAP := 0.4      # tekne ile komşusu arasına eklenen boşluk
+const GAP_MM := 0.3   # İŞ 12: üst üste iki ayna arası (ayna yığını 1.28 hücre)
 ## Ekran yerleşimi (E1): 9:16'da hücre ≥ 60, fener ≥ 80 px
 const INFO_H := 80.0          # altta "bitti" yazısı şeridi
 const UNITS_MAX := 12.9       # en uzun ızgara (hücre, üst 0.5 + alt 0.6 pay dahil)
