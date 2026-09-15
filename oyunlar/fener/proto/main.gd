@@ -146,11 +146,21 @@ func load_level(i: int) -> void:
 	# uzun telefonda (20:9) görünen yükseklik 1280'den fazla: fazlası oyun alanına
 	var vis_h := maxf(SIZE.y, get_viewport_rect().size.y)
 	var span := PLAY_SPAN + (vis_h - SIZE.y)
+	# dikeyde DOLU satırlar ortalanır (haritaların alt satırları çoğu kez boş);
+	# üst/alt pay: nesnenin yarısı, kule lambadan 1.6 hücre aşağı iner
+	var top := INF
+	var bot := -INF
+	for y in h:
+		for x in w:
+			var ch := (rows[y] as String)[x]
+			if ch != ".":
+				top = minf(top, ys[y] - 0.6)
+				bot = maxf(bot, ys[y] + (1.6 if ch == "F" else 0.6))
 	# hücre: genişliğe (kenarda yarım hücre pay) ve oyun alanı yüksekliğine sığan en büyük
-	cell = minf(SIZE.x / (xs[w - 1] + 2.0), span / ys[h - 1])
+	cell = minf(SIZE.x / (xs[w - 1] + 2.0), span / (bot - top))
 	k = cell / 90.0
-	# ızgara yatayda ve oyun alanında dikeyde ortalı
-	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, PLAY_TOP + (span - ys[h - 1] * cell) / 2.0)
+	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0,
+		PLAY_TOP + (span - (bot - top) * cell) / 2.0 - top * cell)
 	info_label.position.y = vis_h - 80.0
 	for y in h:
 		var row: String = rows[y]
