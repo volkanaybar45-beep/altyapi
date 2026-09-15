@@ -227,7 +227,7 @@ reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 **Kontrast — tekne gövdesi / zemin** (canlı deniz, shader açık, 720×1600 ekran görüntüsünden)
 - Medyan deniz **5.8** · en açık sis bandı (%99) **3.6** · ufuk bandı: gövde artık hep ufkun
-  altında; ufuk altındaki deniz en açık luminans 0.019 → **≥5.8** ✓ (İŞ 6'da 1.3)
+  altında; ufuk altındaki deniz en açık luminans 0.019 → **~5.0** ✓ (İŞ 6'da 1.3)
 
 **Kare hızı (PC, 720×1600, en kalabalık bölüm 26, dikey eşitleme kapalı):** su katmanları
 açık **148 fps / 6.8 ms**, kapalı **187 fps / 5.3 ms** → su katmanları ~1.4 ms/kare.
