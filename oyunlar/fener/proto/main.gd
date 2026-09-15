@@ -248,7 +248,9 @@ func _place_moon() -> void:
 	arka.moon_size = sz
 	for x in [600.0, 460.0, 320.0]:
 		var cand := Vector2(x, y)
-		if objs.all(func(p): return p.distance_to(cand) > r):
+		# ay yolu teknenin altından geçmesin (tekne/zemin kontrastı düşer)
+		var free_col: bool = boats.all(func(b): return absf(b.x - x) > cell * 0.9 + 45.0)
+		if free_col and objs.all(func(p): return p.distance_to(cand) > r):
 			arka.moon_pos = cand
 			arka.show_moon = true
 			return
