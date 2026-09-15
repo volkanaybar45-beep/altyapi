@@ -17,7 +17,7 @@ const BOAT_W := 1.7    # tekne genişliği (İŞ 5'te 1.25; en net okunan nesne)
 const TOWER_H := 2.0   # kule yüksekliği (İŞ 5'te 1.25; sahnenin sahibi)
 ## Suya oturma (İŞ 7), görsel piksel satırları (512'lik tuval):
 const TOWER_FOOT := 497.0   # fener_kulesi.png dibi
-const ISLET_W := 1.0        # kule adacığı (kayalik.png) genişliği, hücre
+const ISLET_W := 1.3        # kule adacığı (kayalik.png) genişliği, hücre
 const ISLET_ANCHOR := Vector2(256, 240)  # kayalık görselinde kule dibinin oturduğu nokta
 const ISLET_CUT := 325.0    # adacık bu satırda suya girer (altı çizilmez)
 const ROCK_CUT := 318.0     # engel kaya: yarı batık (bbox 99-413)
