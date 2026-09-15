@@ -18,6 +18,31 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
+**İŞ 10 — Diyorama çerçevesi + fener kaynağı üstte + yeni aynalar** (2026-09-15)
+Kurucu Tripo'da liman diyoraması ürettirdi, patron 4 modeli render edip baktı.
+Seçilen: `coastal village 3d model (1)` (aydınlatma kapalı + PBR) — sıcak lambalar,
+suda pişmiş yansıma. Kadraj: **yaw −40°, pitch 30°**.
+Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
+
+1. **Arka plan katmanı diyorama olsun:** köy + kayalık + fener üstte, iskele sol
+   kenarda; alt üçte iki açık deniz. Deniz İŞ 7'deki shader'la kalır (dalga,
+   ay yolu, yansıma). Diyorama tek PNG levha — çalışma anında 3D yok
+2. **KARAR (A): ışık kaynağı diyoramanın kendi feneridir.** Ayrı kule nesnesi
+   KALDIRILIR (ekranda iki fener olmaz). Işın gerçekten o kulenin lamba
+   odasından çıkar; lamba odası ışın çıkışıyla hizalanır
+3. Bunun sonucu: **kaynak konumu üstte sabit.** Üreteç ve çözücü buna göre
+   güncellenir; ızgara diyoramanın altındaki açık denize oturur.
+   Üretilen bölümler yeniden doğrulanır (çözülemeyen varsa RAPOR'a yaz)
+4. **Aynalar yeniden tasarlanır:** ChatGPT mockup'ındaki pirinç/altın gövdeli,
+   yuvarlak taban üstünde duran, cam yüzeyli ayna. Kurucu onayladı.
+   Görsel Tripo'dan gelecek (Sanat), KOD gelince bağlar. 4 yön render
+5. Işın rengi ve kalınlığı diyoramanın sıcak lamba ışığıyla uyumlu kalsın
+6. Ekran görüntüsü: 3 bölüm, gerçek telefon oranı, GÖZLE BAK
+7. RAPOR: kaynak sabitlenince kaç üretilmiş bölüm elendi, kare hızı
+
+Kapsam dışı: altın/ipucu ekonomisi, günlük görev, koleksiyon, mektup kutusu,
+yeni mini oyunlar (cam silme, iskele dizme) — hepsi V1 dışı, SIRADA'ya yazıldı.
+
 **İŞ 9 — Tekne canlansın, karşılık versin** (2026-09-15)
 Kurucu: "gemi çok yapmacık, aşağıda duruyor; ışığı bulunca o da ışık yakarak,
 korna çalarak karşılık verse." Teşhis: tekne ölü — suya ait değil, tepki vermiyor.
