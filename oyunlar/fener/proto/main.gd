@@ -30,8 +30,8 @@ const LevelsGen := preload("res://levels_uretilen.gd")  # tools/uretec.py yazar 
 const LevelsGen4 := preload("res://levels_uretilen_4.gd")  # tools/uretec.py ... is4
 
 const SIZE := Vector2(720, 1280)
-const PLAY_TOP := 78.0      # oyun alanının üst kenarı (nesnelerin tepesi; başlık şeridi altı)
-const PLAY_SPAN := 1110.0   # 9:16'da oyun alanı yüksekliği (alt kenar "Devam" yazısının üstü)
+const PLAY_TOP := 140.0     # oyun alanının üst kenarı; üstü gök şeridi (ay burada)
+const PLAY_SPAN := 1048.0   # 9:16'da oyun alanı yüksekliği (alt kenar "Devam" yazısının üstü)
 const MAX_SEGMENTS := 80    # bütün kollar toplamı (sonsuz döngü koruması)
 const BOAT_RADIUS := 42.0
 const FENER_RADIUS := 24.0
