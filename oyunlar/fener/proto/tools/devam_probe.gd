@@ -61,6 +61,16 @@ func _initialize() -> void:
 	ses.set_sfx(true)
 	ses.set_ambient(true)
 	ok = ok and r4 and r5
+	# 4b) ses gerçekten çalıyor mu (pencereli koşuda gerçek ses sürücüsü)
+	var amb: Array = ses._ambient
+	var p0: float = amb[0].get_playback_position()
+	await create_timer(1.0).timeout
+	var r7: bool = amb[0].playing and amb[1].playing and amb[0].get_playback_position() != p0
+	ses.play("ayna")
+	await process_frame
+	var r8: bool = ses._voices.any(func(v): return v.playing)
+	print("ortam caliyor: ", "OK" if r7 else "HATA", " (", AudioServer.get_driver_name(), ") · efekt caliyor: ", "OK" if r8 else "HATA")
+	ok = ok and r7 and r8
 	# 5) eksik dosya
 	var r6: bool = ses._load("res://sesler/yok.ogg") == null
 	ses.play("olmayan_anahtar")
