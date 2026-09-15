@@ -562,8 +562,9 @@ func tap(pos: Vector2) -> void:
 	if SKIP_RECT.has_point(pos):
 		return  # düğmenin kendisi halleder
 	if completed:
-		if can_continue:
-			skip()
+		_advance()  # beklemeden geç
+		return
+	if transitioning:
 		return
 	var best = null
 	var best_d := Mirror.TAP_RADIUS
