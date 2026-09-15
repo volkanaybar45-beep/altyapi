@@ -32,7 +32,7 @@ void fragment() {
 	uv.y += sea * sin(uv.x * 24.0 + TIME * 0.5 + uv.y * 90.0) * 0.0010;
 	vec4 c = texture(TEXTURE, uv);
 	float band = sin(uv.y * 190.0 / (depth * 3.5 + 0.2) - TIME * 0.6 + sin(uv.x * 7.0 + TIME * 0.25) * 2.2);
-	c.rgb += sea * smoothstep(0.88, 1.0, band) * 0.028 * vec3(0.55, 0.72, 1.0);
+	c.rgb += sea * smoothstep(0.88, 1.0, band) * 0.018 * vec3(0.55, 0.72, 1.0);
 	COLOR = c;
 }"
 
