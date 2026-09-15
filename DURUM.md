@@ -379,6 +379,7 @@ geliyor ("No stderr output"): hook hatayı stdout'a yazıyor, Claude Code stderr
 
 ## KARARLAR (tarihli, tek satır)
 - 2026-09-15 · **İlk dış test (arkadaş, telefonda):** zorluk TAMAM — "bir tık zor" ama geçene kadar denedi, bırakmadı. Görsel ZAYIF: "dümdüz, kule havada, kaya havada, deniz sabit, ay sabit, parlamıyor, ışık/ayna sıradan". Teşhis: nesneler suya basmıyor + hiçbir şey kıpırdamıyor → İŞ 7
+- 2026-09-15 · Dış testçi ikinci bakış: "görseller daha iyi olmuş, daha da iyi olabilir" — yön doğru, tavan uzak. Sıçrama İŞ 7'den (hareket + derinlik) beklenecek
 - 2026-09-15 · APK alındı ve telefonda çalıştı (dış testçi oynadı). Aşama 3 dikey dilim sürüyor
 - 2026-09-15 · `export_presets.cfg` git dışı bırakıldı (`.gitignore` + `git rm --cached`, commit 21e7021). Anayasa kuralıydı, ihlal duruyordu. Godot ayarları tek makinede; yeni klonda export ayarı elle girilir
 - 2026-09-15 · İŞ 6 görselleri geçti (kurucu ekran görüntüsüne baktı). Kalan tek görsel sorun: **tekne ufuktaki açık bandın üstünde kayboluyor (kontrast 1.3)** — bölüm 16
