@@ -49,7 +49,7 @@ func _draw() -> void:
 		var it: Dictionary = items[i]
 		if it.get("ring", true):
 			_rings(it["center"].x, it["wl"], it["rw"], t, i)
-	_glints(owner_main.paths, t, k)
+	_glints(owner_main.paths, t, k, owner_main.arka.horizon_screen_y())
 
 
 ## Su hattına (wl) göre dikey aynalanmış çizim. Döndürülmüş nesne (ayna
