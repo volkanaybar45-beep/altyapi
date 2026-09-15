@@ -515,11 +515,7 @@ func compute_path() -> Dictionary:
 					best_m = null
 					kind = "split"
 					idx = j
-			var tf := _ray_circle_t(pos, dir, fener_pos, FENER_RADIUS)
-			if tf > EPS and tf < best_t:  # geri dönen ışın fenerde durur
-				best_t = tf
-				best_m = null
-				kind = ""
+			# İŞ 11: kaynak ızgaranın üstünde; F hücresi boş su, ışın geçer (uretec.py ile aynı)
 			for r in rocks:
 				var t_rock := _ray_circle_t(pos, dir, r, ROCK_RADIUS * k)
 				if t_rock > EPS and t_rock < best_t:
