@@ -292,7 +292,8 @@ reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 - `ortam_deniz`: 132 sn / 4.2 MB mp3 → **45 sn döngü, mono OGG, 366 KB** (çapraz geçişle dikişsiz)
 - `ortam_ruzgar`: 8 sn mp3 → 6.2 sn döngü, mono OGG, 42 KB
 - 4 efekt mp3 olduğu gibi (11 + 184 + 66 + 34 KB)
-- **APK'ya giren ses: ~0.74 MB** (Godot import çıktısı ölçüldü). Ham hali kopyalansaydı ~4.8 MB
+- `tekne_korna.mp3` (İŞ 9) olduğu gibi, 77 KB
+- **APK'ya giren ses: ~0.82 MB** (Godot import çıktısı ölçüldü). Ham hali kopyalansaydı ~4.9 MB
 - Defter: `sesler/kayit.md`'ye sayfa linki, lisans, ham/oyundaki süre, işlem eklendi; `proto/sesler/kayit.md` işaret
   dosyası. **Linkler dosya adından kuruldu, tarayıcıda açılıp doğrulanmadı**
 
