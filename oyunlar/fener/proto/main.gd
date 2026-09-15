@@ -419,6 +419,12 @@ func _spacing(rows: Array) -> Array:
 func _process(delta: float) -> void:
 	time += delta
 	update_ray()
+	for j in boats.size():
+		# karşılık ~1.4 sn'de tamamlanır; ışık kaybolursa ~0.8 sn'de geri döner
+		var up := lit.has(j)
+		boat_resp[j] = move_toward(boat_resp[j], 1.0 if up else 0.0, delta / (1.4 if up else 0.8))
+		boat_flash[j] = maxf(0.0, boat_flash[j] - delta * 1.6)
+		_horn_cd[j] = maxf(0.0, _horn_cd[j] - delta)
 	if hit and not completed:
 		_celebrate()
 	queue_redraw()
