@@ -732,46 +732,42 @@ func tap(pos: Vector2) -> void:
 
 
 # --- çizim -------------------------------------------------------------------
-# Işın ayrı katmanlarda (isin_katmani.gd). Burada: kaya, bölücü, fener, tekne.
+# Işın ayrı katmanlarda (isin_katmani.gd). Nesneler `objects` altında, her biri
+# kendi düğümünde (y'ye göre sıralı). Fener ızgarada yok: diyoramanın kendisi (K2).
+# Her sprite'ın alt ortası hücrenin su noktasında (G3), satır ölçeği G2.
 
-func _draw() -> void:
-	# kayalık: yarı batık — ROCK_CUT satırının altı suyun içinde, çizilmez
-	var rs := cell * 1.1 / 490.0  # görünür genişlik 1.1 hücre (bbox 490)
-	for r in rocks:
-		draw_texture_rect_region(ROCK, Rect2(r - Vector2(256, 256) * rs, Vector2(512, ROCK_CUT) * rs),
-			Rect2(0, 0, 512, ROCK_CUT))
+## Engel kayası (sivri tepeli): WP'ye oturur, ROCK_CUT altı suda.
+func _draw_rock(n: Node2D) -> void:
+	var f := _rock_f(n.position)
+	var wp := Vector2(0, WP * cell)
+	n.draw_texture_rect_region(ROCK, Rect2(wp - Vector2(ROCK_AX, ROCK_CUT) * f, Vector2(512, ROCK_CUT) * f),
+		Rect2(0, 0, 512, ROCK_CUT))
 
-	# bölücü: elmas prizma (ayna plakası, kaya ve sabit kıskaçla karışmasın)
-	for sp in splitters:
-		var r := SPLIT_RADIUS * k * 1.15
-		var dia := PackedVector2Array([sp + Vector2(0, -r), sp + Vector2(r, 0),
-			sp + Vector2(0, r), sp + Vector2(-r, 0)])
-		draw_colored_polygon(dia, Color(0.55, 0.85, 0.95, 0.9))
-		dia.append(dia[0])
-		draw_polyline(dia, Color(0.9, 0.98, 1.0), 3.0)
-		draw_line(sp + Vector2(-r, 0) * 0.5, sp + Vector2(r, 0) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
-		draw_line(sp + Vector2(0, -r) * 0.5, sp + Vector2(0, r) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 
-	# fener: lamba odası ışının çıktığı hücre merkezinde, kule hep dik ve büyük
-	# (gövdesi alttaki hücrelere iner; _spacing çakışmayı önler). Parıltı: _draw_glows
-	# kule bir kayalık adacığın üstünde durur (adacığın altı suda)
-	var isl := _islet_geom()
-	var is_s: float = isl[1]
-	draw_texture_rect_region(ROCK, Rect2(isl[0] - ISLET_ANCHOR * is_s, Vector2(512, ISLET_CUT) * is_s),
-		Rect2(0, 0, 512, ISLET_CUT))
-	var ts := cell * TOWER_H / 490.0
-	draw_texture_rect(TOWER, Rect2(fener_pos - TOWER_LAMP * ts, Vector2(TOWER.get_width(), TOWER.get_height()) * ts), false)
+## Bölücü: elmas prizma (ayna, kaya ve sabit kilitle karışmasın).
+func _draw_splitter(n: Node2D) -> void:
+	var r := SPLIT_RADIUS * k * 1.15
+	var dia := PackedVector2Array([Vector2(0, -r), Vector2(r, 0), Vector2(0, r), Vector2(-r, 0)])
+	n.draw_colored_polygon(dia, Color(0.55, 0.85, 0.95, 0.9))
+	dia.append(dia[0])
+	n.draw_polyline(dia, Color(0.9, 0.98, 1.0), 3.0)
+	n.draw_line(Vector2(-r, 0) * 0.5, Vector2(r, 0) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
+	n.draw_line(Vector2(0, -r) * 0.5, Vector2(0, r) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 
-	# tekneler: bekleyen sakin yalpalar, feneri sönük; ışık alan sıcak renge
-	# bürünür, feneri parlar, ışığa doğru süzülür (_boat_pose). Gövdenin altı suda
-	var bsc := _boat_scale_px()
-	for j in boats.size():
-		var pose := _boat_pose(j)
-		var e := _ease(boat_resp[j])
-		var tint := Color(1, 1, 1).lerp(Color(1.16, 1.06, 0.9), e)
-		draw_set_transform(pose[0], pose[1], Vector2.ONE)
-		draw_texture_rect_region(BOAT, Rect2(Vector2(-256, -256) * bsc, Vector2(512, BOAT_CUT) * bsc),
-			Rect2(0, 0, 512, BOAT_CUT), tint)
-		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-		var lc := Color(0.75, 0.68, 0.5).lerp(Color(1.0, 0.95, 0.72), maxf(e, boat_flash[j]))
-		draw_circle(_lantern_at(j), 5.0 * k, lc)
+
+## Tekne: bekleyen sakin yalpalar, feneri sönük; ışık alan sıcak renge bürünür,
+## feneri parlar, ışığa doğru süzülür (_boat_pose). Alt ortası su noktasında.
+func _draw_boat(j: int, n: Node2D) -> void:
+	if j >= boats.size():
+		return
+	var pose := _boat_pose(j)
+	var f := _boat_f(boats[j])
+	var e := _ease(boat_resp[j])
+	var tint := Color(1, 1, 1).lerp(Color(1.16, 1.06, 0.9), e)
+	n.draw_set_transform(pose[0] - n.position, pose[1], Vector2.ONE)
+	var wp := Vector2(0, WP * cell)
+	n.draw_texture_rect_region(BOAT, Rect2(wp - Vector2(BOAT_AX, BOAT_CUT) * f, Vector2(512, BOAT_CUT) * f),
+		Rect2(0, 0, 512, BOAT_CUT), tint)
+	n.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	var lc := Color(0.75, 0.68, 0.5).lerp(Color(1.0, 0.95, 0.72), maxf(e, boat_flash[j]))
+	n.draw_circle(_lantern_at(j) - n.position, 3.5 * k, lc)
