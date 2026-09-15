@@ -20,6 +20,10 @@ import random
 import sys
 
 W, H = 7, 12  # İŞ 4 modunda 8x14
+# İŞ 11: kaynak ızgaranın ÜSTÜNDE (diyorama feneri); F hücresi boş su, ışın geçer.
+# Kaynak hep üst satır, yön aşağı; sütun TOP_COLS içinden (levha ±2 hücre kayar).
+TOP_SOURCE = False
+TOP_COLS = range(1, 6)
 DIRS = {'D': (0, 1), 'U': (0, -1), 'L': (-1, 0), 'R': (1, 0)}
 
 
@@ -79,7 +83,7 @@ class Level:
                 c = self.grid.get((x, y), '.')
                 if c == 'T':
                     lit.add((x, y)); break
-                if c in 'RF':
+                if c == 'R' or (c == 'F' and not TOP_SOURCE):
                     break
                 if c == 'Y':
                     stack.append((x, y, dy, dx)); stack.append((x, y, -dy, -dx)); break
@@ -111,7 +115,7 @@ class Level:
                     c = self.grid.get((x, y), '.')
                     if c == 'T':
                         lit = lit | {(x, y)}; break
-                    if c in 'RF':
+                    if c == 'R' or (c == 'F' and not TOP_SOURCE):
                         deaths.append(trail[since:]); break
                     if c == 'Y':
                         n = len(trail)
@@ -267,8 +271,11 @@ def walk(rng, x, y, dx, dy, n_turns, used, first_min, smart=False):
 def make_path(rng, turns_rng, split, smart=False):
     """Fenerden tekne(ler)e güzel bir ışık yolu. split: gövde → bölücü → iki kol
     → iki tekne. → (fener, yon, köşeler, bölücü|None, tekneler, geçilen)"""
-    fx, fy = rng.randrange(W), rng.randrange(H)
-    yon = rng.choice('DULR')
+    if TOP_SOURCE:
+        fx, fy, yon = rng.choice(list(TOP_COLS)), 0, 'D'
+    else:
+        fx, fy = rng.randrange(W), rng.randrange(H)
+        yon = rng.choice('DULR')
     dx, dy = DIRS[yon]
     used = {(fx, fy): 'X'}
     if not split:
@@ -569,6 +576,60 @@ def main_is4(tries, seed):
     print('seçilen %d:' % len(items))
     for n, (lv, m, s, ad) in enumerate(items, 1):
         print(line('Z%d' % n, ad, s, m))
+
+
+def main_is11(tries, seed):
+    """İŞ 11: 7x12, kaynak üst satırda / aşağı, sütun 1-5. Filtre ve zor eşiği
+    İŞ 3-4 ile aynı. Seçim: 10 orta + 10 zor (bölücülü dahil), sütun başına en
+    çok 4, birbirine benzemez. Kolay 5 = levels.gd'deki elle bölümler."""
+    global TOP_SOURCE
+    TOP_SOURCE = True
+    rng = random.Random(seed)
+    plain = run_pool(rng, tries // 2, lambda: {'turns_rng': (4, 9), 'wrong_p': 0.9, 'smart': True}, 'bölücüsüz')
+    split = run_pool(rng, tries // 2, lambda: {'split': True, 'wrong_p': 0.9, 'smart': True}, 'bölücülü')
+    pool = plain + split
+    sc = scores(pool)
+    is_split = lambda i: i >= len(plain)
+    col = lambda i: pool[i][0].fener[0]
+    chosen, cols = [], {}
+
+    def take(cands, n, label, need_split=0):
+        got, nsplit = [], 0
+        for phase in ((True, False) if need_split else (None,)):
+            for i in cands:
+                if len(got) == n or (phase is True and nsplit >= need_split):
+                    break
+                if phase is True and not is_split(i):
+                    continue
+                if i in [c for c, _ in chosen] or i in got or cols.get(col(i), 0) >= 4:
+                    continue
+                sig = signature(pool[i][0])
+                if any(len(sig & signature(pool[j][0])) / max(1, len(sig | signature(pool[j][0]))) > 0.4
+                       for j in got + [c for c, _ in chosen]):
+                    continue
+                got.append(i)
+                cols[col(i)] = cols.get(col(i), 0) + 1
+                nsplit += is_split(i)
+        chosen.extend((i, label) for i in got)
+        return len(got)
+
+    hard_ok = sorted([i for i in range(len(pool)) if not hard(pool[i][1])], key=lambda i: -sc[i])
+    print('zor eşiğini geçen: %d (bölücülü %d)' % (len(hard_ok), sum(map(is_split, hard_ok))))
+    n_zor = take(hard_ok, 10, 'zor', need_split=3)
+    rest = sorted([i for i in range(len(pool)) if i not in hard_ok], key=lambda i: sc[i])
+    mid = rest[len(rest) // 3: 2 * len(rest) // 3 + 1] or rest
+    step = max(1, len(mid) // 10)
+    n_orta = take(mid[::step] + mid, 10, 'orta', need_split=2)
+    print('seçilen: orta %d · zor %d' % (n_orta, n_zor))
+    chosen.sort(key=lambda t: sc[t[0]])
+    items = [(pool[i][0], pool[i][1], sc[i], ad) for i, ad in chosen]
+    write_gd('levels_uretilen_11.gd', items, 'python tools/uretec.py %d %d is11' % (tries, seed))
+    for n, (lv, m, s, ad) in enumerate(items, 1):
+        print(line('K%d' % n, ad, s, m) + ' sütun=%d bölücü=%s' % (lv.fener[0], lv.has_split()))
+    dist = {}
+    for lv, *_ in items:
+        dist[lv.fener[0]] = dist.get(lv.fener[0], 0) + 1
+    print('kaynak sütunu dağılımı:', dict(sorted(dist.items())))
 
 
 if __name__ == '__main__':
