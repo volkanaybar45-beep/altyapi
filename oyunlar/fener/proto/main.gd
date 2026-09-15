@@ -480,24 +480,16 @@ func _draw() -> void:
 		draw_line(sp + Vector2(-r, 0) * 0.5, sp + Vector2(r, 0) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 		draw_line(sp + Vector2(0, -r) * 0.5, sp + Vector2(0, r) * 0.5, Color(0.2, 0.35, 0.45), 3.0)
 
-	# fener: lamba odası ışının çıktığı hücre merkezinde, kule hep dik
-	var ts := cell * 1.25 / 490.0  # kule görünür yüksekliği 1.25 hücre
+	# fener: lamba odası ışının çıktığı hücre merkezinde, kule hep dik ve büyük
+	# (gövdesi alttaki hücrelere iner; _spacing çakışmayı önler). Parıltı: _draw_glows
+	var ts := cell * TOWER_H / 490.0
 	draw_texture_rect(TOWER, Rect2(fener_pos - TOWER_LAMP * ts, Vector2(TOWER.get_width(), TOWER.get_height()) * ts), false)
-	draw_circle(fener_pos, 30.0 * k, Color(1.0, 0.9, 0.6, 0.25))
 
-	# tekneler: ışık alan, bölüm bitmeden de parlar (iki kolda hangisi vardı görünsün)
-	var bob := Vector2(0, sin(time * 1.5) * 3.0)
+	# tekneler: hale yok; tekne feneri hep yanar (_draw_glows)
+	var bob := _bob()
 	var bsc := _boat_scale_px() * boat_scale
 	for j in boats.size():
 		var c: Vector2 = boats[j] + bob
-		var on := lit.has(j)
-		if on:
-			draw_circle(c, BOAT_RADIUS * k * 1.3, Color(1.0, 0.9, 0.55, 0.14))
 		var sz := Vector2(BOAT.get_width(), BOAT.get_height()) * bsc
 		draw_texture_rect(BOAT, Rect2(c - sz / 2.0, sz), false)
-		# tekne feneri: ışık alınca yanar, tamamlanınca iyice parlar
-		var lp := c + (BOAT_LANTERN - Vector2(256, 256)) * bsc
-		var a := (0.35 if on else 0.0) + 0.45 * lantern
-		if a > 0.0:
-			draw_circle(lp, 22.0 * k * (1.0 + lantern), Color(1.0, 0.85, 0.45, a * 0.35))
-			draw_circle(lp, 7.0 * k, Color(1.0, 0.95, 0.75, a))
+		draw_circle(_lantern_pos(c, bsc), 5.0 * k, Color(1.0, 0.95, 0.72))
