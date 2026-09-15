@@ -357,82 +357,77 @@ func _zeros(n: int, v) -> Array:
 	return a
 
 
-## Ay ufkun üstündeki gökte, başlık şeridinin altında; boyu gök yüksekliğine
-## göre. Kule tepesi ya da ufku aşan nesneyle çakışırsa sıradaki x denenir,
-## hepsi doluysa ay o bölümde çizilmez.
+## Ay gökte (ufkun üstü): başlık/Atla şeridine ve diyoramaya en az binen aday.
 func _place_moon() -> void:
-	var hy: float = arka.horizon_y
-	var sz := clampf((hy - 72.0) * 0.8, 44.0, Arka.MOON_SIZE)
-	var y := (68.0 + hy) * 0.5
-	var r := sz * 0.5 + cell * 0.45
-	var objs: Array = boats + rocks + splitters
-	for m in mirrors:
-		objs.append(m.position)
-	for i in 5:  # kule gövdesi lambanın biraz üstünden aşağı iner
-		objs.append(fener_pos + Vector2(0, cell * (0.4 * i - 0.3)))
+	var hy: float = arka.horizon_y()
+	var sz := clampf(hy * 0.62, 50.0, 110.0)
 	arka.moon_size = sz
-	for x in [600.0, 460.0, 320.0]:
-		var cand := Vector2(x, y)
-		# ay yolu teknenin altından geçmesin (tekne/zemin kontrastı düşer)
-		var free_col: bool = boats.all(func(b): return absf(b.x - x) > cell * 0.9 + 45.0)
-		if free_col and objs.all(func(p): return p.distance_to(cand) > r):
-			arka.moon_pos = cand
-			arka.show_moon = true
-			return
-	arka.show_moon = false
+	var ui := [Rect2(0, 0, 400, 64), SKIP_RECT.grow(6)]
+	var best := INF
+	for c in [Vector2(630, 0.55), Vector2(90, 0.55), Vector2(470, 0.5), Vector2(250, 0.5)]:
+		var p := Vector2(c.x, maxf(sz * 0.5 + 4.0, hy * c.y))
+		var r := Rect2(p - Vector2.ONE * sz / 2.0, Vector2.ONE * sz)
+		var cost := 0.0
+		for u in ui:
+			cost += r.intersection(u).get_area() / r.get_area() * 3.0
+		for gx in 5:
+			for gy in 5:
+				if arka.dio_opaque(r.position + r.size * Vector2(gx + 0.5, gy + 0.5) / 5.0):
+					cost += 1.0 / 25.0
+		if cost < best:
+			best = cost
+			arka.moon_pos = p
+	arka.show_moon = best < 0.6  # yarıdan çoğu örtülüyorsa hiç çizme
 
 
-## Suya oturan her nesne için: su hattı (wl), dip halkası yarıçapı (rw) ve
-## yansıması çizilecekse doku + (center'a göre) dikdörtgen [+ açı, kaynak bölge].
-## Çizimle (_draw) aynı ölçüler; su_katmani.gd okur.
+## Suya oturan her nesne için: su hattı (wl = su noktası), dip halkası (rw) ve
+## yansıma parçaları. Parça dikdörtgenleri center'a göre (+ açı, kaynak bölge).
+## Çizimle aynı ölçüler; su_katmani.gd okur (G3: yansıma su noktasından).
 func water_items() -> Array:
 	var out: Array = []
-	var ts := cell * TOWER_H / 490.0
-	var isl := _islet_geom()
-	out.append({"center": isl[0], "wl": isl[2], "rw": cell * 0.62, "tex": ROCK,
-		"rect": Rect2(-ISLET_ANCHOR * isl[1], Vector2(512, ISLET_CUT) * isl[1]),
-		"region": Rect2(0, 0, 512, ISLET_CUT)})
-	out.append({"center": fener_pos, "wl": isl[2], "rw": 0.0, "ring": false, "tex": TOWER,
-		"rect": Rect2(-TOWER_LAMP * ts, Vector2(512, 512) * ts)})
-	var rs := cell * 1.1 / 490.0
 	for r in rocks:
-		out.append({"center": r, "wl": r.y + (ROCK_CUT - 256) * rs, "rw": cell * 0.55, "tex": ROCK,
-			"rect": Rect2(Vector2(-256, -256) * rs, Vector2(512, ROCK_CUT) * rs),
+		var f := _rock_f(r)
+		var wp := Vector2(0, WP * cell)
+		out.append({"center": r, "wl": r.y + WP * cell, "rw": cell * 0.5 * _rs(r), "tex": ROCK,
+			"rect": Rect2(wp - Vector2(ROCK_AX, ROCK_CUT) * f, Vector2(512, ROCK_CUT) * f),
 			"region": Rect2(0, 0, 512, ROCK_CUT)})
-	var bsc := _boat_scale_px()
 	for j in boats.size():
 		var pose := _boat_pose(j)
 		var c: Vector2 = pose[0]
+		var f := _boat_f(boats[j])
 		var e := _ease(boat_resp[j])
-		# yansıma teknenin yalpasıyla birlikte sallanır (aynı açı); süzülürken arkada iz
-		out.append({"center": c, "wl": c.y + (BOAT_CUT - 256) * bsc, "rw": cell * 0.75, "tex": BOAT,
-			"rect": Rect2(Vector2(-256, -256) * bsc, Vector2(512, BOAT_CUT) * bsc),
+		var wp := Vector2(0, WP * cell)
+		out.append({"center": c, "wl": c.y + WP * cell, "rw": cell * 0.6 * _rs(boats[j]), "tex": BOAT,
+			"rect": Rect2(wp - Vector2(BOAT_AX, BOAT_CUT) * f, Vector2(512, BOAT_CUT) * f),
 			"region": Rect2(0, 0, 512, BOAT_CUT), "angle": pose[1], "wake": boat_dir[j] * e})
 	for m in mirrors:
+		var ps: Array = m.parts()
 		var wl: float = m.position.y + m.waterline() * k
-		if not m.fixed:
-			out.append({"center": m.position, "wl": wl, "rw": cell * 0.32, "tex": Mirror.BASE_TEX,
-				"rect": m.base_rect(k)})
-		out.append({"center": m.position, "wl": wl, "rw": 0.0, "ring": m.fixed, "tex": Mirror.PLATE,
-			"rect": m.plate_rect(k), "angle": m.rotation})
+		for q in ps.size():
+			var part: Dictionary = ps[q]
+			var r2: Rect2 = part["rect"]
+			var it := {"center": m.position, "wl": wl, "rw": cell * 0.4 * m.row_scale, "ring": q == 0,
+				"tex": part["tex"], "rect": Rect2(r2.position * k, r2.size * k)}
+			if part.has("region"):
+				it["region"] = part["region"]
+			out.append(it)
 	for sp in splitters:
 		out.append({"center": sp, "wl": sp.y + SPLIT_RADIUS * k * 1.15, "rw": cell * 0.3})
 	return out
 
 
-## Kule adacığı: [kayalık görselinin çizim merkezi, ölçek, su hattı y].
-## Kule dibi adacığın üst yarısına oturur; adacığın altı suyun içinde kalır.
-func _islet_geom() -> Array:
-	var ts := cell * TOWER_H / 490.0
-	var s := cell * ISLET_W / 490.0
-	var foot := fener_pos.y + (TOWER_FOOT - TOWER_LAMP.y) * ts
-	var c := Vector2(fener_pos.x, foot - 4.0 * k)  # kayalık görselinde ISLET_ANCHOR buraya
-	return [c, s, c.y + (ISLET_CUT - ISLET_ANCHOR.y) * s]
+## Nesne düğümü: y'ye göre sıralı katmanda, hücre merkezinde; çizimi drawer yapar.
+func _obj_node(p: Vector2, drawer: Callable) -> Node2D:
+	var n := Node2D.new()
+	n.position = p
+	n.draw.connect(drawer.bind(n))
+	objects.add_child(n)
+	return n
 
 
 ## Sütun ve satır merkezleri (hücre biriminde). Büyük nesne komşusuna binmesin
-## diye aralarına boşluk eklenir: tekne ile yatay/dikey komşusu arasına GAP,
-## kulenin hemen altındaki nesneyle arasına GAP (tekneyse GAP_TOWER_BOAT).
+## diye aralarına boşluk eklenir: tekne ile yatay/dikey komşusu arasına GAP.
+## (İŞ 10: kule ızgarada değil, kule kuralları kalktı.)
 ## Işın hep satır/sütun merkezinden geçtiği için fizik değişmez.
 ## tools/cakisma.py aralik() ile aynı kural; biri değişirse öteki de.
 func _spacing(rows: Array) -> Array:
