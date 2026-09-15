@@ -25,8 +25,10 @@ ROW_SCALE_TOP = 0.85
 GAP = 0.4
 BOAT_W, BOAT_CUT, BOAT_AX = 1.1, 440, 255.5
 ROCK_W, ROCK_CUT, ROCK_AX = 0.95, 420, 255.5
-ISLET_W, ISLET_CUT, ISLET_TOP, ISLET_AX = 0.9, 260, 118, 255.5
-MIRROR_H, MIRROR_AX = 0.72, [263, 263, 261, 256]
+SIZE_K = 1.3     # İŞ 12: ayna (kaya + ayna) 1.3 kat (mirror.gd SIZE_K)
+GAP_MM = 0.3     # üst üste iki ayna arası (main.gd GAP_MM)
+ISLET_W, ISLET_CUT, ISLET_TOP, ISLET_AX = 0.9 * SIZE_K, 260, 118, 255.5
+MIRROR_H, MIRROR_AX = 0.72 * SIZE_K, [263, 263, 261, 256]
 SPLIT_R = 28 * 1.15 / 90
 
 
@@ -62,7 +64,8 @@ def nesneler(harita):
 
 
 def aralik(harita):
-    """main.gd _spacing ile aynı: tekne ile yatay/dikey komşusu arasına GAP."""
+    """main.gd _spacing ile aynı: tekne ile yatay/dikey komşusu arasına GAP,
+    üst üste iki ayna arasına GAP_MM."""
     w, h, obj = nesneler(harita)
     dolu = {(x, y): c for c, x, y in obj}
     gx, gy = [0.0] * w, [0.0] * h
@@ -74,6 +77,8 @@ def aralik(harita):
             for dy in (-1, 1):
                 if (x, y + dy) in dolu:
                     gy[min(y, y + dy)] = max(gy[min(y, y + dy)], GAP)
+        elif c in "MNbs" and dolu.get((x, y + 1), ".") in "MNbs" and (x, y + 1) in dolu:
+            gy[y] = max(gy[y], GAP_MM)
     xs, ys, a = [], [], 0.0
     for i in range(w):
         xs.append(i + a); a += gx[i]
