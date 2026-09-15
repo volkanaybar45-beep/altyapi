@@ -202,7 +202,25 @@ func load_level(i: int) -> void:
 	else:
 		title_label.text = tr("URETILEN") % [i - n_hand + 1, d["zorluk"]]
 	info_label.text = ""
+	_place_moon()
 	update_ray()
+
+
+## Ay nesnelerin arkasında kalmasın: sağ üst, sol üst, üst orta sırayla denenir;
+## hepsi doluysa ay o bölümde çizilmez.
+func _place_moon() -> void:
+	var r := Arka.MOON_SIZE * 0.5 + cell * 0.9
+	var objs: Array = boats + rocks + splitters
+	for m in mirrors:
+		objs.append(m.position)
+	for i in 5:  # kule gövdesi lambadan aşağı iner
+		objs.append(fener_pos + Vector2(0, cell * 0.4 * i))
+	for cand in [Vector2(590, 190), Vector2(130, 190), Vector2(360, 170)]:
+		if objs.all(func(p): return p.distance_to(cand) > r):
+			arka.moon_pos = cand
+			arka.show_moon = true
+			return
+	arka.show_moon = false
 
 
 ## Sütun ve satır merkezleri (hücre biriminde). Büyük nesne komşusuna binmesin
