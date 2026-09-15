@@ -37,7 +37,7 @@ void fragment() {
 	vec4 t = texture(TEXTURE, UV);
 	float mx = max(t.r, max(t.g, t.b));
 	float sat = (mx - min(t.r, min(t.g, t.b))) / max(mx, 0.001);
-	vec3 col = t.rgb * mix(0.8, 1.05, lit);  // ışık almayan sönük ama okunur (K6)
+	vec3 col = t.rgb * mix(0.85, 1.05, lit);  // ışık almayan sönük ama okunur (K6 ≥ 3.0)
 	if (sat < 0.16 && mx > 0.5) {  // gümüş yüz: ışık alınca soldan sağa kayan parlama
 		float sweep = fract(TIME * 0.42) * 1.9 - 0.45;
 		float d = abs(UV.x - sweep + (UV.y - 0.35) * 0.6);
