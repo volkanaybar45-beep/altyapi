@@ -17,6 +17,10 @@ config/version="0.1"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://gorseller/ikon_gecici.png"
 
+[autoload]
+
+Ses="*res://ses.gd"
+
 [display]
 
 window/size/viewport_width=720
