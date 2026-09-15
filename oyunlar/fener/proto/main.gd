@@ -15,7 +15,14 @@ const BOAT_LANTERN := Vector2(298, 226)  # tekne.png içinde tekne feneri
 ## Görünür boyutlar (hücre biriminde). tools/cakisma.py aynılarını kullanır.
 const BOAT_W := 1.7    # tekne genişliği (İŞ 5'te 1.25; en net okunan nesne)
 const TOWER_H := 2.0   # kule yüksekliği (İŞ 5'te 1.25; sahnenin sahibi)
-const GAP := 0.4       # tekne ile komşusu arasına eklenen boşluk (0.3'te değiyordu)
+## Suya oturma (İŞ 7), görsel piksel satırları (512'lik tuval):
+const TOWER_FOOT := 497.0   # fener_kulesi.png dibi
+const ISLET_W := 1.0        # kule adacığı (kayalik.png) genişliği, hücre
+const ISLET_ANCHOR := Vector2(256, 240)  # kayalık görselinde kule dibinin oturduğu nokta
+const ISLET_CUT := 325.0    # adacık bu satırda suya girer (altı çizilmez)
+const ROCK_CUT := 318.0     # engel kaya: yarı batık (bbox 99-413)
+const BOAT_CUT := 418.0     # tekne gövdesi su hattı (bbox dibi 439)
+const GAP := 0.4      # tekne ile komşusu arasına eklenen boşluk (0.3'te değiyordu)
 const GAP_TOWER_BOAT := 1.3  # kulenin hemen altında tekne varsa (kule 1.6 hücre aşağı iner)
 const BEAM_TOP := 76.0  # ışın üstte bu y'de biter (başlık şeridi altı)
 const Levels := preload("res://levels.gd")
