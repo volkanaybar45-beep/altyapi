@@ -86,6 +86,24 @@ func _ready() -> void:
 		_layers.append(n)
 	_layers[1].material = mat
 	_dio_img = DIO.get_image()
+	# ay: gökyüzü katmanının çocuğu (gökten sonra, denizden önce çizilir, K1)
+	_moon_node = Node2D.new()
+	var msh := Shader.new()
+	msh.code = MOON_SHADER
+	var mm := ShaderMaterial.new()
+	mm.shader = msh
+	_moon_node.material = mm
+	_moon_node.draw.connect(_draw_moon)
+	_layers[0].add_child(_moon_node)
+	var g := Gradient.new()
+	g.set_color(0, Color(0.95, 0.9, 0.8, 0.22))
+	g.add_point(0.35, Color(0.85, 0.88, 1.0, 0.08))
+	g.set_color(1, Color(0.8, 0.86, 1.0, 0.0))
+	_halo = GradientTexture2D.new()
+	_halo.gradient = g
+	_halo.fill = GradientTexture2D.FILL_RADIAL
+	_halo.fill_from = Vector2(0.5, 0.5)
+	_halo.fill_to = Vector2(1.0, 0.5)
 
 
 func _process(delta: float) -> void:
