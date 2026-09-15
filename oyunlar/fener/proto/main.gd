@@ -616,9 +616,9 @@ func _advance() -> void:
 
 
 ## Sakin, kısa parçacık: tekne fenerinden yukarı süzülen birkaç sıcak kıvılcım.
-func _sparkle(boat: Vector2) -> void:
+func _sparkle(j: int) -> void:
 	var p := CPUParticles2D.new()
-	p.position = _lantern_pos(boat)
+	p.position = _lantern_at(j)
 	p.one_shot = true
 	p.explosiveness = 0.6
 	p.amount = 14
