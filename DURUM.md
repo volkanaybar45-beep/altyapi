@@ -16,7 +16,40 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 6 — Görsel düzeltme turu** (2026-09-14)
+**İŞ 7 — Sahne canlansın** (2026-09-15)
+İlk dış testçi (kurucunun arkadaşı) telefonda oynadı. Zorluk TAMAM ("bir tık
+zor" ama geçene kadar denedi — bırakmadı). Görsel için: **"dümdüz, kule havada,
+kaya havada, deniz sabit, ay sabit, parlamıyor, ışık ve ayna çok sıradan."**
+
+Teşhis: hiçbir nesne suya BASMIYOR, hiçbir şey KIPIRDAMIYOR. Çözüm yeni görsel
+çizmek değil; çoğu kod/shader. Yeni varlık üretmeden %80'i alınır. HIZLI çalış.
+
+1. **Nesneler suya otursun** (havada durma biter):
+   - Kule: dibinde küçük kayalık/ada + köpük halkası, su hattı
+   - Ayna: taban su hattına otursun, dipte hafif dalgalanma
+   - Kayalar: yarı batık görünsün, su hattı çizgisi
+   - **Her nesnenin suda titrek yansıması** (dikey aynalanmış, alfa düşük,
+     yatayda hafif kayan bozulma) — derinliği tek başına bu kurar
+2. **Deniz kıpırdasın:** yavaş dalga hareketi (shader ya da iki kayan katman),
+   nesne diplerinde hafif dalgalanma. Sakin kalsın, sallanmasın
+3. **Ay canlansın:** yumuşak hale + suda **ay yolu** (titreyen gümüş şerit)
+4. **Işık sıradan olmasın:**
+   - Lamba odasında dönen parıltı; çekirdekte çok hafif nefes (flicker)
+   - Işının geçtiği yerde suda parlama izi
+   - Yansıma düğümlerinde küçük kıvılcım
+5. **Ayna sıradan olmasın:** ışık gelince yüzeyde kayan parlama (specular),
+   çerçevede altın pırıltı. Işık GELMEYEN ayna sönük kalsın (ipucu değeri)
+6. **İlk 3-5 bölüm yumuşasın** (öğretme eğrisi). Üst taraftaki zorluk KALSIN
+7. **Tekne ufuk bandında kayboluyor (kontrast 1.3, bölüm 16):** arka plan
+   görselinde ufuk bandı koyultulsun/yumuşatılsın. Kenar çizgisi yaması YOK
+8. Ekran görüntüsü al, gerçek telefon oranında GÖZLE BAK (en az 3 bölüm).
+   Hareket tek karede görünmez: kısa aralıklı 2-3 kare al, karşılaştır
+9. RAPOR: tekne/zemin kontrastı (ufuk bandı dahil, ≥3.0), kare hızı düştü mü
+
+Kapsam dışı: yeni bölge/tema (fırtına, volkan, buz — SIRADA 0), ses, reklam,
+kayıt sistemi, liman restorasyonu, renk filtresi, yeni mekanik.
+
+**İŞ 6 (BİTTİ) — Görsel düzeltme turu** (2026-09-14)
 Kurucu ekran görüntüsüne baktı: "bu görseller böyle olmayacak." Haklı.
 Sahne şu an ışık oyunu gibi değil, gri bloklardan oluşan çerçeve gibi
 görünüyor. Sırayla düzelt, her maddeden sonra ekran görüntüsü al ve BAK.
