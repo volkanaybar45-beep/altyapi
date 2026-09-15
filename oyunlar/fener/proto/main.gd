@@ -415,12 +415,12 @@ func _sparkle(boat: Vector2) -> void:
 	p.finished.connect(p.queue_free)
 
 
-func _lantern_pos(boat: Vector2) -> Vector2:
-	return boat + (BOAT_LANTERN - Vector2(256, 256)) * _boat_scale_px()
+func _lantern_pos(boat: Vector2, sc: float = -1.0) -> Vector2:
+	return boat + (BOAT_LANTERN - Vector2(256, 256)) * (_boat_scale_px() if sc < 0.0 else sc)
 
 
 func _boat_scale_px() -> float:
-	return cell * 1.25 / 490.0  # tekne görünür genişliği 1.25 hücre (bbox 490)
+	return cell * BOAT_W / 490.0  # tekne görünür genişliği BOAT_W hücre (bbox 490)
 
 
 # --- girdi -------------------------------------------------------------------
