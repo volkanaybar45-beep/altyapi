@@ -16,6 +16,7 @@ const FOG_BANDS := [
 ]
 
 var moon_pos := Vector2(590, 190)
+var show_moon := true  # oyunda nesnelerle çakışan yer yoksa main.gd kapatır
 var t := 0.0
 
 
