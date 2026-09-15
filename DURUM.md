@@ -23,6 +23,20 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
+**İŞ 11 — Üreteci sabit kaynakla yeniden koştur** (2026-09-15)
+İŞ 10'un ÖNÜNDE yapılır; İŞ 10 buna dayanıyor.
+1. Üreteç ve çözücü yeni kısıtla çalışsın: **ışık kaynağı üst satırda, yönü
+   aşağı.** Kaynak sütunu serbest (levha aynalanır/kaydırılır, bkz. E2)
+2. Zorluk ölçer ve kalite filtresi DEĞİŞMEZ (İŞ 3-4'teki eşikler geçerli)
+3. **~25 bölüm** üret: 5 kolay · 10 orta · 10 zor, ilk 5'i öğretme eğrisi
+   (İŞ 7 madde 6'daki yumuşak giriş korunur). Bölücülü bölümler dahil
+4. Eski bölümlerden yeni kısıta uyan 5'i (elle 1, 2, 3, 6, 9) başta kalsın
+5. Çakışma 0, çözücü hepsini geçsin
+6. RAPOR: kaç üretildi/elendi, seçilenlerin zorluk puanları, kaynak sütunu
+   dağılımı (hepsi aynı sütunda toplanmasın — çeşitlilik ölçülsün)
+
+Kapsam dışı: görsel entegrasyonu (İŞ 10), ses, yeni mekanik.
+
 **İŞ 10 — Diyorama çerçevesi + fener kaynağı üstte + yeni aynalar** (2026-09-15)
 Kurucu Tripo'da liman diyoraması ürettirdi, patron 4 modeli render edip baktı.
 Seçilen: `coastal village 3d model (1)` (aydınlatma kapalı + PBR) — sıcak lambalar,
