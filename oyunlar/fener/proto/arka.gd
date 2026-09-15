@@ -45,6 +45,18 @@ void fragment() {
 	COLOR = c;
 }"
 
+## Ay (İŞ 12): sert disk kenarı yumuşar ve kenara doğru gök rengine karışır
+## (gökyüzüne gömülsün); arkada geniş, çok soluk hale.
+const MOON_SHADER := "shader_type canvas_item;
+uniform vec3 sky = vec3(0.10, 0.16, 0.32);
+void fragment() {
+	vec4 c = texture(TEXTURE, UV);
+	float d = length(UV - vec2(0.5)) * 2.0;  // 0 merkez, 1 kenar
+	c.rgb = mix(c.rgb, sky, smoothstep(0.55, 0.95, d) * 0.45);
+	c.a *= 1.0 - smoothstep(0.78, 1.0, d);
+	COLOR = c;
+}"
+
 var moon_pos := Vector2(590, 90)
 var moon_size := 90.0
 var show_moon := true
