@@ -67,6 +67,12 @@ var lantern := 0.0  # tamamlanınca tekne feneri parlaması (0..1)
 func _ready() -> void:
 	arka = Arka.new()
 	add_child(arka)
+	for refl in [true, false]:  # yansıma, sonra dip halkaları + suda ışın parıltısı
+		var su := SuKatmani.new()
+		su.owner_main = self
+		su.reflect = refl
+		add_child(su)
+		water_layers.append(su)
 	for add in [true, false]:  # parlama (toplamalı) altta, çekirdek üstte
 		var layer := IsinKatmani.new()
 		layer.owner_main = self
