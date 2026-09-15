@@ -16,6 +16,27 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
+**İŞ 9 — Tekne canlansın, karşılık versin** (2026-09-15)
+Kurucu: "gemi çok yapmacık, aşağıda duruyor; ışığı bulunca o da ışık yakarak,
+korna çalarak karşılık verse." Teşhis: tekne ölü — suya ait değil, tepki vermiyor.
+
+**Tekne ızgara hücresinde KALIR.** Ufka sabitlemek hedefi her bölümde aynı yere
+koyar, üreteci çökertir, bulmaca çeşitliliğini bitirir (patron kararı, panoda).
+
+1. **Suya ait olsun (bekleme hali):** yavaş yalpa (hafif dönme) + dikey iniş-çıkış,
+   yansıması da onunla sallansın. Dibinde küçük su izi/köpük. Sönük ve sakin
+2. **Işık ulaşınca karşılık versin,** sırayla:
+   - Güverte feneri yanar (sıcak sarı, kısa parlama)
+   - **Korna çalar** (`tekne_korna.mp3`, defterde — kısık ve uzak duysun, bağırmasın)
+   - Tekne yavaşça ışığa/limana doğru süzülmeye başlar (küçük yer değişimi yeter)
+   - Sonra bölüm geçer (İŞ 8'deki otomatik devam ile birlikte çalışsın)
+3. Bekleyen tekne ile ulaşılan tekne arasındaki fark **ilk bakışta** okunsun
+4. Tekne görseli hâlâ "yapıştırılmış" duruyorsa RAPOR'a yaz — Sanat'a daha
+   alçak açılı yeni render yaptırılır (bu işte görsel üretme, sadece bildir)
+5. Ekran görüntüsü: bekleyen tekne + karşılık veren tekne, gerçek telefon oranı
+
+Kapsam dışı: teknenin ufka taşınması, yeni bölge/tema, yeni mekanik, reklam.
+
 **İŞ 8 — Otomatik devam + ses** (2026-09-15)
 Kurucu istedi. Kapsam DAR tutuldu; müzik yok, ses ayarı var.
 
