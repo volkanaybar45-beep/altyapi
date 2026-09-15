@@ -38,6 +38,10 @@ HEDEF_PARLAK = float(sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] not in ('
 scene = trimesh.load(GLB)
 mesh  = trimesh.util.concatenate([g for g in scene.geometry.values()]) \
         if hasattr(scene, "geometry") else scene
+if YAW or PITCH:
+    Ry = trimesh.transformations.rotation_matrix(math.radians(YAW), [0, 1, 0])
+    Rx = trimesh.transformations.rotation_matrix(math.radians(PITCH), [1, 0, 0])
+    mesh.apply_transform(Rx @ Ry)
 tex = mesh.visual.material.baseColorTexture.convert("RGB")
 TEX = np.asarray(tex, dtype=np.float32) / 255.0
 th, tw = TEX.shape[:2]
