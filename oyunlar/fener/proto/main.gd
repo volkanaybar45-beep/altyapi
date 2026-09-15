@@ -512,11 +512,34 @@ func _celebrate() -> void:
 	tw.tween_property(self, "glow", 1.0, 0.7).set_trans(Tween.TRANS_SINE)
 	tw.tween_property(self, "boat_scale", 1.4, 0.15)
 	tw.tween_property(self, "boat_scale", 1.0, 0.25).set_trans(Tween.TRANS_BACK)
+	# ışın ulaştı çanı update_ray'de çalar; "bölüm tamam" biraz sonra, üst üste binmesin
+	create_tween().tween_callback(Ses.play.bind("tamam")).set_delay(0.35)
 	tw.tween_callback(func():
 		can_continue = true
 		var last := level == all_levels.size() - 1
 		title_label.text = tr("TAMAM")
-		info_label.text = tr("SON") if last else tr("DEVAM"))
+		info_label.text = tr("SON") if last else ""
+		if auto_advance:  # kutlama bitti: kendiliğinden sonraki bölüm (dokunmak beklemeyi keser)
+			get_tree().create_timer(AUTO_WAIT_LAST if last else AUTO_WAIT).timeout.connect(_advance))
+
+
+## Sonraki bölüme (son bölümden sonra ana ekrana) kısa kararma/açılmayla geç.
+## Tekrar çağrılırsa (dokunuş + zamanlayıcı) bir kez geçer.
+func _advance() -> void:
+	if transitioning or not is_inside_tree():
+		return
+	transitioning = true
+	var last := level == all_levels.size() - 1
+	var tw := create_tween()
+	tw.tween_property(fade_rect, "color:a", 1.0, 0.25)
+	tw.tween_callback(func():
+		if last:
+			_to_menu()
+			return
+		load_level(level + 1)
+		var tin := create_tween()
+		tin.tween_property(fade_rect, "color:a", 0.0, 0.3)
+		tin.tween_callback(func(): transitioning = false))
 
 
 ## Sakin, kısa parçacık: tekne fenerinden yukarı süzülen birkaç sıcak kıvılcım.
