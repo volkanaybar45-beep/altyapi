@@ -8,3 +8,4 @@ build/
 export/
 __pycache__/
 *.glb.import
+export_presets.cfg
