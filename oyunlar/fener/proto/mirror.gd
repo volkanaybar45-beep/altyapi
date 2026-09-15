@@ -17,9 +17,13 @@ const KNOB_Y := 30.0         # ayna_taban.png: mil topuzunun y'si (256'lık tuva
 ## Plaka görselinin yüzü render gürültüsüyle gri/grenli. Gölgelendirici yüzü
 ## (düşük doygunluklu açık pikseller) pürüzsüz gümüş-mavi degrade + parlak
 ## çapraz yansıma ile değiştirir, pirinç çerçeveyi altına çeker. Kontur aynen kalır.
-## dark = 1 sabit ayna (karartma, parlama yok).
+## dark = 1 sabit ayna (karartma). lit 0..1: ışık alıyor mu (İŞ 7) — ışık
+## alan ayna tam parlak, yüzeyde kayan parlama, çerçevede altın pırıltı;
+## ışık almayan ayna sönük ve parlamasız (hangi aynanın yolda olduğu okunsun).
 const PLATE_SHADER := "shader_type canvas_item;
 uniform float dark = 0.0;
+uniform float lit = 0.0;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
 void fragment() {
 	vec4 t = texture(TEXTURE, UV);
 	float mx = max(t.r, max(t.g, t.b));
@@ -28,39 +32,42 @@ void fragment() {
 	if (sat < 0.14 && mx > 0.42) {
 		vec3 top = vec3(0.96, 0.98, 1.0);
 		vec3 bot = vec3(0.60, 0.74, 0.90);
-		col = mix(top, bot, smoothstep(0.30, 0.68, UV.y));
-		float d = abs(UV.x - 0.72 + (UV.y - 0.5) * 0.9);
-		col += vec3(1.0) * (smoothstep(0.07, 0.0, d) * 0.55 * (1.0 - dark));
+		col = mix(top, bot, smoothstep(0.30, 0.68, UV.y)) * mix(0.66, 1.0, lit);
+		float sweep = fract(TIME * 0.42) * 1.9 - 0.45;
+		float d = abs(UV.x - sweep + (UV.y - 0.5) * 0.9);
+		col += vec3(1.0) * smoothstep(0.08, 0.0, d) * 0.75 * lit * (1.0 - dark * 0.6);
 	} else if (sat > 0.2) {
-		col = vec3(1.0, 0.80, 0.34) * (0.55 + 0.6 * mx);
+		col = vec3(1.0, 0.80, 0.34) * (0.55 + 0.6 * mx) * mix(0.72, 1.05, lit);
+		float s = hash(floor(UV * vec2(56.0, 28.0)) + floor(TIME * 5.0));
+		col += step(0.965, s) * lit * vec3(1.0, 0.95, 0.7) * 0.9;
 	}
 	col = mix(col, col * vec3(0.42, 0.44, 0.52), dark);
 	COLOR = vec4(col, t.a);
 }"
 
-static var _mat_turn: ShaderMaterial
-static var _mat_fixed: ShaderMaterial
+static var _shader: Shader
 
 var step := 0  # 0..7, her adım 45°
 var fixed := false
 var base := 1.0  # çizim ölçeği (8x14 ızgarada hücre küçük); fizik etkilenmez
+var lit := false  # main.gd her kare yazar
+var _lit_amt := 0.0
+var _mat: ShaderMaterial
 var _plate: Sprite2D
 
 
 func _ready() -> void:
-	if _mat_turn == null:
-		var sh := Shader.new()
-		sh.code = PLATE_SHADER
-		_mat_turn = ShaderMaterial.new()
-		_mat_turn.shader = sh
-		_mat_fixed = ShaderMaterial.new()
-		_mat_fixed.shader = sh
-		_mat_fixed.set_shader_parameter("dark", 1.0)
+	if _shader == null:
+		_shader = Shader.new()
+		_shader.code = PLATE_SHADER
+	_mat = ShaderMaterial.new()  # ayna başına: lit her aynada ayrı
+	_mat.shader = _shader
+	_mat.set_shader_parameter("dark", 1.0 if fixed else 0.0)
 	# plaka: görünür genişlik ışık doğrusunun %95'i (8x14'te çapraz komşular binmesin)
 	_plate = Sprite2D.new()
 	_plate.texture = PLATE
 	_plate.scale = Vector2.ONE * LENGTH * 0.95 / PLATE_BBOX_W
-	_plate.material = _mat_fixed if fixed else _mat_turn
+	_plate.material = _mat
 	_plate.show_behind_parent = fixed  # sabit: kıskaçlar plakanın üstünde
 	add_child(_plate)
 
