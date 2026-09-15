@@ -270,7 +270,11 @@ func load_level(i: int) -> void:
 	can_continue = false
 	glow = 0.0
 	lantern = 0.0
-	boat_scale = 1.0
+	var nb := boats.size()
+	boat_resp = _zeros(nb, 0.0)
+	boat_flash = _zeros(nb, 0.0)
+	_horn_cd = _zeros(nb, 0.0)
+	boat_dir = _zeros(nb, Vector2.ZERO)
 	var n_hand := Levels.ALL.size()
 	if i < n_hand:
 		title_label.text = tr("BOLUM") % (i + 1)
