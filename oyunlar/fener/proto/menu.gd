@@ -52,22 +52,51 @@ func _button(text: String, y: float) -> Button:
 	return b
 
 
+## Ayarlar: ses efektleri + ortam sesi aç/kapa (İŞ 8). Seçim Ses autoload'unda
+## saklanır (user://ayarlar.cfg). Ses yoksa satırlar yine görünür, işlevsiz kalır.
 func _make_settings() -> Control:
 	var panel := Panel.new()
-	panel.position = Vector2(80, 480)
-	panel.size = Vector2(560, 420)
-	var msg := Label.new()
-	msg.text = tr("AYAR_YOK")
-	msg.add_theme_font_size_override("font_size", 38)
-	msg.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	msg.position = Vector2(0, 90)
-	msg.size = Vector2(560, 60)
-	panel.add_child(msg)
-	var back := _button(tr("GERI"), 250)
-	back.position.x = (560 - BTN.x) / 2.0
+	panel.position = Vector2(60, 460)
+	panel.size = Vector2(600, 460)
+	var ses := get_node_or_null("/root/Ses")
+	_toggle_row(panel, 50, tr("SES_EFEKT"), ses.sfx_on if ses else true,
+		func(on: bool): if ses: ses.set_sfx(on))
+	_toggle_row(panel, 170, tr("SES_ORTAM"), ses.ambient_on if ses else true,
+		func(on: bool): if ses: ses.set_ambient(on))
+	var back := _button(tr("GERI"), 310)
+	back.position.x = (600 - BTN.x) / 2.0
 	back.pressed.connect(func(): panel.visible = false)
 	panel.add_child(back)
 	return panel
+
+
+func _toggle_row(panel: Control, y: float, text: String, on: bool, changed: Callable) -> void:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", 36)
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.position = Vector2(36, y)
+	l.size = Vector2(300, 96)
+	panel.add_child(l)
+	var b := Button.new()
+	b.toggle_mode = true
+	b.button_pressed = on
+	b.text = tr("ACIK") if on else tr("KAPALI")
+	b.position = Vector2(356, y)
+	b.size = Vector2(208, 96)
+	b.add_theme_font_size_override("font_size", 36)
+	b.focus_mode = Control.FOCUS_NONE
+	b.toggled.connect(func(v: bool):
+		b.text = tr("ACIK") if v else tr("KAPALI")
+		changed.call(v)
+		_click())
+	panel.add_child(b)
+
+
+func _click() -> void:
+	var ses := get_node_or_null("/root/Ses")
+	if ses:
+		ses.play("dugme")
 
 
 func _notification(what: int) -> void:
