@@ -248,12 +248,14 @@ func _make_label(font_size: int, color: Color, y: float) -> Label:
 
 func load_level(i: int) -> void:
 	level = i
-	for m in mirrors:
-		m.queue_free()
+	for o in objects.get_children():
+		o.queue_free()
 	mirrors.clear()
 	rocks.clear()
 	boats.clear()
+	boat_nodes.clear()
 	splitters.clear()
+	row_scale.clear()
 	var d: Dictionary = all_levels[i]
 	fener_dir = DIRS[d["yon"]]
 	var rows: Array = d["map"]
@@ -262,25 +264,40 @@ func load_level(i: int) -> void:
 	var sp := _spacing(rows)
 	var xs: Array = sp[0]
 	var ys: Array = sp[1]
-	# uzun telefonda (20:9) görünen yükseklik 1280'den fazla: fazlası oyun alanına
-	var vis_h := maxf(SIZE.y, get_viewport_rect().size.y)
-	var span := PLAY_SPAN + (vis_h - SIZE.y)
-	# dikeyde DOLU satırlar ortalanır (haritaların alt satırları çoğu kez boş);
-	# üst/alt pay: nesnenin yarısı; kule + adacık lambadan ~1.9 hücre aşağı iner
-	var top := INF
-	var bot := -INF
+	var fx := 0
+	var last := 0
 	for y in h:
-		for x in w:
-			var ch := (rows[y] as String)[x]
-			if ch != ".":
-				top = minf(top, ys[y] - 0.6)
-				bot = maxf(bot, ys[y] + (1.9 if ch == "F" else 0.6))
-	# hücre: genişliğe (kenarda yarım hücre pay) ve oyun alanı yüksekliğine sığan en büyük
-	cell = minf(SIZE.x / (xs[w - 1] + 2.0), span / (bot - top))
+		var row: String = rows[y]
+		if row.contains("F"):
+			fx = row.find("F")
+		if row.strip_edges(true, true).replace(".", "") != "":
+			last = y
+	# E1: diyorama ekranın üstünde, iskele kırpılmış. Ölçek ekrana göre: 9:16'da
+	# 0.68 (fener 83.6 px), uzun ekranda büyür (en çok 1.0)
+	var vis_h := maxf(SIZE.y, get_viewport_rect().size.y)
+	var dio_h: float = Arka.DIO.get_height() - Arka.DIO_CONTENT_TOP
+	arka.dio_scale = clampf((vis_h - INFO_H - Arka.DIO_TOP - UNITS_MAX * CELL_GOAL) / dio_h, DIO_S_MIN, DIO_S_MAX)
+	# K4: ızgara diyoramanın altındaki açık denizde, dikeyde ortalı
+	var area_top: float = arka.dio_bottom() + 6.0
+	var area_h: float = vis_h - INFO_H - area_top
+	var units: float = ys[last] - ys[0] + 0.4 + 0.6  # üst yığın payı 0.385 · alt su noktası 0.6
+	cell = minf(SIZE.x / (xs[w - 1] + 2.0), area_h / units)
 	k = cell / 90.0
-	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0,
-		PLAY_TOP + (span - (bot - top) * cell) / 2.0 - top * cell)
-	info_label.position.y = vis_h - 80.0
+	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, area_top + 0.4 * cell + (area_h - units * cell) / 2.0)
+	info_label.position.y = vis_h - INFO_H
+	# E2: levha kaynak sütununa kaydırılır; iki yönden ekranı daha çok kaplayan seçilir
+	var fxp: float = origin.x + xs[fx] * cell
+	var best_cov := -INF
+	for flip in [false, true]:
+		var lx: float = (Arka.DIO.get_width() - Arka.DIO_LAMP.x) if flip else Arka.DIO_LAMP.x
+		var dx: float = fxp - lx * arka.dio_scale
+		var cov := minf(SIZE.x, dx + Arka.DIO.get_width() * arka.dio_scale) - maxf(0.0, dx)
+		if cov > best_cov:
+			best_cov = cov
+			arka.dio_flip = flip
+			arka.dio_x = dx
+	for y in h:
+		row_scale[roundi(origin.y + ys[y] * cell)] = lerpf(ROW_SCALE_TOP, 1.0, ys[y] / maxf(1.0, ys[last]))
 	for y in h:
 		var row: String = rows[y]
 		for x in row.length():
@@ -290,21 +307,25 @@ func load_level(i: int) -> void:
 				".":
 					pass
 				"F":
-					fener_pos = p
+					fener_pos = p  # boş su: ışın buradan aşağı, lamba bunun tam üstünde
 				"T":
 					boats.append(p)
+					boat_nodes.append(_obj_node(p, _draw_boat.bind(boats.size() - 1)))
 				"R":
 					rocks.append(p)
+					_obj_node(p, _draw_rock)
 				"Y":
 					splitters.append(p)
+					_obj_node(p, _draw_splitter)
 				"M", "N", "b", "s":
 					var m := Mirror.new()
 					m.position = p
 					m.fixed = c == "b" or c == "s"
 					m.base = k
+					m.row_scale = _rs(p)
 					m.scale = Vector2(k, k)
 					m.set_step(1 if c == "M" or c == "b" else 3)
-					add_child(m)
+					objects.add_child(m)
 					mirrors.append(m)
 				_:
 					push_error("bilinmeyen harita karakteri '%s' bolum %d" % [c, i + 1])
