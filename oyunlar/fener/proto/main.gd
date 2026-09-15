@@ -490,6 +490,11 @@ func _process(delta: float) -> void:
 func update_ray() -> void:
 	var r := compute_path()
 	paths = r["paths"]
+	# K3: ilk kol lamba odası pikselinden başlar (lamba F sütununun tam üstünde)
+	if not paths.is_empty():
+		var p0: PackedVector2Array = paths[0]
+		p0[0] = arka.lamp_screen()
+		paths[0] = p0
 	lit = r["lit"]
 	hit = r["hit"]
 	lit_mirrors = r["mirrors"]
