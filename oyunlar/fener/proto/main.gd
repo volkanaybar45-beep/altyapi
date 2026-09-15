@@ -60,6 +60,8 @@ var title_label: Label
 var info_label: Label
 var beam_layers: Array = []
 var arka: Node2D
+var water_layers: Array = []
+var lit_mirrors := {}  # ışık alan aynalar (ayna → true); ayna parlaması için
 var glow_layer: Node2D  # fener lambası + tekne feneri parıltısı (toplamalı, nesnelerin üstünde)
 var lantern := 0.0  # tamamlanınca tekne feneri parlaması (0..1)
 
