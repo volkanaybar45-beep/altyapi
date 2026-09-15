@@ -72,6 +72,31 @@ func _ready() -> void:
 	add_child(_plate)
 
 
+func _process(delta: float) -> void:
+	var target := 1.0 if lit else 0.0
+	if _lit_amt != target:
+		_lit_amt = move_toward(_lit_amt, target, delta * 4.0)
+		_mat.set_shader_parameter("lit", _lit_amt)
+
+
+## Su hattı: taban dibinin biraz üstü (yerel, ölçek k ile çarpılır).
+## Sabit aynanın tabanı yok: kıskaç dibi.
+func waterline() -> float:
+	if fixed:
+		return (PLATE_H * LENGTH * 0.95 / PLATE_BBOX_W + 18.0) * 0.5
+	return BASE_SIZE - BASE_SIZE * KNOB_Y / 256.0 - 5.0
+
+
+## Yansıma için: taban ve plakanın merkeze göre dikdörtgeni (ölçek s).
+func base_rect(s: float) -> Rect2:
+	return Rect2(Vector2(-BASE_SIZE / 2.0, -BASE_SIZE * KNOB_Y / 256.0) * s, Vector2(BASE_SIZE, BASE_SIZE) * s)
+
+
+func plate_rect(s: float) -> Rect2:
+	var ps := Vector2(PLATE.get_width(), PLATE.get_height()) * LENGTH * 0.95 / PLATE_BBOX_W * s
+	return Rect2(-ps / 2.0, ps)
+
+
 func set_step(s: int) -> void:
 	step = posmod(s, 8)
 	rotation_degrees = step * 45.0
