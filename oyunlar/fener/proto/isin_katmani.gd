@@ -145,7 +145,7 @@ func _draw_glow(p: PackedVector2Array, glow: float, k: float) -> void:
 		if left <= 0.0:
 			break
 		var b := p[i + 1] if left >= seg_len else p[i].lerp(p[i + 1], left / seg_len)
-		if additive:
+		if additive and p[i].distance_to(b) >= 1.0:
 			var n := (b - p[i]).normalized().orthogonal() * 16.0 * k
 			draw_colored_polygon(PackedVector2Array([p[i] + n, b + n, b - n, p[i] - n]), Color(1.0, 0.9, 0.6, 0.22))
 		else:
