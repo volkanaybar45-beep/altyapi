@@ -11,6 +11,8 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
    Buz · Tropik · Volkan · Kuzey Işıkları), her bölge modüler parça seti;
    70 ayrı sahne çizilmez. Şimdi TEK bölge (gece denizi) okunur olsun.
    VFX'li bölgeler (şimşek/volkan) kapsam şişmesi riski
+0b. Arka planda ufukta yavaşça geçen küçük gemi siluetleri (atmosfer; bulmacaya
+   dokunmaz, hedef değil). Kurucunun "gemi ufukta dursa" fikrinin güvenli hali
 1. İngilizce metinler (Tasarım yazar) — mağaza öncesi, test Türkçe olduğu için ertelendi
 2. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
