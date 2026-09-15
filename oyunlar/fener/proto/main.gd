@@ -369,6 +369,10 @@ func _place_moon() -> void:
 			for gy in 5:
 				if arka.dio_opaque(r.position + r.size * Vector2(gx + 0.5, gy + 0.5) / 5.0):
 					cost += 1.0 / 25.0
+		# ay yolu teknenin altından geçmesin (tekne/deniz kontrastı düşer, İŞ 7)
+		for b in boats:
+			if absf(b.x - p.x) < sz * 0.9 + cell * 0.6:
+				cost += 1.0
 		if cost < best:
 			best = cost
 			arka.moon_pos = p
