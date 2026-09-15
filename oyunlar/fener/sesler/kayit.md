@@ -11,6 +11,7 @@ Kaynak: **Pixabay** — ticari kullanım serbest, atıf gerekmiyor (Pixabay Cont
 | `isin_ulasti.mp3` | 2026-09-15 | `universfield-magic-spell-278824` · ID 278824 | 184 KB |
 | `bolum_tamam.mp3` | 2026-09-15 | `freesound_community-success-1-6297` · ID 6297 | 66 KB |
 | `dugme.mp3` | 2026-09-15 | `existentialtaco-confirm-tap-394001` · ID 394001 | 34 KB |
+| `tekne_korna.mp3` | 2026-09-15 | `universfield-cargo-ship-horn-352063` · ID 352063 | 77 KB |
 
 Link biçimi: `https://pixabay.com/sound-effects/<orijinal-ad>/` (ID dosya adının sonunda).
 Orijinal dosyalar kurucunun `Downloads` klasöründe de duruyor.
