@@ -28,7 +28,7 @@ const ISLET_W := 0.9 * SIZE_K  # taban kayası genişliği (hücre); görünür 
 const ISLET_CUT := 260.0    # bu satırın altı suda (çizilmez)
 const ISLET_TOP := 118.0    # düz tepenin orta noktası
 const ISLET_AX := 255.5
-const MIRROR_H := 0.72      # ayna boyu (hücre); görünür boy 483 px, alt 497
+const MIRROR_H := 0.72 * SIZE_K  # ayna boyu (hücre); görünür boy 483 px, alt 497
 const MIRROR_AX := [263.0, 263.0, 261.0, 256.0]  # sprite alt orta x
 
 const PLATE_SHADER := "shader_type canvas_item;
