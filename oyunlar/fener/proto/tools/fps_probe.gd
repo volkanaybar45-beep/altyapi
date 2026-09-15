@@ -14,6 +14,7 @@ func _initialize() -> void:
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	root.size = Vector2i(720, 1600)
 	var main = load("res://main.tscn").instantiate()
+	main.auto_advance = false
 	root.add_child(main)
 	for _i in 3:
 		await process_frame
