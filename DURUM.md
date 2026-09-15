@@ -384,6 +384,37 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 12 — Okunurluk turu · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**K9 kapandı:** diyorama prompt'u (promptlar.md madde 0) `gorseller/kayit.md`'ye tam metin işlendi.
+
+**1. Ayna 1.3 kat** — önce hesap: ×1.3 büyütünce ayna yığını 0.985 → 1.28 hücre; 25 bölümün 13'ünde üst üste iki
+ayna biniyordu (19 çift, hepsi dikey ayna-ayna). 0 için dikey ayna komşuları arasına **0.3 hücre** boşluk gerekti →
+9:16'da hücre 58.7 px'e düşüyordu (≥60 kuralı). Hücre hedefini gevşetmeden iki başka ayarla alan açıldı:
+diyorama ölçeği 0.68 → **0.66** (fener 81.2 px, ≥80) ve alt yazı şeridi 80 → **60 px**. Bölüm yeniden üretilmedi
+- Sonuç: **çakışma 0/25** · 9:16 en küçük hücre **62.4 px** (≥60) · 20:9 72.0 px · K3 0 px · K4 boşluğu 6 px
+- **Ayna boyu** (kaya + ayna, görünür): 9:16 **68-80 px** (üst satır G2 0.85 · alt satır) · 20:9 78-92 px.
+  Yalnız ayna sprite'ı: 9:16 50-58 px · 20:9 57-67 px. Taban kayası genişliği 1.17 hücre (hücreyi taşıyor)
+- Yön çizgisi korundu
+
+**2. Işın:** çekirdek kalınlığı ve parlaklığı mesafeden bağımsız (taban **6.5 px**, `core_px = max(6.5, 10·k)`);
+sönüm yalnız halede (uzakta %65'e iner), hale en az çekirdeğin 3.2 katı. Ölçülen (Bölüm 1, lambadan inen uzun ışın,
+lamba yanından en uzak uca): **10 px sabit**, 9:16 ve 20:9. En küçük hücreli bölümde hesap: 6.93 px; hale 33 px (4.8×)
+
+**3. Ay:** disk kenarı alfa geçişiyle yumuşadı ve kenara doğru gök rengine karışıyor (gölgelendirici); arkada geniş
+soluk hale. İlk denemede hale sert kenarlı KARE çıktı (gradyan nokta sırası hatası), gözle görülüp düzeltildi.
+Ay yerleşimi, ayın altında ufuk bandını diyoramanın örtmediği yeri seçiyor → **ay yolu ayın sütunundan, ufuktan başlıyor**
+
+**Ekran görüntüleri:** `gorseller/diyorama_deneme/is10_kanit/is12_b{1,9,25}_{1280,1600}.png` (kolay çözülmüş,
+bölücülü çözülmüş, zor çözülmemiş). Gözle bakıldı
+
+**Test edilen:** motor testi 25/25 · İŞ 8 davranış probu OK · çakışma 0/25 · K3/K4 probu · PC 280 fps
+**Test edilmeyen:** telefonda açılmadı (APK sırası). Ayna dönüş animasyonu büyük boyda canlı izlenmedi
+
+**APK için hatırlatma:** `export_presets.cfg` bana kapalı — paket adı `com.volkagames.fenerbekcisi`, sürüm 0.1/kod 1,
+yol `C:/Altyapi/oyunlar/fener/apk/fener-0.1-debug.apk` kurucu tarafından girilmeli (İŞ 6 raporu). Komut:
+`Godot_v4.7.1-stable_win64_console.exe --headless --path oyunlar/fener/proto --export-debug "Android" <yol>`
+
 **İŞ 10 — Diyorama çerçevesi · kod yazıldı, telefonda test edilmedi** (2026-09-15)
 (Aşağıdaki "İŞ 10 — DURDU" raporunun devamı; E1-E3 kararlarıyla yapıldı. Tek açık: K9'da diyorama prompt'u)
 
