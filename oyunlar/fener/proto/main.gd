@@ -448,17 +448,11 @@ func _spacing(rows: Array) -> Array:
 			var c: String = at.call(x, y)
 			if c == "T":
 				for dx in [-1, 1]:
-					if at.call(x + dx, y) != ".":
+					if at.call(x + dx, y) not in [".", "F"]:
 						gx[mini(x, x + dx)] = maxf(gx[mini(x, x + dx)], GAP)
 				for dy in [-1, 1]:
-					if at.call(x, y + dy) != ".":
+					if at.call(x, y + dy) not in [".", "F"]:
 						gy[mini(y, y + dy)] = maxf(gy[mini(y, y + dy)], GAP)
-			elif c == "F":
-				var below: String = at.call(x, y + 1)
-				if below != ".":
-					gy[y] = maxf(gy[y], GAP_TOWER_BOAT if below == "T" else GAP)
-				if at.call(x, y + 2) != ".":  # kule adacığı iki satır aşağı uzanır
-					gy[y + 1] = maxf(gy[y + 1], GAP)
 	var xs: Array = []
 	var ys: Array = []
 	var a := 0.0
