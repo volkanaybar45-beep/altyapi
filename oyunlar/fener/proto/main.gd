@@ -399,7 +399,7 @@ func update_ray() -> void:
 	lit_mirrors = r["mirrors"]
 	# yeni bir tekne ışık aldıysa çan (bölüm yüklenirken değil: _lit_count = -1)
 	if _lit_count >= 0 and lit.size() > _lit_count:
-		Ses.play("isin")
+		sfx("isin")
 	_lit_count = lit.size()
 
 
