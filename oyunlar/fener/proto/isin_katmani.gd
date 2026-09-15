@@ -58,6 +58,8 @@ func _chunks(p: PackedVector2Array, d0: float) -> Array:
 	for i in p.size() - 1:
 		var a := p[i]
 		var b := p[i + 1]
+		if a.distance_to(b) < 1.0:
+			continue  # sıfır boylu parça dörtgeni bozar (üçgenleme hatası)
 		var n := maxi(1, ceili(a.distance_to(b) / CHUNK))
 		for j in n:
 			var s := a.lerp(b, float(j) / n)
