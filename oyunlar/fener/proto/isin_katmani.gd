@@ -82,9 +82,12 @@ func _fog(y: float) -> float:
 ## Hale: üç kat, dörtgen parçalar (toplamalı karışımda üst üste binmesin diye
 ## daire/uç kapağı yok; köşeyi düğüm örter).
 func _halo(p: PackedVector2Array, d0: float, k: float, pulse: float) -> void:
-	var layers := [[HALO_W, Color(1.0, 0.78, 0.42, 0.07 + 0.02 * pulse)],
-		[HALO_W * 0.6, Color(1.0, 0.85, 0.55, 0.10)],
-		[HALO_W * 0.34, Color(1.0, 0.92, 0.70, 0.16)]]
+	# beş kat: kenarı basamaklı değil yumuşak görünsün
+	var layers := [[HALO_W, Color(1.0, 0.76, 0.40, 0.035 + 0.015 * pulse)],
+		[HALO_W * 0.8, Color(1.0, 0.80, 0.46, 0.045)],
+		[HALO_W * 0.6, Color(1.0, 0.85, 0.55, 0.06)],
+		[HALO_W * 0.44, Color(1.0, 0.89, 0.64, 0.08)],
+		[HALO_W * 0.3, Color(1.0, 0.93, 0.72, 0.12)]]
 	for c in _chunks(p, d0):
 		var a: Vector2 = c[0]
 		var b: Vector2 = c[1]
