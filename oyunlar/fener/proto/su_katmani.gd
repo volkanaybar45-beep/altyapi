@@ -18,6 +18,8 @@ void fragment() {
 	COLOR = vec4(c.rgb, c.a * 0.35 * fade);  // G3: alfa 0.35, aşağı doğru söner
 }"
 
+const REFL_H := 0.6  # G3: yansıma yüksekliği gövdenin %60'ı
+
 var owner_main: Node2D
 var reflect := false
 
