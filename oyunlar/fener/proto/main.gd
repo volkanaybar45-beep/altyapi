@@ -107,9 +107,17 @@ func _ready() -> void:
 ## Fener lambası ve tekne fenerleri: sıcak sarı, toplamalı. Tekne feneri hep
 ## yanar (tekne en net okunan nesne), ışık alınca ve bölüm bitince güçlenir.
 func _draw_glows() -> void:
-	var fl := 0.85 + 0.15 * sin(time * 2.0)
+	var fl := 0.85 + 0.15 * sin(time * 2.0) * sin(time * 3.7)
 	glow_layer.draw_circle(fener_pos, 34.0 * k, Color(1.0, 0.8, 0.4, 0.16 * fl))
 	glow_layer.draw_circle(fener_pos, 18.0 * k, Color(1.0, 0.88, 0.55, 0.30 * fl))
+	# lamba odasında dönen parıltı: iki ince, uca doğru sivrilen ışık kolu
+	for i in 2:
+		var d := Vector2.RIGHT.rotated(time * 1.3 + i * PI)
+		var n := d.orthogonal() * 5.0 * k
+		var tip := fener_pos + d * 62.0 * k
+		var side := absf(d.x)  # yandan bakınca (kol yatayken) daha parlak
+		glow_layer.draw_colored_polygon(PackedVector2Array([fener_pos + n, tip, fener_pos - n]),
+			Color(1.0, 0.9, 0.6, 0.10 + 0.22 * side))
 	var bob := _bob()
 	for j in boats.size():
 		var lp := _lantern_pos(boats[j] + bob, _boat_scale_px() * boat_scale)
