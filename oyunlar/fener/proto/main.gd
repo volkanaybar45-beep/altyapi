@@ -291,8 +291,10 @@ func _process(delta: float) -> void:
 	if hit and not completed:
 		_celebrate()
 	queue_redraw()
-	for l in beam_layers:
+	for l in beam_layers + water_layers:
 		l.queue_redraw()
+	for m in mirrors:
+		m.lit = lit_mirrors.has(m)
 	glow_layer.queue_redraw()
 
 
