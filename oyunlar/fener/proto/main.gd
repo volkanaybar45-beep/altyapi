@@ -366,6 +366,7 @@ func update_ray() -> void:
 	paths = r["paths"]
 	lit = r["lit"]
 	hit = r["hit"]
+	lit_mirrors = r["mirrors"]
 
 
 ## Bütün kolları izler. Bölücü gelen kolu durdurur, merkezinden sağa ve sola
