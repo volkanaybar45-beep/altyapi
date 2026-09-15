@@ -456,6 +456,7 @@ func compute_path() -> Dictionary:
 	var out: Array = []
 	var got := {}
 	var mhit := {}  # ışığın yansıdığı aynalar
+	var bdir := {}  # tekne indeksi → ışığın geliş yönü
 	var emitted := {}  # (bölücü, yön) bir kez
 	var stack: Array = [[fener_pos, fener_dir]]
 	var budget := MAX_SEGMENTS
