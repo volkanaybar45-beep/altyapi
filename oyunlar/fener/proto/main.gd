@@ -437,10 +437,17 @@ func update_ray() -> void:
 	lit = r["lit"]
 	hit = r["hit"]
 	lit_mirrors = r["mirrors"]
-	# yeni bir tekne ışık aldıysa çan (bölüm yüklenirken değil: _lit_count = -1)
-	if _lit_count >= 0 and lit.size() > _lit_count:
-		sfx("isin")
-	_lit_count = lit.size()
+	var dirs: Dictionary = r["boat_dirs"]
+	for j in lit:
+		boat_dir[j] = dirs[j]
+		# yeni ışık alan tekne karşılık verir: fener parlar, çan, biraz sonra korna
+		if _loaded and not _prev_lit.has(j):
+			boat_flash[j] = 1.0
+			sfx("isin")
+			if _horn_cd[j] <= 0.0:
+				_horn_cd[j] = HORN_COOLDOWN
+				get_tree().create_timer(HORN_DELAY).timeout.connect(sfx.bind("korna"))
+	_prev_lit = lit
 
 
 ## Bütün kolları izler. Bölücü gelen kolu durdurur, merkezinden sağa ve sola
