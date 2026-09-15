@@ -53,6 +53,22 @@ Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
 6. Ekran görüntüsü: 3 bölüm, gerçek telefon oranı, GÖZLE BAK
 7. RAPOR: kaynak sabitlenince kaç üretilmiş bölüm elendi, kare hızı
 
+**GEOMETRİ KURALI (patron kararı — perspektif/ızgara çatışması)**
+Diyorama perspektifli (yaw −40°, pitch 30°), ızgara düz. **Izgara DÜZ KALIR,**
+perspektife sokulmaz: ışın 90° yansıyor, ızgara eğilirse ekranda açılar 90°
+görünmez ve oyuncu yansımayı gözle takip edemez. Bulmacanın okunurluğu
+atmosferden önce gelir. Derinlik şu üç ölçülebilir kuralla kurulur:
+- G1. **Sprite render açısı = diyorama kamera açısı.** Her GLB `toon_render.py`
+  ile **yaw −40°, pitch 30°** render edilir (ayna: bu kamerada 4 dönüş yönü).
+  Farklı açıdan render edilmiş tek sprite bile yapıştırma gibi durur
+- G2. **Uzaklık küçültmesi:** üst satırdaki nesne, alt satırdakinin **%85'i**
+  ölçeğinde; aradaki satırlar doğrusal ara değer. Aynı kural yansımaya da
+- G3. **Oturma noktası:** her sprite'ın ALT ORTA noktası hücrenin su noktasıdır
+  (sprite merkezi değil). Yansıma bu noktadan aynalanır, dikey kayma 0 px;
+  yansıma yüksekliği gövdenin %60'ı, alfa 0.35, aşağı doğru sönümlenir
+- G4. Işık yönü tek: diyoramada lamba ışığı SOLDAN geliyor; sprite render'ında
+  ve koddaki parlamalarda ışık yönü de SOLDAN. Sağdan aydınlatma yasak
+
 **KABUL ÖLÇÜTLERİ — tek turda bitsin, hepsi RAPOR'da sayıyla yazılacak**
 Kurucu: "tek seferde, doğru hesaplamalarla, doğru yerlere." Aşağıdakilerin
 HEPSİ sağlanmadan iş bitmiş sayılmaz. Sağlanamayan madde varsa DUR ve yaz.
