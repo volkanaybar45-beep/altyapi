@@ -25,10 +25,10 @@ const DIO_HORIZON := 150.0              # ufuk bu satırın hizasında (köyün 
 const DIO_TOWER_H := 123.0              # fener kulesi boyu (tepe → gövde dibi)
 const DIO_TOP := 16.0                   # içerik tepesinin ekrandaki y'si
 ## sis bantları: [merkez y, yükseklik, alfa, hız px/sn]. İŞ 10 K6: denizin en
-## açık bandı sisti (tekne/kaya kontrastı 1.0-1.1); alfa 0.40/0.35 → 0.20/0.18
+## açık bandı sisti (tekne/kaya kontrastı 1.0-1.1); alfa 0.40/0.35 → 0.12/0.10
 const FOG_BANDS := [
-	[420.0, 300.0, 0.20, 9.0],
-	[880.0, 360.0, 0.18, -6.0],
+	[420.0, 300.0, 0.12, 9.0],
+	[880.0, 360.0, 0.10, -6.0],
 ]
 
 ## Deniz: yavaş yatay/dikey kıpırtı + kayan soluk parıltı bantları (İŞ 7)
