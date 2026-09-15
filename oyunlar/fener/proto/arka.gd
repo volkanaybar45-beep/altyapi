@@ -151,8 +151,10 @@ func _draw_path(n: Node2D) -> void:
 
 func _draw_dio(n: Node2D) -> void:
 	var sz := Vector2(DIO.get_width(), DIO.get_height()) * dio_scale
-	if dio_flip:  # yatay aynalı: negatif genişlik
-		n.draw_texture_rect(DIO, Rect2(Vector2(dio_x + sz.x, dio_y()), Vector2(-sz.x, sz.y)), false)
+	if dio_flip:  # yatay aynalı (negatif genişlikli dikdörtgen hiç çizilmiyordu → dönüşüm)
+		n.draw_set_transform(Vector2(dio_x + sz.x, dio_y()), 0.0, Vector2(-1, 1))
+		n.draw_texture_rect(DIO, Rect2(Vector2.ZERO, sz), false)
+		n.draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	else:
 		n.draw_texture_rect(DIO, Rect2(Vector2(dio_x, dio_y()), sz), false)
 
