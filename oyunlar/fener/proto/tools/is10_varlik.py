@@ -32,6 +32,15 @@ X0, X1 = int(xs.min()), int(xs.max()) + 1
 lev = a[Y0:Y1, X0:X1].copy()
 ramp = np.linspace(1.0, 0.0, FEATHER)[:, None]
 lev[-FEATHER:, :, 3] = (lev[-FEATHER:, :, 3] * ramp).astype(np.uint8)
+# modelin kendi su plakası (koyu, mavi baskın) oyunun denizinin üstünde düz bir
+# levha gibi duruyordu → yarı saydam. Köy ışığının sudaki sıcak yansımaları
+# (parlak / kırmızı baskın) dokunulmadan kalır.
+rgb = lev[..., :3].astype(float) / 255.0
+lum = rgb @ np.array([0.2126, 0.7152, 0.0722])
+su = (rgb[..., 2] > rgb[..., 0] + 0.03) & (lum < 0.16)
+yumusak = np.clip((0.16 - lum) / 0.06, 0, 1) * su
+lev[..., 3] = (lev[..., 3] * (1.0 - 0.75 * yumusak)).astype(np.uint8)
+print("su plakası: %d piksel yarı saydam" % int((yumusak > 0.5).sum()))
 Image.fromarray(lev).save(os.path.join(OYUN, "diyorama_levha.png"))
 d.save(os.path.join(ASIL, "render", "diyorama_y-40_p30_1300.png"))
 # lamba: fener tepesindeki sıcak parlak pikseller (render'da 700-900 x, 100-260 y)
