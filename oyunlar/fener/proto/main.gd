@@ -664,11 +664,16 @@ func _draw() -> void:
 	var ts := cell * TOWER_H / 490.0
 	draw_texture_rect(TOWER, Rect2(fener_pos - TOWER_LAMP * ts, Vector2(TOWER.get_width(), TOWER.get_height()) * ts), false)
 
-	# tekneler: hale yok; tekne feneri hep yanar (_draw_glows). Gövdenin altı suda
-	var bob := _bob()
-	var bsc := _boat_scale_px() * boat_scale
+	# tekneler: bekleyen sakin yalpalar, feneri sönük; ışık alan sıcak renge
+	# bürünür, feneri parlar, ışığa doğru süzülür (_boat_pose). Gövdenin altı suda
+	var bsc := _boat_scale_px()
 	for j in boats.size():
-		var c: Vector2 = boats[j] + bob
-		draw_texture_rect_region(BOAT, Rect2(c - Vector2(256, 256) * bsc, Vector2(512, BOAT_CUT) * bsc),
-			Rect2(0, 0, 512, BOAT_CUT))
-		draw_circle(_lantern_pos(c, bsc), 5.0 * k, Color(1.0, 0.95, 0.72))
+		var pose := _boat_pose(j)
+		var e := _ease(boat_resp[j])
+		var tint := Color(1, 1, 1).lerp(Color(1.16, 1.06, 0.9), e)
+		draw_set_transform(pose[0], pose[1], Vector2.ONE)
+		draw_texture_rect_region(BOAT, Rect2(Vector2(-256, -256) * bsc, Vector2(512, BOAT_CUT) * bsc),
+			Rect2(0, 0, 512, BOAT_CUT), tint)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+		var lc := Color(0.75, 0.68, 0.5).lerp(Color(1.0, 0.95, 0.72), maxf(e, boat_flash[j]))
+		draw_circle(_lantern_at(j), 5.0 * k, lc)
