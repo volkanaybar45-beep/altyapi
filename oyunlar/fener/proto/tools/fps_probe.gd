@@ -1,8 +1,8 @@
 extends SceneTree
 ## Kare hızı ölçümü (İŞ 7). Argüman: -- <bolum 1..> [sn] [su 0/1]
 ##   su 0: su katmanları (yansıma/halka/parıltı) kapalı — karşılaştırma için
-## Pencere açılır, dikey eşitleme kapatılır; ortalama kare süresi ve işlem
-## (_process + _draw) süresi yazılır. PC ölçümüdür, telefonu temsil etmez.
+## Pencere açılır, dikey eşitleme kapatılır; ortalama kare hızı ve süresi
+## yazılır. PC ölçümüdür, telefonu temsil etmez.
 ## --headless KULLANMA.
 
 

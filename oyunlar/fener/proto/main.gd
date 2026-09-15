@@ -173,7 +173,7 @@ func load_level(i: int) -> void:
 	var vis_h := maxf(SIZE.y, get_viewport_rect().size.y)
 	var span := PLAY_SPAN + (vis_h - SIZE.y)
 	# dikeyde DOLU satırlar ortalanır (haritaların alt satırları çoğu kez boş);
-	# üst/alt pay: nesnenin yarısı, kule lambadan 1.6 hücre aşağı iner
+	# üst/alt pay: nesnenin yarısı; kule + adacık lambadan ~1.9 hücre aşağı iner
 	var top := INF
 	var bot := -INF
 	for y in h:
