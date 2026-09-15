@@ -300,7 +300,8 @@ reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 **Test edilen** (`tools/devam_probe.gd`, pencereli, gerçek ses sürücüsü WASAPI): otomatik devam OK ·
 dokununca hemen geçiş OK · son bölüm → ana ekran OK · ayar kaydı/geri okuma OK · bozuk ayar
 dosyası → varsayılan OK · eksik ses dosyası çökmüyor OK · ortam sesi ilerliyor OK · efekt çalıyor OK.
-Motor testi OK. Ayarlar paneli 20:9 ve 9:16'da gözle bakıldı (ilk hali yarı saydamdı, arkadaki
+Motor testi OK · çakışma 0/28 · kare hızı değişmedi (PC 150 fps). Tekne 720×1600'de gözle
+bakıldı: bekleyen (2 kare, yalpa görünüyor) · ilk parlama · karşılık veren (süzülmüş, iz). Ayarlar paneli 20:9 ve 9:16'da gözle bakıldı (ilk hali yarı saydamdı, arkadaki
 düğmeler içinden görünüyordu → düzeltildi)
 
 **Test EDİLMEYEN:** sesler **kulakla dinlenmedi** (seviye dengesi, `ayna_cevir` kuru mu, `isin_ulasti`
