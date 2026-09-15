@@ -106,7 +106,7 @@ def denetle(harita, xs=None, ys=None):
 
 def bolumler():
     tum = []
-    for f in ["levels.gd", "levels_uretilen.gd", "levels_uretilen_4.gd"]:
+    for f in ["levels.gd", "levels_uretilen_11.gd"]:
         s = open(os.path.join(KOK, f), encoding="utf-8").read()
         for blok in re.findall(r'"map": \[(.*?)\]', s, re.S):
             tum.append(re.findall(r'"([^"]+)"', blok))

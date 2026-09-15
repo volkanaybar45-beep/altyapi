@@ -359,6 +359,35 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 11 — Üreteç sabit kaynakla · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**Yapılan**
+- `tools/uretec.py … is11`: 7×12, kaynak **üst satırda, yön aşağı**, sütun 1-5 (levha ±2 hücre +
+  aynalama ile lamba bu sütunlara gelir). F hücresi artık ışını DURDURMAZ (kaynak ızgaranın
+  üstünde; boş su) — üreteçte ve oyunda (`main.gd`) aynı kural. Filtre ve zor eşiği değişmedi
+- Neden 7×12 (8×14 değil): E1 hedefi 9:16'da ≥60 px hücre; 8×14 bu alanda ~53 px'e düşüyor
+- Seçim: 10 orta (zorluk 0.35→0.75 eşit aralıklı hedefe en yakın) + 10 zor (İŞ 4 zor eşiği,
+  en yüksek puan), birbirine benzemez (imza örtüşmesi ≤0.4), **sütun başına en çok 4**
+- Oyun sırası: elle 5 (1, 2, 3, eski 6, eski 9 — öğretme eğrisi korundu) + üretilen 20 = **25 bölüm**
+- Eskiler `cop/fener_is11/`: elle 4, 5, 7, 8, 10 (`levels_is7_10bolum.gd`) · `levels_uretilen.gd` · `levels_uretilen_4.gd`
+
+**Sayılar** (`python tools/uretec.py 20000 11 is11`)
+- Bölücüsüz: 10 000 deneme → 7 139 üretildi → 1 357 filtreden geçti · Bölücülü: 10 000 → 3 661 → 457
+- Zor eşiğini geçen: 102 (65'i bölücülü). En sık elenme: "kullanılan döner ayna < %70", "near-miss 1-3 dışı"
+- Seçilen zorluk puanları — orta: 0.35 · 0.39 · 0.44 · 0.48 · 0.53 · 0.57 · 0.62 · 0.66 · 0.70 · 0.75 ·
+  zor: 0.87 · 0.87 · 0.88 · 0.88 · 0.89 · 0.89 · 0.89 · 0.90 · 0.96 · 1.00
+- Zor olanlar: geri dönüş 6-9, çevirme 7-8, near-miss 2-3, hepsinde "aha". Bölücülü: 12/20 (orta 6, zor 6)
+- **Kaynak sütunu dağılımı: 1→4 · 2→4 · 3→4 · 4→4 · 5→4** (elle 5'in hepsi sütun 3; toplamda 3. sütun 9/25)
+
+**Test edilen:** oyunun kendi çözücüsü (`mantik_test.gd`) 25/25 OK (başta çözülmemiş, çözülebilir,
+dokunuşla çözülüyor) · çakışma 0/25 (aralık kuralıyla) · 2 bölüme ekran görüntüsüyle bakıldı
+(20:9 zor çözülmüş, 9:16 orta). **Geçici görünüm:** kule hâlâ üst satırda çiziliyor — İŞ 10'da kalkacak
+
+**Test edilmeyen:** telefonda oynanmadı; orta→zor arası 0.75→0.87 sıçraması oyuncuda nasıl hissettiriyor bilinmiyor
+
+**Ders (KOD):** `levels.gd`'yi Python ile yazdım (Edit/Write kuralı: kapı ve otomatik commit atlanır);
+fark edip Edit ile yeniden dokundum, kapı temiz geçti. Kural doğru, uyulmalı.
+
 **İŞ 10 — DURDU, kod yazılmadı: K4 ve madde 3 sayıyla sağlanamıyor** (2026-09-15)
 
 Önce hesap yapıldı (istendiği gibi). İki engel çıktı; ikisi de patron/kurucu kararı.
