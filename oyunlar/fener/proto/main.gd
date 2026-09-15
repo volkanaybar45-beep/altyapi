@@ -453,6 +453,8 @@ func _spacing(rows: Array) -> Array:
 				for dy in [-1, 1]:
 					if at.call(x, y + dy) not in [".", "F"]:
 						gy[mini(y, y + dy)] = maxf(gy[mini(y, y + dy)], GAP)
+			elif c in ["M", "N", "b", "s"] and at.call(x, y + 1) in ["M", "N", "b", "s"]:
+				gy[y] = maxf(gy[y], GAP_MM)
 	var xs: Array = []
 	var ys: Array = []
 	var a := 0.0
