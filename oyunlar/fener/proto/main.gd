@@ -573,11 +573,11 @@ func tap(pos: Vector2) -> void:
 # Işın ayrı katmanlarda (isin_katmani.gd). Burada: kaya, bölücü, fener, tekne.
 
 func _draw() -> void:
-	# kayalık
+	# kayalık: yarı batık — ROCK_CUT satırının altı suyun içinde, çizilmez
 	var rs := cell * 1.1 / 490.0  # görünür genişlik 1.1 hücre (bbox 490)
 	for r in rocks:
-		var sz := Vector2(ROCK.get_width(), ROCK.get_height()) * rs
-		draw_texture_rect(ROCK, Rect2(r - sz / 2.0, sz), false)
+		draw_texture_rect_region(ROCK, Rect2(r - Vector2(256, 256) * rs, Vector2(512, ROCK_CUT) * rs),
+			Rect2(0, 0, 512, ROCK_CUT))
 
 	# bölücü: elmas prizma (ayna plakası, kaya ve sabit kıskaçla karışmasın)
 	for sp in splitters:
