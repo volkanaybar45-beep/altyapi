@@ -57,3 +57,14 @@ Bekleniyor: düz tepeli kayalık (ayna tabanı) · sivri kaya (engel) · tekne.
 Lisans: Tripo (kurucunun ücretli hesabı) + ChatGPT görselleri. Ticari kullanım serbest.
 Not: `ay.png` halesinin kenarında renkli benek/artefakt var — KOD yumuşatıp temizlesin.
 Not: siluet ayrımı doğrulandı — taban düz tepeli, engel sivri tepeli.
+
+## 5 — Gökyüzü panoraması (`gokyuzu_panorama.png`, ChatGPT, düz resim, Tripo YOK)
+Wide panoramic night sky over a distant sea horizon. Deep blue gradient from
+near-black at the top to soft indigo at the horizon, scattered stars, a few thin
+wispy clouds. Cozy stylized game art, soft painterly shading, no moon, no land,
+no boats, no text.
+
+## 6 — Ay (`ay.png`, ChatGPT, şeffaf zemin, Tripo YOK)
+Single game asset on transparent background: a large detailed full moon, pale
+silver-white with soft craters and a warm gentle halo glow. Cozy stylized game
+art, centered, no text, no background.

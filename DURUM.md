@@ -53,6 +53,24 @@ Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
 6. Ekran görüntüsü: 3 bölüm, gerçek telefon oranı, GÖZLE BAK
 7. RAPOR: kaynak sabitlenince kaç üretilmiş bölüm elendi, kare hızı
 
+**KOD'UN BULDUĞU İKİ ENGELE PATRON KARARI (2026-09-15)**
+KOD hesap yapıp durdu, doğru davrandı. Kararlar:
+- **E1 — Izgara sığmıyor → (a) İSKELE KIRPILIR.** Diyorama levhasının sol alt
+  iskele kolu kesilir; köy, kayalık ve fener kalır. Hedef hücre: 9:16'da ≥60 px.
+  Izgara dikeyde ortalanır. Gerekirse diyorama ölçeği 0.9'a kadar kısılabilir,
+  ama fener kulesi ekranda ≥80 px kalacak (kaynak okunmalı)
+- **E2 — Kaynak sabitlenince 23/28 bölüm eleniyor.** Bölümler ELLE değil
+  ÜRETEÇLE yapılıyor; yeniden üretmek ucuz. Karar A değişmiyor (tek fener).
+  İki ek serbestlik verilir, ikisi de bedava:
+  (1) Diyorama levhası **yatayda aynalanabilir** (sol/sağ) —
+      lamba sütunu değişir, ikinci bir görsel gerekmez
+  (2) Levha yatayda **kaydırılabilir** (±2 hücre) — lamba sütunu daha da oynar
+  Böylece kaynak "hep 3. sütun" olmaktan çıkar; sadece "üst satırdan, aşağı
+  doğru" kısıtı kalır. Üreteç bu kısıtla yeniden koşturulur (**İŞ 11**)
+- **E3 — Ana deftere işleme:** `gokyuzu_panorama.png` ve `ay.png` prompt'ları
+  `diyorama_deneme/promptlar.md`'ye yazıldı (madde 5 ve 6). Set ana
+  `gorseller/kayit.md`'ye KOD tarafından işlenecek
+
 **GEOMETRİ KURALI (patron kararı — perspektif/ızgara çatışması)**
 Diyorama perspektifli (yaw −40°, pitch 30°), ızgara düz. **Izgara DÜZ KALIR,**
 perspektife sokulmaz: ışın 90° yansıyor, ızgara eğilirse ekranda açılar 90°
