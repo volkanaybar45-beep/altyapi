@@ -3,7 +3,7 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener: görsel düzeltme turu (KOD, İŞ 6) → sonra APK
+Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 
 ## SIRADA
 0. **V1 görsel çeşitliliği — modüler bölge paketi** (APK + oyuncu geri bildirimi
