@@ -26,8 +26,7 @@ const GAP := 0.4      # tekne ile komşusu arasına eklenen boşluk (0.3'te değ
 const GAP_TOWER_BOAT := 1.3  # kulenin hemen altında tekne varsa (kule 1.6 hücre aşağı iner)
 const BEAM_TOP := 76.0  # ışın üstte bu y'de biter (başlık şeridi altı)
 const Levels := preload("res://levels.gd")
-const LevelsGen := preload("res://levels_uretilen.gd")  # tools/uretec.py yazar (İŞ 3)
-const LevelsGen4 := preload("res://levels_uretilen_4.gd")  # tools/uretec.py ... is4
+const LevelsGen := preload("res://levels_uretilen_11.gd")  # tools/uretec.py ... is11 yazar
 
 const SIZE := Vector2(720, 1280)
 const PLAY_TOP := 140.0     # oyun alanının üst kenarı; üstü gök şeridi (ay burada)
