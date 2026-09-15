@@ -61,7 +61,7 @@ const ALL := [
 		".......",
 		".......",
 		"..T...."]},
-	{"yon": "D", "map": [  # 3 · ışın kendini kesiyor
+	{"yon": "D", "map": [  # 5 · ışın kendini kesiyor (eski 3)
 		"....F..",
 		".......",
 		".M...N.",
