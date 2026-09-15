@@ -149,10 +149,14 @@ func _draw() -> void:
 func _draw_mirror() -> void:
 	var p: Dictionary = parts()[1]
 	_vis.draw_texture_rect(p["tex"], p["rect"], false)
+	var r: Rect2 = p["rect"]
+	var c := r.position + Vector2(r.size.x * 0.5, r.size.y * 0.3)  # disk merkezi
+	# yön çizgisi: diskin mil ekseni (render'da 135°/45° ölçüldü) boyunca ince
+	# altın çizgi — küçük ekranda "\" / "/" okunsun (bulmaca okunurluğu, G kuralı)
+	var e := r.size.x * 0.2
+	var ax := Vector2(e, e) if sprite_index() % 2 == 0 else Vector2(e, -e)
+	_vis.draw_line(c - ax, c + ax, Color(1.0, 0.86, 0.45, 0.55 + 0.4 * _lit_amt), 2.5, true)
 	if fixed:  # X kilit: diskin ortasından iki kalın demir bant
-		var r: Rect2 = p["rect"]
-		var c := r.position + Vector2(r.size.x * 0.5, r.size.y * 0.3)
-		var e := r.size.x * 0.2
 		for d in [Vector2(e, e), Vector2(e, -e)]:
 			_vis.draw_line(c - d, c + d, Color(0.1, 0.1, 0.12), 7.0)
 			_vis.draw_line(c - d, c + d, Color(0.35, 0.36, 0.4), 3.0)
