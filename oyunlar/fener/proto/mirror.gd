@@ -156,7 +156,8 @@ func _draw_mirror() -> void:
 	var e := r.size.x * 0.2
 	var ax := Vector2(e, e) if sprite_index() % 2 == 0 else Vector2(e, -e)
 	_vis.draw_line(c - ax, c + ax, Color(1.0, 0.86, 0.45, 0.55 + 0.4 * _lit_amt), 2.5, true)
-	if fixed:  # X kilit: diskin ortasından iki kalın demir bant
-		for d in [Vector2(e, e), Vector2(e, -e)]:
-			_vis.draw_line(c - d, c + d, Color(0.1, 0.1, 0.12), 7.0)
-			_vis.draw_line(c - d, c + d, Color(0.35, 0.36, 0.4), 3.0)
+	if fixed:  # kilit: eksenin iki ucunda (mil topuzları) koyu demir kıskaç
+		var q := r.size.x * 0.09
+		for end in [c - ax * 1.25, c + ax * 1.25]:
+			_vis.draw_rect(Rect2(end - Vector2(q, q), Vector2(q, q) * 2.0), Color(0.1, 0.1, 0.12))
+			_vis.draw_rect(Rect2(end - Vector2(q, q) * 0.5, Vector2(q, q)), Color(0.4, 0.41, 0.45))
