@@ -11,8 +11,15 @@ const Arka := preload("res://arka.gd")
 
 const CORE := Color("#FFE7A3")
 const CORE_W := 10.0    # çekirdek (× k)
-const HALO_W := 48.0    # en dış hale (× k); çekirdek / hale = 0.21
-const FADE_LEN := 1800.0  # bu kadar yolda hale %45'e, çekirdek %80'e iner
+const CORE_MIN := 6.5   # İŞ 12: çekirdek tabanı (px) — mesafeden BAĞIMSIZ, uzakta ip gibi incelmez
+const HALO_W := 48.0    # en dış hale (× k); en az çekirdeğin 3.2 katı
+const HALO_MIN_X := 3.2
+const FADE_LEN := 1800.0  # bu kadar yolda hale %65'e iner; ÇEKİRDEK SÖNMEZ (İŞ 12)
+
+
+## Çekirdek kalınlığı (px): hücreye göre, tabanın altına inmez.
+func core_px(k: float) -> float:
+	return maxf(CORE_MIN, CORE_W * k)
 const CHUNK := 24.0       # sönüm/sis için parça boyu (px)
 
 var owner_main: Node2D
