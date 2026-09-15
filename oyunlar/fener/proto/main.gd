@@ -54,6 +54,9 @@ var boats: Array = []      # Vector2
 var splitters: Array = []  # Vector2
 var mirrors: Array = []
 var rocks: Array = []      # Vector2
+var row_scale := {}        # hücre merkezi y → G2 ölçeği
+var objects: Node2D        # kaya/ayna/tekne/bölücü düğümleri, y'ye göre sıralı (ressam sırası)
+var boat_nodes: Array = []
 var skip_button: Button
 
 var paths: Array = []  # PackedVector2Array, kol başına bir tane
