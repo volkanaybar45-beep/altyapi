@@ -93,33 +93,22 @@ func _ready() -> void:
 	load_level(0)
 
 
-## Tekne kenar çizgisi: tekne görseli gece denizinde kontrast 1.95 (hedef ≥3.0).
-## Görseli değiştirmeden siluetin etrafına ay ışığı renginde ince kenar çizilir
-## (alfa maskesi düz renge boyanıp 8 yöne kaydırılarak). Işının üstünde, teknenin altında.
-func _make_rim_layer() -> void:
-	var sh := Shader.new()
-	sh.code = "shader_type canvas_item;\nuniform vec4 rim : source_color;\n" \
-		+ "void fragment() { COLOR = vec4(rim.rgb, texture(TEXTURE, UV).a * rim.a); }"
-	var mat := ShaderMaterial.new()
-	mat.shader = sh
-	mat.set_shader_parameter("rim", RIM_COLOR)
-	rim_layer = Node2D.new()
-	rim_layer.material = mat
-	rim_layer.z_index = -1
-	rim_layer.draw.connect(_draw_rims)
-	add_child(rim_layer)
+## Fener lambası ve tekne fenerleri: sıcak sarı, toplamalı. Tekne feneri hep
+## yanar (tekne en net okunan nesne), ışık alınca ve bölüm bitince güçlenir.
+func _draw_glows() -> void:
+	var fl := 0.85 + 0.15 * sin(time * 2.0)
+	glow_layer.draw_circle(fener_pos, 34.0 * k, Color(1.0, 0.8, 0.4, 0.16 * fl))
+	glow_layer.draw_circle(fener_pos, 18.0 * k, Color(1.0, 0.88, 0.55, 0.30 * fl))
+	var bob := _bob()
+	for j in boats.size():
+		var lp := _lantern_pos(boats[j] + bob, _boat_scale_px() * boat_scale)
+		var a := 0.45 + (0.3 if lit.has(j) else 0.0) + 0.25 * lantern
+		glow_layer.draw_circle(lp, 26.0 * k * (1.0 + 0.5 * lantern), Color(1.0, 0.78, 0.35, 0.18 * a))
+		glow_layer.draw_circle(lp, 12.0 * k, Color(1.0, 0.86, 0.5, 0.40 * a))
 
 
-func _draw_rims() -> void:
-	var bob := Vector2(0, sin(time * 1.5) * 3.0)
-	var bsc := _boat_scale_px() * boat_scale
-	var sz := Vector2(BOAT.get_width(), BOAT.get_height()) * bsc
-	var w := RIM_W * k
-	for b in boats:
-		var c: Vector2 = b + bob
-		for i in 8:
-			var off := Vector2.RIGHT.rotated(i * PI / 4.0) * w
-			rim_layer.draw_texture_rect(BOAT, Rect2(c - sz / 2.0 + off, sz), false)
+func _bob() -> Vector2:
+	return Vector2(0, sin(time * 1.5) * 3.0)
 
 
 ## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın).
