@@ -3,7 +3,14 @@
 Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 
 ## ŞU AN (tek iş)
-Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
+**Kurucu APK alıp telefonda test edecek.** İŞ 8-9-10-11-12 kodu yazıldı,
+hiçbiri telefonda denenmedi. Godot'ta 4 alan girilecek (paket adı
+`com.volkagames.fenerbekcisi` · ad `Fener Bekçisi` · sürüm `0.1` / kod `1` ·
+yol `C:/Altyapi/oyunlar/fener/apk/fener-0.1-debug.apk`), sonra Projeyi Dışa Aktar.
+Telefonda bakılacak: ses kalabalık mı (çan+korna+tamam 1.1 sn) · otomatik geçiş
+hızı · teknenin karşılığı fark ediliyor mu · ayna yönü parmak altında okunuyor mu ·
+bölüm 1-5 yumuşak mı. Sonra arkadaşa ver, ölçüt: "sade" kelimesi düşsün.
+KOD'a yeni iş emri YOK.
 
 ## SIRADA
 0. **V1 görsel çeşitliliği — modüler bölge paketi** (APK + oyuncu geri bildirimi
