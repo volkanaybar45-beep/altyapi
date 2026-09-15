@@ -113,3 +113,45 @@ if __name__ == "__main__":
             toplam += 1
             print(f"bolum {i + 1}: " + " · ".join(f"{a[0]}{a[1:]}-{b[0]}{b[1:]} {n}" for a, b, n in c))
     print(f"cakisan bolum: {toplam}")
+
+
+# --- aralık kuralı (main.gd _spacing ile aynı) ---
+GAP = float(os.environ.get("GAP", 0.3))
+GAP_KULE_TEKNE = 1.3
+
+
+def aralik(harita):
+    """Sütun/satır merkez koordinatları (hücre biriminde). Tekne yatay/dikey
+    komşusuyla, fener altındaki komşusuyla arasında GAP kadar ek boşluk."""
+    w, h, obj = nesneler(harita)
+    dolu = {(x, y): c for c, x, y in obj}
+    gx = [0.0] * w  # gx[i]: sütun i ile i+1 arası ek
+    gy = [0.0] * h
+    for (x, y), c in dolu.items():
+        if c == "T":
+            for dx in (-1, 1):
+                if (x + dx, y) in dolu:
+                    gx[min(x, x + dx)] = max(gx[min(x, x + dx)], GAP)
+            for dy in (-1, 1):
+                if (x, y + dy) in dolu:
+                    gy[min(y, y + dy)] = max(gy[min(y, y + dy)], GAP)
+        if c == "F" and (x, y + 1) in dolu:  # kule lambadan 1.6 hücre aşağı iner
+            gy[y] = max(gy[y], GAP_KULE_TEKNE if dolu[(x, y + 1)] == "T" else GAP)
+    xs, ys, a = [], [], 0.0
+    for i in range(w):
+        xs.append(i + a); a += gx[i]
+    a = 0.0
+    for i in range(h):
+        ys.append(i + a); a += gy[i]
+    return xs, ys
+
+
+if __name__ == "__main__" and "--aralik" in sys.argv:
+    toplam = 0
+    for i, harita in enumerate(bolumler()):
+        xs, ys = aralik(harita)
+        c = denetle(harita, xs, ys)
+        if c:
+            toplam += 1
+            print(f"bolum {i + 1}: " + " · ".join(f"{a[0]}{a[1:]}-{b[0]}{b[1:]} {n}" for a, b, n in c))
+    print(f"aralikli cakisan bolum: {toplam}")

@@ -14,9 +14,55 @@ const PLATE_BBOX_W := 488.0  # ayna_plaka.png içindeki görünür genişlik (51
 const PLATE_H := 230.0       # görünür yükseklik
 const KNOB_Y := 30.0         # ayna_taban.png: mil topuzunun y'si (256'lık tuval)
 
+## Plaka görselinin yüzü render gürültüsüyle gri/grenli. Gölgelendirici yüzü
+## (düşük doygunluklu açık pikseller) pürüzsüz gümüş-mavi degrade + parlak
+## çapraz yansıma ile değiştirir, pirinç çerçeveyi altına çeker. Kontur aynen kalır.
+## dark = 1 sabit ayna (karartma, parlama yok).
+const PLATE_SHADER := "shader_type canvas_item;
+uniform float dark = 0.0;
+void fragment() {
+	vec4 t = texture(TEXTURE, UV);
+	float mx = max(t.r, max(t.g, t.b));
+	float sat = (mx - min(t.r, min(t.g, t.b))) / max(mx, 0.001);
+	vec3 col = t.rgb;
+	if (sat < 0.14 && mx > 0.42) {
+		vec3 top = vec3(0.96, 0.98, 1.0);
+		vec3 bot = vec3(0.60, 0.74, 0.90);
+		col = mix(top, bot, smoothstep(0.30, 0.68, UV.y));
+		float d = abs(UV.x - 0.72 + (UV.y - 0.5) * 0.9);
+		col += vec3(1.0) * (smoothstep(0.07, 0.0, d) * 0.55 * (1.0 - dark));
+	} else if (sat > 0.2) {
+		col = vec3(1.0, 0.80, 0.34) * (0.55 + 0.6 * mx);
+	}
+	col = mix(col, col * vec3(0.42, 0.44, 0.52), dark);
+	COLOR = vec4(col, t.a);
+}"
+
+static var _mat_turn: ShaderMaterial
+static var _mat_fixed: ShaderMaterial
+
 var step := 0  # 0..7, her adım 45°
 var fixed := false
 var base := 1.0  # çizim ölçeği (8x14 ızgarada hücre küçük); fizik etkilenmez
+var _plate: Sprite2D
+
+
+func _ready() -> void:
+	if _mat_turn == null:
+		var sh := Shader.new()
+		sh.code = PLATE_SHADER
+		_mat_turn = ShaderMaterial.new()
+		_mat_turn.shader = sh
+		_mat_fixed = ShaderMaterial.new()
+		_mat_fixed.shader = sh
+		_mat_fixed.set_shader_parameter("dark", 1.0)
+	# plaka: görünür genişlik ışık doğrusunun %95'i (8x14'te çapraz komşular binmesin)
+	_plate = Sprite2D.new()
+	_plate.texture = PLATE
+	_plate.scale = Vector2.ONE * LENGTH * 0.95 / PLATE_BBOX_W
+	_plate.material = _mat_fixed if fixed else _mat_turn
+	_plate.show_behind_parent = fixed  # sabit: kıskaçlar plakanın üstünde
+	add_child(_plate)
 
 
 func set_step(s: int) -> void:
@@ -47,12 +93,10 @@ func reflect(d: Vector2) -> Vector2:
 	return 2.0 * d.dot(l) * l - d
 
 
+## Plaka Sprite2D çocuğu çizer; burada taban + hale (döner) ya da kıskaç (sabit).
 func _draw() -> void:
-	# plaka: görünür genişlik ışık doğrusunun %95'i (8x14'te çapraz komşular binmesin)
 	var sc := LENGTH * 0.95 / PLATE_BBOX_W
-	var ps := Vector2(PLATE.get_width(), PLATE.get_height()) * sc
 	if fixed:
-		draw_texture_rect(PLATE, Rect2(-ps / 2.0, ps), false, Color(0.42, 0.44, 0.52))
 		var hx := PLATE_BBOX_W * sc / 2.0
 		var ch := PLATE_H * sc + 18.0  # kıskaç plakadan taşar → farklı silüet
 		for x in [-hx, hx - 14.0]:
@@ -63,6 +107,4 @@ func _draw() -> void:
 	draw_set_transform(Vector2.ZERO, -rotation, Vector2.ONE)
 	var bsz := 60.0
 	draw_texture_rect(BASE_TEX, Rect2(Vector2(-bsz / 2.0, -bsz * KNOB_Y / 256.0), Vector2(bsz, bsz)), false)
-	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.62, 0.0, TAU, 40, Color(0.85, 0.93, 1.0, 0.22), 2.0)
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
-	draw_texture_rect(PLATE, Rect2(-ps / 2.0, ps), false)
+	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.62, 0.0, TAU, 40, Color(1.0, 0.86, 0.5, 0.30), 2.0)
