@@ -9,7 +9,7 @@ Godot proje dışındaki dosyayı APK'ya koyamadığı için kopyalandı (2026-0
 | fener_kulesi.png | ../../gorseller/fener_kulesi.png | 2026-09-14, değiştirilmeden |
 | ayna_plaka.png | ../../gorseller/ayna_plaka.png | 2026-09-14, değiştirilmeden |
 | ayna_taban.png | ../../gorseller/ayna_taban.png | 2026-09-14, değiştirilmeden |
-| tekne.png | ../../gorseller/tekne.png | 2026-09-14, değiştirilmeden |
+| tekne.png | ../../gorseller/tekne.png | 2026-09-15, İŞ 6 yeniden render (parlaklık 0.55) |
 | kayalik.png | ../../gorseller/kayalik.png | 2026-09-14, değiştirilmeden |
 | arkaplan_gece_denizi.png | ../../gorseller/arkaplan_gece_denizi.png | 2026-09-14, değiştirilmeden |
 | sis_katmani.png | ../../gorseller/sis_katmani.png | 2026-09-14, değiştirilmeden |

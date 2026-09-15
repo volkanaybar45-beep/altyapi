@@ -14,7 +14,7 @@ referans satırlarında.
 | fener_kulesi.png | glb/fener_kulesi.glb | `toon_render.py … z` | 512 px |
 | ayna_plaka.png | glb/ayna_plaka.glb | `toon_render.py … z` | 512 px, kod 2B döndürür |
 | ayna_taban.png | glb/ayna_taban.glb | `toon_render.py … z` | 256 px |
-| tekne.png | glb/tekne.glb | `toon_render.py … z` | 512 px. **`x` yanlış çıktı** (tekne önden göründü), `z` doğru |
+| tekne.png | glb/tekne.glb | `toon_render.py … z 0.30 - 0.55` | 512 px. **`x` yanlış çıktı** (tekne önden göründü), `z` doğru. 2026-09-15 (İŞ 6): gövde gece denizinde 1.95 kontrasttı, parlaklık 0.33→0.55 ile yeniden render → gövde/zemin 3.1-3.8. Eskisi `cop/fener_is6/tekne_eski_parlak032.png` |
 | kayalik.png | glb/kayalik.glb | `toon_render.py … z 0.30 - 0.32` | 512 px. Varsayılan render gece sahnesinde fazla açıktı, parlaklık 0.52→0.32 |
 
 Gözle kontrol: hepsi gerçek arka plan üzerinde gerçek ölçekte bakıldı (540×960).
