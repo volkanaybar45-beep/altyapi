@@ -40,8 +40,8 @@ const EPS := 0.5
 const DIRS := {"D": Vector2.DOWN, "U": Vector2.UP, "L": Vector2.LEFT, "R": Vector2.RIGHT}
 const SKIP_RECT := Rect2(540, 8, 160, 56)  # alt kenar < 0. satırdaki fener kulesinin tepesi (68)
 
-## Elle 9 · üretilen 10 (İŞ 3) · üretilen 8 (İŞ 4, 8x14, bölücülü) — kurucu karşılaştırması.
-static var all_levels: Array = Levels.ALL + LevelsGen.ALL + LevelsGen4.ALL
+## İŞ 11: elle 5 (öğretme) · üretilen 20 (10 orta + 10 zor, 7x12, kaynak üstte).
+static var all_levels: Array = Levels.ALL + LevelsGen.ALL
 
 var level := 0
 var cell := 90.0
