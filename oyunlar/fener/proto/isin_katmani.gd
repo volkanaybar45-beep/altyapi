@@ -133,6 +133,13 @@ func _nodes(p: PackedVector2Array, d0: float, k: float) -> void:
 		if additive:
 			draw_circle(p[i], 22.0 * k, Color(1.0, 0.85, 0.55, 0.10 * f))
 			draw_circle(p[i], 13.0 * k, Color(1.0, 0.92, 0.72, 0.22 * f))
+			# küçük kıvılcım: dönen, nabız atan dört kollu yıldız
+			var tm: float = owner_main.time
+			var ph := tm * 2.2 + i * 1.7
+			var len := (16.0 + 7.0 * sin(ph * 1.6)) * k
+			for j in 2:
+				var d := Vector2.RIGHT.rotated(ph * 0.5 + j * PI / 2.0) * len
+				draw_line(p[i] - d, p[i] + d, Color(1.0, 0.95, 0.8, 0.45 * f), 2.0)
 		else:
 			draw_circle(p[i], 7.0 * k, Color(1, 1, 0.96, f))
 
