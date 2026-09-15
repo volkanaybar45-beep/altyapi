@@ -23,12 +23,10 @@ func _initialize() -> void:
 	for _i in 30:
 		await process_frame
 	var frames := 0
-	var proc := 0.0
 	var t0 := Time.get_ticks_usec()
 	while Time.get_ticks_usec() - t0 < int(secs * 1e6):
 		await process_frame
 		frames += 1
-		proc += Performance.get_monitor(Performance.TIME_PROCESS)
 	var dt := (Time.get_ticks_usec() - t0) / 1e6
-	print("bolum %d su=%s: %.0f fps · kare %.2f ms · islem %.2f ms" % [lv + 1, water, frames / dt, dt * 1000.0 / frames, proc * 1000.0 / frames])
+	print("bolum %d su=%s: %.0f fps · kare %.2f ms" % [lv + 1, water, frames / dt, dt * 1000.0 / frames])
 	quit()
