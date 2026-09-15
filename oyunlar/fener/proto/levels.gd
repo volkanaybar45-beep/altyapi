@@ -6,8 +6,23 @@ extends RefCounted
 ## yon: fenerin baktığı yön (D aşağı, U yukarı, L sol, R sağ)
 ## Dönüş 90° (kilitli): döner ayna yalnız "\" ile "/" arasında değişir.
 
+## Sıra (İŞ 7, öğretme eğrisi): 1 tek ayna tek dokunuş · 2 iki ayna ·
+## 3 kaya + sabit ayna (iki çözüm, affedici) · 4-5 dört ayna · 6+ eskisi gibi.
 const ALL := [
-	{"yon": "D", "map": [  # 1 · 2 ayna
+	{"yon": "D", "map": [  # 1 · tek ayna, tek dokunuş (İŞ 7)
+		"...F...",
+		".......",
+		".......",
+		".......",
+		".......",
+		".......",
+		"...N..T",
+		".......",
+		".......",
+		".......",
+		".......",
+		"......."]},
+	{"yon": "D", "map": [  # 2 · 2 ayna
 		"...F...",
 		".......",
 		".......",

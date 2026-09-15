@@ -145,6 +145,8 @@ def aralik(harita):
                     gy[min(y, y + dy)] = max(gy[min(y, y + dy)], GAP)
         if c == "F" and (x, y + 1) in dolu:  # kule lambadan 1.6 hücre aşağı iner
             gy[y] = max(gy[y], GAP_KULE_TEKNE if dolu[(x, y + 1)] == "T" else GAP)
+        if c == "F" and (x, y + 2) in dolu:  # kule adacığı iki satır aşağı uzanır
+            gy[y + 1] = max(gy[y + 1], GAP)
     xs, ys, a = [], [], 0.0
     for i in range(w):
         xs.append(i + a); a += gx[i]
