@@ -7,10 +7,12 @@ extends SceneTree
 func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	var h := int(args[0]) if args.size() > 0 else 1280
-	root.size = Vector2i(720, h)
+	var vp := SubViewport.new()  # headless'ta pencere boyu uygulanmıyor; alt görünüm kesin
+	vp.size = Vector2i(720, h)
+	root.add_child(vp)
 	var main = load("res://main.tscn").instantiate()
 	main.auto_advance = false
-	root.add_child(main)
+	vp.add_child(main)
 	await process_frame
 	var Arka = main.Arka
 	var worst_k3 := 0.0
