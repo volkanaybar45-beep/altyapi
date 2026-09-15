@@ -304,7 +304,8 @@ Motor testi OK · çakışma 0/28 · kare hızı değişmedi (PC 150 fps). Tekne
 bakıldı: bekleyen (2 kare, yalpa görünüyor) · ilk parlama · karşılık veren (süzülmüş, iz). Ayarlar paneli 20:9 ve 9:16'da gözle bakıldı (ilk hali yarı saydamdı, arkadaki
 düğmeler içinden görünüyordu → düzeltildi)
 
-**Test EDİLMEYEN:** sesler **kulakla dinlenmedi** (seviye dengesi, `ayna_cevir` kuru mu, `isin_ulasti`
+**Test EDİLMEYEN:** korna dahil sesler **kulakla dinlenmedi** (çan + korna + "tamam" 1.1 sn içinde üçü
+art arda — kalabalık gelebilir; seviye dengesi, `ayna_cevir` kuru mu, `isin_ulasti`
 5.9 sn — kuyruğu sonraki bölüme taşabilir); telefonda sessiz mod; geçişin akıcılığı canlı izlenmedi.
 APK alınmadı (gerçek APK boyutu farkı ölçülmedi, tahmin ~+0.74 MB)
 
