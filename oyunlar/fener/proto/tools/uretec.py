@@ -8,6 +8,7 @@
 Çalıştır (proto klasöründen):
   python tools/uretec.py <deneme> <tohum>        → İŞ 3: 7x12, 10 bölüm, levels_uretilen.gd
   python tools/uretec.py <deneme> <tohum> is4    → İŞ 4: 8x14, bölücü, 8 bölüm, levels_uretilen_4.gd
+  python tools/uretec.py <deneme> <tohum> is11   → İŞ 11: 7x12, kaynak üstte/aşağı, 20 bölüm, levels_uretilen_11.gd
 Harita harfleri levels.gd ile aynı: F T R M N b s Y .  (Y = ışık bölücü)
 
 NOT: İŞ 4'te çözücü çok kollu oldu; metrikler İŞ 3 bölümlerinde birebir aynı
@@ -616,10 +617,17 @@ def main_is11(tries, seed):
     hard_ok = sorted([i for i in range(len(pool)) if not hard(pool[i][1])], key=lambda i: -sc[i])
     print('zor eşiğini geçen: %d (bölücülü %d)' % (len(hard_ok), sum(map(is_split, hard_ok))))
     n_zor = take(hard_ok, 10, 'zor', need_split=3)
-    rest = sorted([i for i in range(len(pool)) if i not in hard_ok], key=lambda i: sc[i])
-    mid = rest[len(rest) // 3: 2 * len(rest) // 3 + 1] or rest
-    step = max(1, len(mid) // 10)
-    n_orta = take(mid[::step] + mid, 10, 'orta', need_split=2)
+    # orta: zorluk 0.35 → 0.75 arası eşit aralıklı 10 hedef, her hedefe en yakın
+    # uygun bölüm (havuz 0.38 civarına yığılıyor; zora sıçrama olmasın). İlk 2
+    # hedefte bölücülü tercih edilir (bölücü öğretimi zordan önce gelsin)
+    rest = [i for i in range(len(pool)) if i not in hard_ok]
+    n_orta = 0
+    for j in range(10):
+        t = 0.35 + j * 0.4 / 9
+        near_t = sorted(rest, key=lambda i: abs(sc[i] - t))
+        if j in (3, 6):
+            near_t = [i for i in near_t if is_split(i)][:40] + near_t
+        n_orta += take(near_t, 1, 'orta')
     print('seçilen: orta %d · zor %d' % (n_orta, n_zor))
     chosen.sort(key=lambda t: sc[t[0]])
     items = [(pool[i][0], pool[i][1], sc[i], ad) for i, ad in chosen]
@@ -637,5 +645,7 @@ if __name__ == '__main__':
     seed = int(sys.argv[2]) if len(sys.argv) > 2 else 1
     if len(sys.argv) > 3 and sys.argv[3] == 'is4':
         main_is4(tries, seed)
+    elif len(sys.argv) > 3 and sys.argv[3] == 'is11':
+        main_is11(tries, seed)
     else:
         main_is3(tries, seed)
