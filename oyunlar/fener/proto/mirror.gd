@@ -7,8 +7,9 @@ extends Node2D
 ## (G1); düğüm DÖNDÜRÜLMEZ, adım başına ayrı sprite gösterilir. 4 yön render'la
 ## doğrulandı: diskin mil ekseni ekranda 135.2° / 45.1° / 135.1° / 45.0°
 ## (adım 1 "\" · 3 "/" · 5 "\" arka yüz · 7 "/" arka yüz).
-## Sabit ayna: aynı sprite karartılmış + diskin üstünde X biçimli demir kilit
-## (silüetten ayrılır, renk körlüğü).
+## Sabit ayna: aynı sprite karartılmış + mil ekseninin iki ucunda koyu demir
+## kıskaç (silüetten ayrılır, renk körlüğü). Her aynada eksen boyunca ince
+## altın yön çizgisi (küçük ekranda "\" / "/" okunsun).
 ##
 ## Yerel ölçü: 1 hücre = 90 birim (düğüm ölçeği k = hücre/90). Su noktası
 ## hücre merkezinin WP_Y altında; taban kayasının alt ortası oraya oturur (G3).
