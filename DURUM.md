@@ -16,7 +16,33 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
-**İŞ 7 — Sahne canlansın** (2026-09-15)
+**İŞ 8 — Otomatik devam + ses** (2026-09-15)
+Kurucu istedi. Kapsam DAR tutuldu; müzik yok, ses ayarı var.
+
+**A. Otomatik devam**
+1. Bölüm bitince kutlama oynar (~1.4 sn), sonra **kendiliğinden** sonraki bölüme geçer
+2. "Devam için dokun" yazısı kalkar; ama ekrana dokunulursa **hemen** geçilir
+   (bekleme zorunlu değil)
+3. Son bölüm bitince ana ekrana dön (ya da kısa "hepsi bitti" ekranı)
+4. Geçiş sert olmasın: kısa kararma/açılma yeter. Sahne sakin kalsın
+
+**B. Ses**
+5. **Ortam:** yavaş deniz dalgası döngüsü + çok kısık rüzgâr (sürekli, dikişsiz döngü)
+6. **Efekt, 4 tane:** ayna çevirme (kısa tık) · ışın tekneye ulaşma (sıcak çan) ·
+   bölüm tamam (kısa yükseliş) · düğme dokunuşu
+7. **Ayarlar ekranı işe yarasın** (şu an "Henüz ayar yok"): Ses aç/kapa + Ortam sesi
+   aç/kapa, seçim cihazda saklanır (`user://`). Metinler `tr()`, EN boş
+8. **Müzik YOK.** Sakin oyunda ortam sesi yeterli; müzik lisans ve dosya boyutu yükü
+9. Telefon sessize alınmışsa ya da ses dosyası yoksa oyun ÇALIŞMAYA devam eder (çökme yok)
+10. Ses dosyaları: **kurucu Pixabay'den indirip** `oyunlar/fener/sesler/`'e koyar.
+    KOD dosyaları oyuna bağlar, `proto/sesler/`'e kopyalar (Godot proje dışını APK'ya koyamaz)
+11. **Lisans zinciri, pazarlık yok:** her ses için `kayit.md`'ye dosya adı, tarih,
+    kaynak (Pixabay + sayfa linki), lisans, süre. **Kayıtsız ses oyuna girmez**
+12. RAPOR: APK boyutu ne kadar büyüdü, ses dosyası formatı/boyutu
+
+Kapsam dışı: müzik, seslendirme, titreşim, yeni bölge/tema, reklam, kayıt sistemi.
+
+**İŞ 7 (kod yazıldı, telefon testi bekliyor) — Sahne canlansın** (2026-09-15)
 İlk dış testçi (kurucunun arkadaşı) telefonda oynadı. Zorluk TAMAM ("bir tık
 zor" ama geçene kadar denedi — bırakmadı). Görsel için: **"dümdüz, kule havada,
 kaya havada, deniz sabit, ay sabit, parlamıyor, ışık ve ayna çok sıradan."**
