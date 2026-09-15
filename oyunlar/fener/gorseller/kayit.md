@@ -55,9 +55,9 @@ Lisans: Tripo ücretli hesap + ChatGPT (OpenAI) görselleri, ticari kullanım se
 | Oyun dosyası | Kaynak | İşlem |
 |---|---|---|
 | diyorama_levha.png | diyorama_liman.glb | render 1300 px, doygunluk dokunulmadı · y 90-670 kırpıldı (**iskele kesildi, E1**), alt 24 px yumuşak kenar · modelin kendi su plakası (koyu mavi) %75 saydam · 1228×580. Lamba (751.9, 78.9), kule 123 px |
-| ayna_0..3.png | ayna.glb | 4 yön: model θ = 336.6 / 103.4 / 156.6 / 283.4 (kamera yaw = θ−40). Mil ekseni render'da 135.2° / 45.1° / 135.1° / 45.0° ölçüldü · parlaklık 0.60 (K6) |
+| ayna_0..3.png | ayna.glb | 4 yön: model θ = 336.6 / 103.4 / 156.6 / 283.4 (kamera yaw = θ−40). Mil ekseni render'da 135.2° / 45.1° / 135.1° / 45.0° ölçüldü · parlaklık 0.66 (K6) |
 | kaya_taban.png | kaya_taban_duz.glb | parlaklık 0.50 |
-| kaya_engel.png | kaya_engel_sivri.glb | parlaklık 0.55 (K6) |
-| tekne.png | tekne.glb (İŞ 10) | parlaklık 0.62 (K6). Eski 2B-kaynaklı tekne `cop/fener_is10/proto_tekne.png` |
+| kaya_engel.png | kaya_engel_sivri.glb | parlaklık 0.64 (K6) |
+| tekne.png | tekne.glb (İŞ 10) | parlaklık 0.70 (K6). Eski 2B-kaynaklı tekne `cop/fener_is10/proto_tekne.png` |
 | gokyuzu.png | gokyuzu_panorama.png | ufuk satırı 737'nin altı kesildi (1672×737) |
 | ay.png | diyorama_deneme/ay.png | yarı saydam piksellerin rengi hale tonuna (#F2E3C0) çekildi (benek temizliği), 512 px. Eski ay `cop/fener_is10/proto_ay.png` |
