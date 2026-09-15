@@ -60,6 +60,14 @@ var lit := {}          # ışık alan tekne indeksleri
 var hit := false
 var completed := false
 var can_continue := false
+## Otomatik devam (İŞ 8). Prob/test betikleri kapatır (çözülmüş ekran görüntüsü
+## alırken bölüm kendiliğinden değişmesin).
+var auto_advance := true
+const AUTO_WAIT := 0.6       # kutlama bittikten sonra geçişe kadar
+const AUTO_WAIT_LAST := 2.2  # son bölüm: "bitti" yazısı okunsun, sonra ana ekran
+var transitioning := false
+var fade_rect: ColorRect
+var _lit_count := -1  # ışık alan tekne sayısı; artınca çan
 var glow := 0.0  # kutlamada güzergâh boyunca yayılan parlama (0..1)
 var boat_scale := 1.0
 var time := 0.0
