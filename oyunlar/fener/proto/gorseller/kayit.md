@@ -19,3 +19,11 @@ Asıl dosya değişirse buraya yeniden kopyalanır. Sabit ayna ayrı görsel
 değildir: `ayna_plaka.png` kodda karartılır (mirror.gd).
 
 | ikon_gecici.png | — | 2026-09-15 (İŞ 6) | **Geçici uygulama ikonu.** Bu klasördeki `fener_kulesi.png` + `tekne.png` üst üste konup koddan çizilen ışınla birleştirildi (Python/PIL, yeni üretim yok, kaynakları kayıtlı). Mağaza ikonu ayrı iş |
+
+## İŞ 10 (2026-09-15)
+Oyundan çıkanlar (kopyaları `cop/fener_is10/proto_*`; asılları `../../gorseller/`'de, defterde):
+`fener_kulesi.png` (tek fener artık diyoramanın kendisi), `ayna_plaka.png`, `ayna_taban.png`,
+`kayalik.png`, eski `tekne.png`, eski `ay.png`.
+Yeni (asıl defter: `../../gorseller/kayit.md` → "İŞ 10 — Diyorama seti"): `diyorama_levha.png` ·
+`gokyuzu.png` · `ay.png` · `ayna_0..3.png` · `kaya_taban.png` · `kaya_engel.png` · `tekne.png`.
+Hepsi `tools/is10_varlik.py` ile üretildi (render → kırpma/kopya).

@@ -359,6 +359,62 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 10 — Diyorama çerçevesi · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+(Aşağıdaki "İŞ 10 — DURDU" raporunun devamı; E1-E3 kararlarıyla yapıldı. Tek açık: K9'da diyorama prompt'u)
+
+**Önce hesap (koda girmeden)**
+- **Açılar (G1):** bütün GLB'ler yaw −40°, pitch 30° (`toon_render.py`'ye `TR_YAW/TR_PITCH` eklendi, geriye uyumlu;
+  işaret yönü patronun `y-40_p30.png`'siyle karşılaştırılıp doğrulandı). Ayna 4 yön: model θ = 336.6 / 103.4 /
+  156.6 / 283.4 → **render üzerinde ölçülen mil ekseni 135.20° / 45.11° / 135.11° / 45.02°** (hedef 135/45, sapma ≤0.2°;
+  kırmızı çizgiyle gözle de bakıldı). Adım 1 "\" · 3 "/" · 5 "\" (arka yüz) · 7 "/" (arka yüz)
+- **Ölçek (E1):** levha 1228×580 (iskele y 670'ten kesildi), kule 123 px. 9:16'da ölçek 0.68 → fener **83.6 px**,
+  diyorama y 402'de biter; 20:9'da ölçek 1.0 → fener 123 px
+- **Satır ölçeği (G2):** s = 0.85 + 0.15·satır/son_dolu_satır (üst 0.850 → alt 1.000); yansıma aynı dikdörtgenden
+- **Oturma (G3):** her sprite'ın alt ortası = hücre merkezi + 0.6 hücre. Su noktasından yukarı boy ≤ 0.985 hücre
+  (dikey komşu binmesin): ayna = taban kayası 0.9 genişlik (y 260'ta suya kesik, düz tepe su noktasının 0.265 üstü)
+  + ayna 0.72 hücre → 0.985 · engel 0.95 genişlik (y 420 kesik) → 0.75 · tekne 1.1 genişlik (y 440 kesik) → 0.97.
+  Yansıma: su noktasından aynalanır, dikey kayma 0, boy %60, alfa 0.35, aşağı söner
+- **Işık (G4):** render ışığı soldan (L = −0.35, 0.62, 0.70), ayna parlaması soldan sağa kayar. **E2'deki levha
+  aynalaması KULLANILMADI:** aynalanınca diyoramanın pişmiş lamba ışığı sağdan geliyor (G4 yasak). Gerek de yok:
+  ±2 hücre kaydırma 1-5. sütunların hepsine yetiyor
+
+**Kabul ölçütleri**
+- **K1 ✓** alttan üste: gök → ay → deniz shader → ay yolu (+ sis) → diyorama → yansımalar → ışın → nesneler.
+  Üstte ayrıca toplamalı parıltı (lamba, tekne feneri). Sis, deniz ile diyorama arasında (listede yoktu)
+- **K2 ✓** ayrı kule nesnesi kodda ve sahnede yok (kule, adacık, kule aralık kuralı silindi; eski görseller `cop/fener_is10/`)
+- **K3 ✓** ışının ilk noktası = lamba pikseli, lamba x = kaynak sütunu x: **0.00 px** (25 bölüm × 2 oran, `tools/is10_olcum.gd`)
+- **K4 ✓** üst satırın hücre kenarı diyoramanın altında, en dar boşluk **6 px** (9:16 ve 20:9 ayrı ölçüldü).
+  En küçük hücre: **9:16 61.4 px** (≥60) · 20:9 72.1 px
+- **K5 ✓** çakışma **0/25** (`cakisma.py` yeni geometriye göre yeniden yazıldı; bölüm sayısı İŞ 11'den beri 25)
+- **K6 ✓** en açık deniz bandına karşı (nesnesiz kareler, 3 kare, %99'luk): 9:16 / 20:9 —
+  ışın 10.69 / 10.96 · ayna yüzü (ışık almayan, en kötü yön) 3.37 / 3.45 · ışık alan 4.98 / 5.10 ·
+  tekne 3.38 / 3.47 · engel kayası 3.23 / 3.31. İlk ölçümde 1.0-1.4 çıktı (render'lar karanlıktı, en açık bant
+  sisti) → sprite'lar aynı açıyla parlaklık hedefiyle yeniden render (tekne 0.70, engel 0.64, ayna 0.66,
+  taban 0.50), sis alfası 0.40/0.35 → **0.12/0.10**, ışık almayan ayna ×0.62 → ×0.85
+- **K7 ✓** gri ton, oyun ölçeği: `gorseller/diyorama_deneme/is10_kanit/k7_gri_silet_oyun_olcegi_x3.png`.
+  Üst kenar yükseklik sapması: taban 22 px, engel 55 px (512'lik)
+- **K8 ✓** PC, en kalabalık bölüm: **289 fps / 3.45 ms** (su katmanları kapalı 469 fps → su ~1.3 ms/kare)
+- **K9 ✗ (tek eksik)** set ana deftere işlendi (7 kaynak + 9 türev, prompt'lar tam metin). **`diyorama_liman.glb`'nin
+  ChatGPT prompt'u hiçbir yerde yazılı değil** (promptlar.md'de yalnız "coastal village 3d model (1)"). Kurucu: prompt neydi?
+- **K10 ✓** `is10_kanit/k10_*.png`: Bölüm 1 (kolay, çözülmüş/çözülmemiş), Üretilen 4 (bölücülü), Üretilen 20 (zor,
+  çözülmüş/çözülmemiş), ana ekran; 720×1280 ve 720×1600. Gözle bakıldı
+
+**Gözle bakınca bulunan ve düzeltilen:** aynalı levha hiç çizilmiyordu (negatif genişlik) · modelin kendi su plakası
+denizin üstünde düz levha gibi duruyordu (%75 saydam yapıldı) · 9:16'da üst hücre diyoramaya 3 px biniyordu (üst pay
+0.4→0.5) · **ayna yönü küçük ekranda okunmuyordu** → render'la doğrulanan mil ekseni boyunca ince altın yön çizgisi
+eklendi; sabit aynada X kilit yönü örttüğü için kilit, eksen uçlarında koyu kıskaca çevrildi · `bind` sırası hatası
+
+**Risk (kurucu bakmalı):** 9:16'da ayna yığını ~45 px. Yön çizgisiyle okunuyor ama 3B ayna küçük. Büyütmek için
+"yığın ≤ 1 hücre" kuralı (K5) ya da 9:16 hücre hedefi (E1) gevşemeli — karar gerekir
+
+**Test edilen:** motor testi 25/25 OK · İŞ 8 davranış probu OK · çakışma 0/25 · K3/K4 ölçüm probu · kontrast · fps
+**Test edilmeyen:** telefonda açılmadı; ayna dönüş animasyonu, tekne süzülmesi (0.15 hücre) yeni geometride canlı
+izlenmedi; ana ekran 20:9'da bakılmadı; ay bazı bölümlerde başlık/Atla/tekne sütunu yüzünden çizilmiyor (kural gereği)
+
+**Yeni araçlar:** `tools/is10_varlik.py` (render → oyun görseli, ölçüleri yazdırır) · `tools/is10_olcum.gd` (K3/K4) ·
+`tools/is10_zemin.gd` (K6 için nesnesiz kare). `bolumler/sanat/toon_render.py`: `TR_YAW/TR_PITCH/TR_SUPER/TR_FINAL/TR_NPTS`
+ve doygunluk için "-" (Sanat GOREV.md'ye not düşülmeli)
+
 **İŞ 11 — Üreteç sabit kaynakla · kod yazıldı, telefonda test edilmedi** (2026-09-15)
 
 **Yapılan**
