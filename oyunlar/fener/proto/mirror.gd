@@ -22,7 +22,9 @@ const LENGTH := 90.0
 const TAP_RADIUS := 70.0
 const WP_Y := 54.0          # su noktası: hücre merkezi + 0.6 hücre
 ## Ölçüler (512'lik render pikseli, tools/is10_varlik.py ile ölçüldü)
-const ISLET_W := 0.9        # taban kayası genişliği (hücre); görünür genişlik 483 px
+const SIZE_K := 1.3         # İŞ 12: ayna (kaya + ayna) 1.3 kat, hücreyi taşar; dikey
+                            # ayna komşuları arasına main.gd _spacing 0.3 boşluk açar
+const ISLET_W := 0.9 * SIZE_K  # taban kayası genişliği (hücre); görünür genişlik 483 px
 const ISLET_CUT := 260.0    # bu satırın altı suda (çizilmez)
 const ISLET_TOP := 118.0    # düz tepenin orta noktası
 const ISLET_AX := 255.5
