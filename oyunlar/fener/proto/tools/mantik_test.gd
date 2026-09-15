@@ -9,6 +9,7 @@ const Main := preload("res://main.gd")
 
 func _initialize() -> void:
 	var main = load("res://main.tscn").instantiate()
+	main.auto_advance = false  # bölüm kendiliğinden değişmesin
 	root.add_child(main)
 	await process_frame
 	var ok := true

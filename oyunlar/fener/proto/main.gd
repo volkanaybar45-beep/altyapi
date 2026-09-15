@@ -154,7 +154,7 @@ func _bob() -> Vector2:
 	return Vector2(0, sin(time * 1.5) * 3.0)
 
 
-## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın).
+## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın). Son bölümde ana ekrana.
 func skip() -> void:
 	sfx("dugme")
 	_advance()
