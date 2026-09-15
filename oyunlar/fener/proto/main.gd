@@ -193,6 +193,51 @@ func load_level(i: int) -> void:
 	update_ray()
 
 
+## Sütun ve satır merkezleri (hücre biriminde). Büyük nesne komşusuna binmesin
+## diye aralarına boşluk eklenir: tekne ile yatay/dikey komşusu arasına GAP,
+## kulenin hemen altındaki nesneyle arasına GAP (tekneyse GAP_TOWER_BOAT).
+## Işın hep satır/sütun merkezinden geçtiği için fizik değişmez.
+## tools/cakisma.py aralik() ile aynı kural; biri değişirse öteki de.
+func _spacing(rows: Array) -> Array:
+	var w: int = (rows[0] as String).length()
+	var h: int = rows.size()
+	var gx: Array = []
+	var gy: Array = []
+	gx.resize(w)
+	gx.fill(0.0)
+	gy.resize(h)
+	gy.fill(0.0)
+	var at := func(x: int, y: int) -> String:
+		if x < 0 or y < 0 or x >= w or y >= h:
+			return "."
+		return (rows[y] as String)[x]
+	for y in h:
+		for x in w:
+			var c: String = at.call(x, y)
+			if c == "T":
+				for dx in [-1, 1]:
+					if at.call(x + dx, y) != ".":
+						gx[mini(x, x + dx)] = maxf(gx[mini(x, x + dx)], GAP)
+				for dy in [-1, 1]:
+					if at.call(x, y + dy) != ".":
+						gy[mini(y, y + dy)] = maxf(gy[mini(y, y + dy)], GAP)
+			elif c == "F":
+				var below: String = at.call(x, y + 1)
+				if below != ".":
+					gy[y] = maxf(gy[y], GAP_TOWER_BOAT if below == "T" else GAP)
+	var xs: Array = []
+	var ys: Array = []
+	var a := 0.0
+	for i in w:
+		xs.append(i + a)
+		a += gx[i]
+	a = 0.0
+	for i in h:
+		ys.append(i + a)
+		a += gy[i]
+	return [xs, ys]
+
+
 func _process(delta: float) -> void:
 	time += delta
 	update_ray()
