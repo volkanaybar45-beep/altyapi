@@ -77,6 +77,7 @@ var boat_flash: Array = []  # ışığı ilk alış parlaması, söner
 var boat_dir: Array = []    # teknenin ışığı aldığı yön (son)
 var _horn_cd: Array = []
 var _prev_lit := {}
+var _glow_tex: GradientTexture2D
 var glow := 0.0  # kutlamada güzergâh boyunca yayılan parlama (0..1)
 var time := 0.0
 
