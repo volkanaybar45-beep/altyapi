@@ -621,7 +621,7 @@ func _ray_bounds_t(ro: Vector2, rd: Vector2) -> float:
 	if rd.y > 1e-6:
 		t = minf(t, (bottom - ro.y) / rd.y)
 	elif rd.y < -1e-6:
-		t = minf(t, (BEAM_TOP - ro.y) / rd.y)
+		t = minf(t, (arka.dio_bottom() - ro.y) / rd.y)
 	return t
 
 
