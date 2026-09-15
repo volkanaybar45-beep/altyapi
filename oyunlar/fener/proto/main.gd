@@ -531,7 +531,7 @@ func _celebrate() -> void:
 	tw.tween_property(self, "boat_scale", 1.4, 0.15)
 	tw.tween_property(self, "boat_scale", 1.0, 0.25).set_trans(Tween.TRANS_BACK)
 	# ışın ulaştı çanı update_ray'de çalar; "bölüm tamam" biraz sonra, üst üste binmesin
-	create_tween().tween_callback(Ses.play.bind("tamam")).set_delay(0.35)
+	create_tween().tween_callback(sfx.bind("tamam")).set_delay(0.35)
 	tw.tween_callback(func():
 		can_continue = true
 		var last := level == all_levels.size() - 1
