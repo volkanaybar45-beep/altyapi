@@ -41,6 +41,9 @@ Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
 4. **Aynalar yeniden tasarlanır:** ChatGPT mockup'ındaki pirinç/altın gövdeli,
    yuvarlak taban üstünde duran, cam yüzeyli ayna. Kurucu onayladı.
    Görsel Tripo'dan gelecek (Sanat), KOD gelince bağlar. 4 yön render
+4b. **Kayalar da yeniden:** ayna tabanı = **düz tepeli** yosunlu kayalık ada;
+   engel kayası = **sivri tepeli** kaya kümesi. İkisi SİLUETTEN ayrılır,
+   renkten değil (renk körlüğü dersi). Tripo'dan gelecek, KOD bağlar
 5. Işın rengi ve kalınlığı diyoramanın sıcak lamba ışığıyla uyumlu kalsın
 6. Ekran görüntüsü: 3 bölüm, gerçek telefon oranı, GÖZLE BAK
 7. RAPOR: kaynak sabitlenince kaç üretilmiş bölüm elendi, kare hızı
