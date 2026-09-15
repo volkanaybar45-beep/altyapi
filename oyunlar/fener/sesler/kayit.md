@@ -34,5 +34,6 @@ Sayfa: `https://pixabay.com/sound-effects/<orijinal-ad>/`.
 | `isin_ulasti.mp3` | aynı | https://pixabay.com/sound-effects/universfield-magic-spell-278824/ | 5.88 sn | değişmedi, 184 KB | — |
 | `bolum_tamam.mp3` | aynı | https://pixabay.com/sound-effects/freesound_community-success-1-6297/ | 3.36 sn | değişmedi, 66 KB | — |
 | `dugme.mp3` | aynı | https://pixabay.com/sound-effects/existentialtaco-confirm-tap-394001/ | 1.10 sn | değişmedi, 34 KB | — |
+| `tekne_korna.mp3` | aynı | https://pixabay.com/sound-effects/universfield-cargo-ship-horn-352063/ | 2.45 sn | değişmedi, 77 KB | oyunda -18 dB (kısık, uzak) — İŞ 9 |
 
 Dönüştürme: ffmpeg 9.0 + numpy (KOD, bu oturum). Linkler dosya adından kuruldu; tarayıcıda açılıp doğrulanmadı.
