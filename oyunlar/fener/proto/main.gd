@@ -156,8 +156,15 @@ func _bob() -> Vector2:
 
 ## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın).
 func skip() -> void:
-	Ses.play("dugme")
+	sfx("dugme")
 	_advance()
+
+
+## Efekt çal. Ses autoload'u yoksa (test, eksik kurulum) sessizce geçer.
+func sfx(key: String) -> void:
+	var s := get_node_or_null("/root/Ses")
+	if s != null:
+		s.play(key)
 
 
 func _make_label(font_size: int, color: Color, y: float) -> Label:
