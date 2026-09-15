@@ -79,19 +79,25 @@ func _rings(cx: float, wl: float, rw: float, t: float, seed: int) -> void:
 		_ellipse(Vector2(cx, wl + 2.0), rx, rx * 0.17, Color(0.7, 0.82, 1.0, 0.22 * (1.0 - p)), 1.5, false)
 
 
-## Süzülen teknenin arkasında açılan V biçimli köpük izi. back: teknenin
-## gittiği yönün tersi × karşılık miktarı (0..1).
+## Karşılık veren teknenin köpük izi. Sahne yandan görüldüğü için iz su
+## hattında yatay: kıçtan (tekne sağa bakar, kıç solda) geriye uzanan titrek
+## çizgiler + pruvada küçük dalga. back: süzülme miktarı (uzunluğu 0..1).
 func _wake(c: Vector2, back: Vector2, rw: float, t: float) -> void:
 	var s := back.length()
-	var d := back / s
-	var n := d.orthogonal()
-	for side in [-1.0, 1.0]:
+	var stern := c.x - rw * 0.85
+	for i in 3:
+		var y := c.y + 1.0 + i * 3.5
+		var len := rw * (0.5 + 0.9 * s) * (1.0 - i * 0.2)
 		var pts := PackedVector2Array()
-		for i in 7:
-			var f := i / 6.0
-			var wob := sin(t * 3.0 + f * 6.0) * 2.0
-			pts.append(c + d * rw * (0.3 + 1.3 * f) * s + n * side * (rw * (0.25 + 0.55 * f) + wob) * Vector2(1, 0.35))
-		draw_polyline(pts, Color(0.8, 0.9, 1.0, 0.28 * s), 2.0, true)
+		var cols := PackedColorArray()
+		for q in 9:
+			var f := q / 8.0
+			pts.append(Vector2(stern - len * f, y + sin(t * 4.0 + f * 7.0 + i) * 1.2))
+			cols.append(Color(0.85, 0.92, 1.0, 0.35 * s * (1.0 - f)))
+		draw_polyline_colors(pts, cols, 2.0, true)
+	var bow := c.x + rw * 0.85
+	draw_arc(Vector2(bow, c.y + 2.0), rw * 0.18 * (0.8 + 0.2 * sin(t * 5.0)), PI * 0.15, PI * 0.85, 8,
+		Color(0.85, 0.92, 1.0, 0.3 * s), 2.0, true)
 
 
 func _ellipse(c: Vector2, rx: float, ry: float, col: Color, w: float, front_only: bool) -> void:
