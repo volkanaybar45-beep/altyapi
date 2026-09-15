@@ -156,7 +156,8 @@ func _bob() -> Vector2:
 
 ## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın).
 func skip() -> void:
-	load_level((level + 1) % all_levels.size())
+	Ses.play("dugme")
+	_advance()
 
 
 func _make_label(font_size: int, color: Color, y: float) -> Label:
