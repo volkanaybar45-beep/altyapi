@@ -15,8 +15,7 @@ void fragment() {
 	c.rgb = mix(c.rgb, vec3(0.16, 0.26, 0.42), 0.45);
 	// aynalandığı için görselin ALTI su hattında: su hattından uzaklaştıkça söner
 	float fade = smoothstep(0.15, 0.95, uv.y);
-	float stripe = 0.75 + 0.25 * sin(uv.y * 140.0 + TIME * 1.5);
-	COLOR = vec4(c.rgb, c.a * 0.34 * fade * stripe);
+	COLOR = vec4(c.rgb, c.a * 0.30 * fade);
 }"
 
 var owner_main: Node2D
