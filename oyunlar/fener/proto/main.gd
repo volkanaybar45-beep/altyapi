@@ -592,14 +592,19 @@ func _draw() -> void:
 
 	# fener: lamba odası ışının çıktığı hücre merkezinde, kule hep dik ve büyük
 	# (gövdesi alttaki hücrelere iner; _spacing çakışmayı önler). Parıltı: _draw_glows
+	# kule bir kayalık adacığın üstünde durur (adacığın altı suda)
+	var isl := _islet_geom()
+	var is_s: float = isl[1]
+	draw_texture_rect_region(ROCK, Rect2(isl[0] - ISLET_ANCHOR * is_s, Vector2(512, ISLET_CUT) * is_s),
+		Rect2(0, 0, 512, ISLET_CUT))
 	var ts := cell * TOWER_H / 490.0
 	draw_texture_rect(TOWER, Rect2(fener_pos - TOWER_LAMP * ts, Vector2(TOWER.get_width(), TOWER.get_height()) * ts), false)
 
-	# tekneler: hale yok; tekne feneri hep yanar (_draw_glows)
+	# tekneler: hale yok; tekne feneri hep yanar (_draw_glows). Gövdenin altı suda
 	var bob := _bob()
 	var bsc := _boat_scale_px() * boat_scale
 	for j in boats.size():
 		var c: Vector2 = boats[j] + bob
-		var sz := Vector2(BOAT.get_width(), BOAT.get_height()) * bsc
-		draw_texture_rect(BOAT, Rect2(c - sz / 2.0, sz), false)
+		draw_texture_rect_region(BOAT, Rect2(c - Vector2(256, 256) * bsc, Vector2(512, BOAT_CUT) * bsc),
+			Rect2(0, 0, 512, BOAT_CUT))
 		draw_circle(_lantern_pos(c, bsc), 5.0 * k, Color(1.0, 0.95, 0.72))
