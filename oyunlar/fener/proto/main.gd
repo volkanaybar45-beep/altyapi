@@ -7,24 +7,29 @@ const Mirror := preload("res://mirror.gd")
 const Arka := preload("res://arka.gd")
 const IsinKatmani := preload("res://isin_katmani.gd")
 const SuKatmani := preload("res://su_katmani.gd")
-const TOWER := preload("res://gorseller/fener_kulesi.png")
 const BOAT := preload("res://gorseller/tekne.png")
-const ROCK := preload("res://gorseller/kayalik.png")
-const TOWER_LAMP := Vector2(252, 109)   # fener_kulesi.png içinde lamba odası (512'lik tuval)
-const BOAT_LANTERN := Vector2(298, 226)  # tekne.png içinde tekne feneri
-## Görünür boyutlar (hücre biriminde). tools/cakisma.py aynılarını kullanır.
-const BOAT_W := 1.7    # tekne genişliği (İŞ 5'te 1.25; en net okunan nesne)
-const TOWER_H := 2.0   # kule yüksekliği (İŞ 5'te 1.25; sahnenin sahibi)
-## Suya oturma (İŞ 7), görsel piksel satırları (512'lik tuval):
-const TOWER_FOOT := 497.0   # fener_kulesi.png dibi
-const ISLET_W := 1.3        # kule adacığı (kayalik.png) genişliği, hücre
-const ISLET_ANCHOR := Vector2(256, 240)  # kayalık görselinde kule dibinin oturduğu nokta
-const ISLET_CUT := 325.0    # adacık bu satırda suya girer (altı çizilmez)
-const ROCK_CUT := 318.0     # engel kaya: yarı batık (bbox 99-413)
-const BOAT_CUT := 418.0     # tekne gövdesi su hattı (bbox dibi 439)
-const GAP := 0.4      # tekne ile komşusu arasına eklenen boşluk (0.3'te değiyordu)
-const GAP_TOWER_BOAT := 1.3  # kulenin hemen altında tekne varsa (kule 1.6 hücre aşağı iner)
-const BEAM_TOP := 76.0  # ışın üstte bu y'de biter (başlık şeridi altı)
+const ROCK := preload("res://gorseller/kaya_engel.png")
+## İŞ 10 geometri (G1-G3). Sprite'lar diyorama kamerasıyla (yaw -40, pitch 30)
+## render edildi; ölçüler 512'lik render pikseli (tools/is10_varlik.py).
+## Her nesnenin ALT ORTASI hücrenin su noktasına oturur: hücre merkezi + WP
+## hücre. Su noktasından yukarı toplam boy ≤ 0.985 hücre → dikey komşu binmez.
+## tools/cakisma.py aynı sabitleri kullanır; biri değişirse öteki de.
+const WP := 0.6               # su noktası: hücre merkezinin 0.6 hücre altı
+const ROW_SCALE_TOP := 0.85   # G2: en üst satır, en alt satırın %85'i
+const BOAT_W := 1.1           # tekne genişliği (hücre); görünür genişlik 483 px
+const BOAT_CUT := 440.0       # tekne su hattı (altı çizilmez) → boy 0.97 hücre
+const BOAT_AX := 255.5        # sprite alt orta x
+const BOAT_LANTERN := Vector2(185, 73)  # tekne.png içinde direk feneri
+const ROCK_W := 0.95          # engel kayası genişliği → boy 0.75 hücre
+const ROCK_CUT := 420.0
+const ROCK_AX := 255.5
+const GAP := 0.4      # tekne ile komşusu arasına eklenen boşluk
+## Ekran yerleşimi (E1): 9:16'da hücre ≥ 60, fener ≥ 80 px
+const INFO_H := 80.0          # altta "bitti" yazısı şeridi
+const UNITS_MAX := 12.8       # en uzun ızgara (hücre, üst 0.4 + alt 0.6 pay dahil)
+const CELL_GOAL := 66.0       # diyorama ölçeği bu hücreyi hedefler
+const DIO_S_MIN := 0.68       # fener 123 px × 0.68 = 83.6 px (≥ 80)
+const DIO_S_MAX := 1.0
 const Levels := preload("res://levels.gd")
 const LevelsGen := preload("res://levels_uretilen_11.gd")  # tools/uretec.py ... is11 yazar
 
