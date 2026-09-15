@@ -436,9 +436,10 @@ func compute_path() -> Dictionary:
 				break
 			if best_m == null:
 				break  # ekran kenarı, kaya ya da fener
+			mhit[best_m] = true
 			dir = best_m.reflect(dir)
 		out.append(pts)
-	return {"paths": out, "lit": got, "hit": got.size() == boats.size()}
+	return {"paths": out, "lit": got, "hit": got.size() == boats.size(), "mirrors": mhit}
 
 
 ## Kesişme yoksa -1.
