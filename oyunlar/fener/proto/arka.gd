@@ -125,14 +125,16 @@ func _draw() -> void:
 ## Aşağı indikçe genişler ve söner (denizin üst %45'i).
 func _moon_path(hy: float, bottom: float) -> void:
 	var length := (bottom - hy) * 0.45
-	var y := hy + 3.0
+	var y := hy + 2.0
 	while y < hy + length:
 		var f := (y - hy) / length
-		var w := lerpf(6.0, 90.0, f) * (moon_size / MOON_SIZE + 0.3)
-		var jx := sin(y * 0.11 + t * 1.3) * 7.0 * f + sin(y * 0.047 - t * 0.7) * 12.0 * f
-		var fl := 0.5 + 0.5 * sin(y * 0.93 + t * 2.6 + sin(y * 0.31 - t) * 2.0)
-		var a := pow(fl, 3.0) * 0.34 * (1.0 - f)
-		if a > 0.01:
-			var seg := w * (0.35 + 0.65 * fl)
-			draw_rect(Rect2(moon_pos.x + jx - seg / 2.0, y, seg, 2.0 + 2.0 * f), Color(0.82, 0.9, 1.0, a))
-		y += 4.0 + 5.0 * f
+		var w := lerpf(10.0, 80.0, f) * (moon_size / MOON_SIZE * 0.6 + 0.4)
+		var jx := sin(y * 0.11 + t * 1.3) * 6.0 * f + sin(y * 0.047 - t * 0.7) * 10.0 * f
+		# iki dalga çarpımı: pullar yerinde yanıp söner, aşağı doğru yavaşça akar
+		var fl := (0.5 + 0.5 * sin(y * 0.61 - t * 1.9)) * (0.5 + 0.5 * sin(y * 0.23 + t * 1.1 + sin(y * 0.05) * 3.0))
+		var a := (0.05 + 0.30 * fl) * pow(1.0 - f, 1.5)
+		var seg := w * (0.3 + 0.7 * fl)
+		# ortası parlak, uçları sönük: iki kat
+		draw_rect(Rect2(moon_pos.x + jx - seg / 2.0, y, seg, 2.0), Color(0.78, 0.86, 1.0, a * 0.5))
+		draw_rect(Rect2(moon_pos.x + jx - seg / 4.0, y, seg / 2.0, 2.0), Color(0.9, 0.95, 1.0, a))
+		y += 3.0 + 3.0 * f
