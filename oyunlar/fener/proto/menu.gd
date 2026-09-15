@@ -49,6 +49,7 @@ func _button(text: String, y: float) -> Button:
 	b.size = BTN
 	b.add_theme_font_size_override("font_size", 44)
 	b.focus_mode = Control.FOCUS_NONE
+	b.pressed.connect(_click)
 	return b
 
 
