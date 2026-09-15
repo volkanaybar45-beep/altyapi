@@ -23,6 +23,31 @@ Fener: sahne canlansın (KOD, İŞ 7) → sonra yeni APK → dış test tekrar
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
 
 ## KOD İŞ EMRİ (patron yazar)
+**İŞ 12 — Okunurluk turu** (2026-09-15)
+Patron İŞ 10 ekran görüntülerine baktı. Sahne tuttu; üç okunurluk sorunu var.
+
+1. **Ayna 45 px, küçük (KOD'un sorduğu karar).** Hücre hedefi ≥60 px GEVŞEMEZ,
+   bölümler yeniden üretilmez. Çözüm: **ayna sprite'ı hücreyi taşsın** —
+   genişlik hücrenin **1.3 katı**, merkez hücrede kalır. Çakışma kuralı zaten
+   büyük nesnelerin arasını açıyor; 25 bölümde çakışma 0 kalmalı, doğrula.
+   Hedef: 9:16'da ayna ≥58 px. Yön çizgisi korunur (KOD'un eklemesi doğru)
+2. **Işın uzun mesafede ip gibi inceliyor.** Bölüm 1 ekran görüntüsünde fenerden
+   aynaya inen ışın tek bir çizgi; sönümlenme fazla. Bu, defterdeki en pahalı
+   dersin tekrarı ("combo görselleri ip gibi ince çıkmıştı").
+   - Çekirdek kalınlığı mesafeden BAĞIMSIZ taban değere sahip olsun
+     (9:16'da ≥6 px), sönümlenme sadece HALE'de olsun
+   - Hale çekirdeğin en az 3 katı genişlikte kalsın, uzakta da
+3. **Ay yapıştırılmış duruyor:** sert daire kenarı, sahneye ait değil.
+   Halesi yumuşatılsın, gökyüzüne hafifçe gömülsün (kenarda alfa geçişi),
+   ve suda ay yolu ayın gerçek sütunundan başlasın
+4. RAPOR: ayna px (9:16 / 20:9), çakışma, ışın çekirdek px (en uzak mesafede),
+   3 bölüm ekran görüntüsü
+
+**K9 kapandı:** diyorama prompt'u `promptlar.md` madde 0'a yazıldı (patron).
+
+Kapsam dışı: yeni bölüm üretimi, yeni varlık, ses, yeni mekanik.
+
+
 **İŞ 11 — Üreteci sabit kaynakla yeniden koştur** (2026-09-15)
 İŞ 10'un ÖNÜNDE yapılır; İŞ 10 buna dayanıyor.
 1. Üreteç ve çözücü yeni kısıtla çalışsın: **ışık kaynağı üst satırda, yönü

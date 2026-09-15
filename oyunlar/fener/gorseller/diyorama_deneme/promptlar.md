@@ -68,3 +68,13 @@ no boats, no text.
 Single game asset on transparent background: a large detailed full moon, pale
 silver-white with soft craters and a warm gentle halo glow. Cozy stylized game
 art, centered, no text, no background.
+
+## 0 — Diyorama (`diyorama_liman.glb`) — ChatGPT görseli → Tripo image-to-3D
+(Patron yazdı, 2026-09-15. Tripo'da "aydınlatma kapalı + PBR açık" seçildi.)
+Isometric 3D-render style illustration of a small Mediterranean night harbor
+diorama, cozy stylized game art, soft toon shading. Stone quay and wooden pier
+along the LEFT and BOTTOM edges, warm glowing lanterns, ropes, crates. Small
+white houses with lit windows on a hill in the BACK. White lighthouse on a rocky
+cliff in the TOP-LEFT corner. Calm dark blue sea filling the ENTIRE CENTER and
+RIGHT — empty open water, nothing floating on it. Night sky, moon. Warm lamp
+light against cool blue night. No characters, no boats, no UI, no text.
