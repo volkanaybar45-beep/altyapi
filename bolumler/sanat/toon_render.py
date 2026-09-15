@@ -206,7 +206,7 @@ if HEDEF_TON is not None and renkli.any():
 # pikseller eşiği aşıp kümeye KATILIYOR ve düşük değerleriyle
 # ortalamayı geri çekiyor. Birkaç tur yakınsatıyor.
 s_now = float(S[renkli].mean()) if renkli.any() else 0.0
-for _ in range(4):
+for _ in range(4 if HEDEF_DOYGUNLUK is not None else 0):
     aktif = body & (S > 0.08)
     if not aktif.any():
         break
