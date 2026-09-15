@@ -115,8 +115,11 @@ func _core(p: PackedVector2Array, d0: float, k: float) -> void:
 	pts.append(p[p.size() - 1])
 	cols.append(cols[cols.size() - 1])
 	hot.append(hot[hot.size() - 1])
-	draw_polyline_colors(pts, cols, maxf(6.0, CORE_W * k), true)
-	draw_polyline_colors(pts, hot, maxf(2.5, CORE_W * 0.35 * k), true)
+	# çok hafif nefes (flicker): kalınlık ±%7
+	var tm: float = owner_main.time
+	var br := 1.0 + 0.07 * sin(tm * 7.3) * sin(tm * 3.1 + 1.0)
+	draw_polyline_colors(pts, cols, maxf(6.0, CORE_W * k * br), true)
+	draw_polyline_colors(pts, hot, maxf(2.5, CORE_W * 0.35 * k * br), true)
 
 
 ## Kırılma noktalarında (ayna, bölücü) küçük parlak düğüm; köşe kare kalmaz.
