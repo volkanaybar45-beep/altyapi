@@ -138,8 +138,8 @@ func _nodes(p: PackedVector2Array, d0: float, k: float) -> void:
 			var ph := tm * 2.2 + i * 1.7
 			var len := (16.0 + 7.0 * sin(ph * 1.6)) * k
 			for j in 2:
-				var d := Vector2.RIGHT.rotated(ph * 0.5 + j * PI / 2.0) * len
-				draw_line(p[i] - d, p[i] + d, Color(1.0, 0.95, 0.8, 0.45 * f), 2.0)
+				var arm := Vector2.RIGHT.rotated(ph * 0.5 + j * PI / 2.0) * len
+				draw_line(p[i] - arm, p[i] + arm, Color(1.0, 0.95, 0.8, 0.45 * f), 2.0)
 		else:
 			draw_circle(p[i], 7.0 * k, Color(1, 1, 0.96, f))
 
