@@ -40,9 +40,11 @@ func _initialize() -> void:
 			tap_ok = main.compute_path()["hit"]
 		var pass_i: bool = not start_hit and count > 0 and tap_ok
 		ok = ok and pass_i
-		var ad := "bolum %d" % (i + 1) if i < 9 else "uretilen %d" % (i - 8)
-		if i >= 19:
-			ad += " (IS4 Z%d, tekne=%d)" % [i - 18, main.boats.size()]
+		var n_hand: int = Main.Levels.ALL.size()
+		var n_is4: int = n_hand + Main.LevelsGen.ALL.size()
+		var ad := "bolum %d" % (i + 1) if i < n_hand else "uretilen %d" % (i - n_hand + 1)
+		if i >= n_is4:
+			ad += " (IS4 Z%d, tekne=%d)" % [i - n_is4 + 1, main.boats.size()]
 		print("%s: ayna=%d baslangic_cozulu=%s cozum=%d/%d dokunma=%s %s" % [
 			ad, rot.size(), start_hit, count, total, tap_ok, "OK" if pass_i else "HATA"])
 	print("SONUC: ", "OK" if ok else "HATA")

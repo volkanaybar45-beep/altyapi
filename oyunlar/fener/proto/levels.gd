@@ -87,7 +87,7 @@ const ALL := [
 		"...R...",
 		".......",
 		"..T...."]},
-	{"yon": "R", "map": [  # 6 · yandan fener, tekne yukarıda
+	{"yon": "R", "map": [  # 7 · yandan fener, tekne yukarıda
 		"...T...",
 		".......",
 		".......",
@@ -100,7 +100,7 @@ const ALL := [
 		".......",
 		"F...M..",
 		"......."]},
-	{"yon": "D", "map": [  # 7 · köşeden köşeye
+	{"yon": "D", "map": [  # 8 · köşeden köşeye
 		"......F",
 		".......",
 		"..M...M",
@@ -113,7 +113,7 @@ const ALL := [
 		".RN..M.",
 		".......",
 		"T......"]},
-	{"yon": "D", "map": [  # 8 · iki kol, biri kayada biter
+	{"yon": "D", "map": [  # 9 · iki kol, biri kayada biter
 		"...F...",
 		".......",
 		"M..N..b",
@@ -126,7 +126,7 @@ const ALL := [
 		".......",
 		".N..M..",
 		".T....."]},
-	{"yon": "U", "map": [  # 9 · 8 ayna, 9 yansıma, yem ayna (sol üst)
+	{"yon": "U", "map": [  # 10 · 8 ayna, 9 yansıma, yem ayna (sol üst)
 		".......",
 		".......",
 		".......",
