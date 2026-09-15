@@ -17,3 +17,5 @@ Godot proje dışındaki dosyayı APK'ya koyamadığı için kopyalandı (2026-0
 
 Asıl dosya değişirse buraya yeniden kopyalanır. Sabit ayna ayrı görsel
 değildir: `ayna_plaka.png` kodda karartılır (mirror.gd).
+
+| ikon_gecici.png | — | 2026-09-15 (İŞ 6) | **Geçici uygulama ikonu.** Bu klasördeki `fener_kulesi.png` + `tekne.png` üst üste konup koddan çizilen ışınla birleştirildi (Python/PIL, yeni üretim yok, kaynakları kayıtlı). Mağaza ikonu ayrı iş |

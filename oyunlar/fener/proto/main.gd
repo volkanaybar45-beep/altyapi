@@ -14,7 +14,7 @@ const BOAT_LANTERN := Vector2(298, 226)  # tekne.png içinde tekne feneri
 ## Görünür boyutlar (hücre biriminde). tools/cakisma.py aynılarını kullanır.
 const BOAT_W := 1.7    # tekne genişliği (İŞ 5'te 1.25; en net okunan nesne)
 const TOWER_H := 2.0   # kule yüksekliği (İŞ 5'te 1.25; sahnenin sahibi)
-const GAP := 0.3       # tekne ile komşusu arasına eklenen boşluk
+const GAP := 0.4       # tekne ile komşusu arasına eklenen boşluk (0.3'te değiyordu)
 const GAP_TOWER_BOAT := 1.3  # kulenin hemen altında tekne varsa (kule 1.6 hücre aşağı iner)
 const BEAM_TOP := 76.0  # ışın üstte bu y'de biter (başlık şeridi altı)
 const Levels := preload("res://levels.gd")
