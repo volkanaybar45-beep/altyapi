@@ -116,6 +116,15 @@ func _ready() -> void:
 	skip_button.text = tr("ATLA")
 	skip_button.pressed.connect(skip)
 	add_child(skip_button)
+	# geçiş perdesi: her şeyin üstünde, dokunuşu yutmaz
+	var cl := CanvasLayer.new()
+	cl.layer = 10
+	add_child(cl)
+	fade_rect = ColorRect.new()
+	fade_rect.color = Color(0.01, 0.03, 0.08, 0.0)
+	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_rect.size = Vector2(SIZE.x, 4000.0)  # uzun telefonda da kaplasın
+	cl.add_child(fade_rect)
 	load_level(0)
 
 
