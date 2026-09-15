@@ -280,10 +280,11 @@ func load_level(i: int) -> void:
 	# K4: ızgara diyoramanın altındaki açık denizde, dikeyde ortalı
 	var area_top: float = arka.dio_bottom() + 6.0
 	var area_h: float = vis_h - INFO_H - area_top
-	var units: float = ys[last] - ys[0] + 0.4 + 0.6  # üst yığın payı 0.385 · alt su noktası 0.6
+	# üst pay 0.5: üst satırın hücre kenarı bile diyoramaya binmez (K4) · alt pay 0.6 su noktası
+	var units: float = ys[last] - ys[0] + 0.5 + 0.6
 	cell = minf(SIZE.x / (xs[w - 1] + 2.0), area_h / units)
 	k = cell / 90.0
-	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, area_top + 0.4 * cell + (area_h - units * cell) / 2.0)
+	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, area_top + 0.5 * cell + (area_h - units * cell) / 2.0)
 	info_label.position.y = vis_h - INFO_H
 	# E2: levha kaynak sütununa kaydırılır; iki yönden ekranı daha çok kaplayan seçilir
 	var fxp: float = origin.x + xs[fx] * cell
