@@ -49,6 +49,15 @@ görünüyor. Sırayla düzelt, her maddeden sonra ekran görüntüsü al ve BAK
 11. Uygulama ikonu: **şimdilik geçici** bir ikon yeter (mağaza ikonu ayrı iş).
     Fener + ışık + tekne kompozisyonu yayın öncesi üretilecek
 
+12. **APK hazırlığı (export ayarları) — APK'yı ALMA, sadece hazırla:**
+    - Proje Ayarları: `rendering/textures/vram_compression/import_etc2_astc = true`
+      (Godot uyarısı: "Hedef platform ETC2/ASTC doku sıkıştırması gerektiriyor")
+    - `export_presets.cfg`: `package/unique_name=com.volkagames.fenerbekcisi` ·
+      `package/name=Fener Bekçisi` · `version/name=0.1` · `version/code=1`
+    - Export path: `C:/Altyapi/oyunlar/fener/apk/fener-0.1-debug.apk`,
+      `.gitignore`'a `*.apk` (GitHub 100 MB dersi)
+    - RAPOR'a: APK alma komutu + kalan eksikler
+
 Kapsam dışı: ses, reklam, kayıt sistemi, liman restorasyonu, renk filtresi.
 
 **İŞ 5 (BİTTİ) — Görsel entegrasyonu + ana ekran** (2026-09-14)
