@@ -169,6 +169,66 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 6 — Görsel düzeltme turu · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**Yapılan**
+1. **Ayna:** kod karartmıyordu; gri/grenli olan görselin yüzüydü (render gürültüsü). Plaka
+   artık gölgelendiricili Sprite2D: yüz pürüzsüz gümüş-mavi degrade + çapraz parlama,
+   çerçeve parlak altın. Sabit ayna aynı gölgelendiricide karartılır + kıskaçlar (silüet aynı kaldı)
+2. **Işın:** çekirdek 10px×k (+ ince beyaz iç), hale 48px×k beş katlı yumuşak (oran 0.21) ·
+   her kırılmada parlak düğüm · 1800px'te hale %45'e, çekirdek %80'e söner · sis bandında
+   hale %45 genişler, seyrelir
+3. **Tekne** 1.25→**1.7 hücre** (×1.36), hale kalktı, feneri hep sıcak sarı yanar (toplamalı),
+   ışık alınca/bitince güçlenir. Kenar çizgisi yaması **silindi**
+4. **Kule** 1.25→**2.0 hücre** (×1.6), lamba hücre merkezinde (ışın çıkışı hizalı), gri daire
+   yerine titreyen sıcak parıltı
+5. **Çakışma:** `tools/cakisma.py` sprite alfa maskeleriyle 28 bölümü denetler. Yeni boyutta
+   11 bölümde binme vardı → **ızgarada sadece çakışan sütun/satır arası açılır** (tekne-komşu
+   0.4 hücre, kule altındaki tekne 1.3). Işın hep satır/sütun merkezinden geçtiği için fizik
+   değişmez. Sonuç: **0 çakışma**, hiç bölüm elenmedi. Ay da nesneyle çakışırsa sola/ortaya
+   kayar, yer yoksa o bölümde çizilmez
+8. **Tekne görseli** `toon_render.py … z 0.30 - 0.55` ile yeniden üretildi; eskisi
+   `cop/fener_is6/`, iki defter de güncellendi. Tüm sprite'lara mipmap + doğrusal-mipmap
+   filtre (küçültmede gren kayboldu)
+9/12. `project.godot`: `config/version="0.1"`, ad zaten "Fener Bekçisi", ETC2/ASTC zaten açıktı
+10. **20:9:** oyun alanı fazla yüksekliği kullanır, **dolu satırlar** dikeyde ortalanır
+    (haritaların alt satırları boştu, boşluğun asıl sebebi buydu); "Devam" yazısı ekran altına yaslı
+11. Geçici ikon `gorseller/ikon_gecici.png` (kule + tekne + ışın, kayıtlı görsellerden; defterde)
+
+**Kontrast (WCAG)** — zemin: medyan / en koyu / en açık (ufuk parıltısı, %99'luk)
+- Işın çekirdeği: 14.4 / 15.8 / 5.3 ✓ · Ayna yüzü: 12.6 / 13.9 / 4.7 ✓ · Ayna çerçevesi: 10.4 / 11.4 / 3.9 ✓
+- **Tekne gövdesi: 3.6 / 3.9 ✓ ama ufuk parıltısının üstüne düşerse 1.3 ✗** (zemin görselinin
+  ufuk bandı çok açık; bölüm 16'da tekne tam oraya denk geliyor). Kurucu bakmalı
+
+**GÖZLE BAKILDI** (720×1600 ve 720×1280): Bölüm 1 (kolay), Üretilen 10 (zor, çözülmüş),
+Bölüm 16 (kule üstünde tekne, iki oran), Üretilen İŞ4-Z6 (bölücülü, çözülmüş). Bakınca bulunan ve
+düzeltilen: kule aya biniyordu · tekne gövdesi grenliydi · tekne üstündeki aynaya değiyordu
+(0.3→0.4) · 20:9'da alt 600px boştu · hale kenarı basamaklıydı · sıfır boylu ışın parçası
+üçgenleme hatası veriyordu
+
+**Test edilen:** motor testi OK (fizik bozulmadı), import/betik kontrolü temiz, çakışma 0/28.
+
+**Test EDİLMEYEN / YAPILAMAYAN**
+- Telefonda açılmadı; ana ekran ve ayar paneli bu turda bakılmadı; ekran boyutu oyun
+  sırasında değişirse yerleşim yeniden hesaplanmaz (bölüm yüklenirken hesaplanır)
+- **Madde 12 yarım: `export_presets.cfg` bana yasak** (`.claude/settings.json` deny, bilinçli).
+  Kurucu Godot'ta Proje → Dışa Aktar → Android'de şunları girmeli: `package/unique_name =
+  com.volkagames.fenerbekcisi` · `package/name = Fener Bekçisi` · `version/name = 0.1` ·
+  `version/code = 1` · export yolu `C:/Altyapi/oyunlar/fener/apk/fener-0.1-debug.apk`
+- **APK komutu** (proto klasöründe, sahte APPDATA ile):
+  `Godot_v4.7.1-stable_win64_console.exe --headless --path . --export-debug "Android" C:/Altyapi/oyunlar/fener/apk/fener-0.1-debug.apk`
+  (ön ayar adı "Android" varsayıldı, dosyayı göremedim). `*.apk` zaten `.gitignore`'da
+- Kalan eksik: İzin listesi dosyadan doğrulanamadı (boş olmalı)
+
+**Güvenlik:** `export_presets.cfg` **git'te izleniyor ve `.gitignore`'da yok** (anayasa ister).
+Dokunmadım: `git rm --cached` + `.gitignore` satırı patron kararı
+
+**Öneri**
+- Import hook'u hata metnini stdout'a yazıyor → Claude "blocking error, No stderr output"
+  görüyor, sebebi göremiyor. `echo ... >&2` olmalı (bu turda hatayı elle koşup buldum)
+- `cakisma.py` aralık kuralı main.gd `_spacing` ile iki yerde; biri değişirse öteki de
+- Ders: sprite küçültülerek çiziliyorsa mipmap açılmazsa doku grenli görünür
+
 **İŞ 5 — Görsel entegrasyonu + ana ekran · kod yazıldı, telefonda test edilmedi** (2026-09-14)
 
 **Yapılan**
