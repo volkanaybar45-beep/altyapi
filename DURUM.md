@@ -254,10 +254,26 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
-**İŞ 8 — Otomatik devam + ses · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+**İŞ 8 + İŞ 9 — Otomatik devam + ses + tekne karşılığı · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**Yapılan — İŞ 9. Tekne** (ızgara hücresinde kaldı; fizik konumu değişmedi)
+- **Bekleme:** yavaş yalpa (±3°) + iniş-çıkış, her tekne farklı evrede; yansıması aynı açıyla
+  sallanır; dipte halka/köpük; fener sönük kor
+- **Işık ulaşınca:** fener kısa, büyük sıcak parlama → tam yanar · çan (0 sn) · **korna 0.35 sn sonra**
+  (-18 dB, kısık; aynı tekne 3 sn içinde tekrar korna çalmaz) · tekne ~1.4 sn'de ışığın geldiği
+  yöne 0.15 hücre süzülür (ışın ucu gövdede kalır), yalpası yatışır, gövde sıcak renge bürünür,
+  kıçta yatay köpük izi + pruvada küçük dalga · ışık kaybolursa 0.8 sn'de eski haline döner
+- Kutlama: eski "büyüyüp küçülme" (yapmacık) kalktı; süzülme görünsün diye kutlama 1.5 sn,
+  "bölüm tamam" sesi kornadan sonra (1.1 sn), sonra otomatik devam
+- Fener/tekne parıltısı düz daireydi → mavi zeminde **gri disk** görünüyordu (toplamalı sıcak renk
+  maviyle griye dönüyor). Yumuşak radyal doku + doygun turuncuya çevrildi (kule lambası dahil)
+- **Madde 4 — Sanat'a bildirim:** tekne hâlâ biraz "yapıştırılmış": render **tam yandan**, güverte hiç
+  görünmüyor, düz kesik silüet. Yansıma/yalpa/köpük suya bağladı ama hacim yok. Hafif yukarıdan
+  (10-20°) yeni render önerilir. Bu işte görsel üretilmedi
+- Süzülme `cakisma.py` hesabında yok (0.15 hücre; komşu aynaya çok yaklaşan bölüm olabilir)
 
 **Yapılan — A. Otomatik devam**
-- Bölüm bitince kutlama (~1.1 sn) + 0.6 sn → 0.25 sn kararma → sonraki bölüm → 0.3 sn açılma
+- Bölüm bitince kutlama (~1.5 sn) + 0.6 sn → 0.25 sn kararma → sonraki bölüm → 0.3 sn açılma
 - "Devam için dokun" kalktı; kutlama sırasında dokunuş hemen geçirir (çift geçiş korumalı)
 - Son bölüm: "Şimdilik bu kadar — teşekkürler!" 2.2 sn → ana ekran. "Atla" da aynı geçişi kullanır
   (son bölümde artık başa sarmaz, ana ekrana döner)
