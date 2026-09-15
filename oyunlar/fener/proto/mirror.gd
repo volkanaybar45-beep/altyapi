@@ -137,6 +137,5 @@ func _draw() -> void:
 		return
 	# taban dönmez: düğümün dönüşünü geri al
 	draw_set_transform(Vector2.ZERO, -rotation, Vector2.ONE)
-	var bsz := 60.0
-	draw_texture_rect(BASE_TEX, Rect2(Vector2(-bsz / 2.0, -bsz * KNOB_Y / 256.0), Vector2(bsz, bsz)), false)
+	draw_texture_rect(BASE_TEX, base_rect(1.0), false)
 	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.62, 0.0, TAU, 40, Color(1.0, 0.86, 0.5, 0.30), 2.0)
