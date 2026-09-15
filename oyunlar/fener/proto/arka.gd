@@ -67,6 +67,8 @@ var dio_x := 360.0 - DIO_LAMP.x * 0.68  # levhanın sol kenarı (ekran x)
 var t := 0.0
 var _layers: Array = []
 var _dio_img: Image
+var _moon_node: Node2D
+var _halo: GradientTexture2D
 
 
 func _ready() -> void:
