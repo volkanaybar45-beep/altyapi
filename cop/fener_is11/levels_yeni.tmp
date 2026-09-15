@@ -1,5 +1,5 @@
 extends RefCounted
-## Elle kurulan bölümler: 7 sütun x 12 satır ızgara.
+## Elle kurulan bölümler: 7 sütun x 12 satır ızgara (hücre 90px).
 ## F fener · T tekne · R kaya (ışını keser)
 ## M döner ayna, "\" başlar · N döner ayna, "/" başlar
 ## b sabit ayna "\" · s sabit ayna "/"
