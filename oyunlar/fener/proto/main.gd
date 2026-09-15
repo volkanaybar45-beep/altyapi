@@ -371,6 +371,10 @@ func update_ray() -> void:
 	lit = r["lit"]
 	hit = r["hit"]
 	lit_mirrors = r["mirrors"]
+	# yeni bir tekne ışık aldıysa çan (bölüm yüklenirken değil: _lit_count = -1)
+	if _lit_count >= 0 and lit.size() > _lit_count:
+		Ses.play("isin")
+	_lit_count = lit.size()
 
 
 ## Bütün kolları izler. Bölücü gelen kolu durdurur, merkezinden sağa ve sola
