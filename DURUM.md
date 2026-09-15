@@ -34,8 +34,11 @@ Kurucu istedi. Kapsam DAR tutuldu; müzik yok, ses ayarı var.
    aç/kapa, seçim cihazda saklanır (`user://`). Metinler `tr()`, EN boş
 8. **Müzik YOK.** Sakin oyunda ortam sesi yeterli; müzik lisans ve dosya boyutu yükü
 9. Telefon sessize alınmışsa ya da ses dosyası yoksa oyun ÇALIŞMAYA devam eder (çökme yok)
-10. Ses dosyaları: **kurucu Pixabay'den indirip** `oyunlar/fener/sesler/`'e koyar.
-    KOD dosyaları oyuna bağlar, `proto/sesler/`'e kopyalar (Godot proje dışını APK'ya koyamaz)
+10. **Sesler GELDİ** (2026-09-15, Pixabay, defter dolu): `oyunlar/fener/sesler/` →
+    `ortam_deniz.mp3` · `ortam_ruzgar.mp3` · `ayna_cevir.mp3` · `isin_ulasti.mp3` ·
+    `bolum_tamam.mp3` · `dugme.mp3`. KOD bunları `proto/sesler/`'e kopyalar
+    (Godot proje dışını APK'ya koyamaz) ve oyuna bağlar. Deniz/rüzgâr import'unda
+    **Loop açık**. `ortam_deniz.mp3` 4.2 MB — gerekirse 30-60 sn'ye kısalt
 11. **Lisans zinciri, pazarlık yok:** her ses için `kayit.md`'ye dosya adı, tarih,
     kaynak (Pixabay + sayfa linki), lisans, süre. **Kayıtsız ses oyuna girmez**
 12. RAPOR: APK boyutu ne kadar büyüdü, ses dosyası formatı/boyutu
