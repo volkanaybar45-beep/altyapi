@@ -628,7 +628,7 @@ func tap(pos: Vector2) -> void:
 			best = m
 	if best != null:
 		best.turn()
-		Ses.play("ayna")
+		sfx("ayna")
 
 
 # --- çizim -------------------------------------------------------------------
