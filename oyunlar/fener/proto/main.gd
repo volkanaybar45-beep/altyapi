@@ -181,7 +181,7 @@ func load_level(i: int) -> void:
 			var ch := (rows[y] as String)[x]
 			if ch != ".":
 				top = minf(top, ys[y] - 0.6)
-				bot = maxf(bot, ys[y] + (1.6 if ch == "F" else 0.6))
+				bot = maxf(bot, ys[y] + (1.9 if ch == "F" else 0.6))
 	# hücre: genişliğe (kenarda yarım hücre pay) ve oyun alanı yüksekliğine sığan en büyük
 	cell = minf(SIZE.x / (xs[w - 1] + 2.0), span / (bot - top))
 	k = cell / 90.0
