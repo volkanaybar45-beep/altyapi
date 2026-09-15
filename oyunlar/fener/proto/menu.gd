@@ -107,7 +107,6 @@ func _toggle_look(b: Button, on: bool) -> void:
 	var c := Color("#FFE7A3") if on else Color(0.6, 0.65, 0.72)
 	for s in ["font_color", "font_pressed_color", "font_hover_color", "font_hover_pressed_color"]:
 		b.add_theme_color_override(s, c)
-	panel.add_child(b)
 
 
 func _click() -> void:
