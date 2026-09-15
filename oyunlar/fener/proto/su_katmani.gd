@@ -49,6 +49,8 @@ func _draw() -> void:
 		var it: Dictionary = items[i]
 		if it.get("ring", true):
 			_rings(it["center"].x, it["wl"], it["rw"], t, i)
+		if it.has("wake") and it["wake"].length() > 0.02:
+			_wake(Vector2(it["center"].x, it["wl"]), it["wake"], it["rw"], t)
 	_glints(owner_main.paths, t, k, owner_main.arka.horizon_screen_y())
 
 
