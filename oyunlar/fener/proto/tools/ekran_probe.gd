@@ -25,6 +25,8 @@ func _initialize() -> void:
 	vp.add_child(main)
 	for _i in 3:
 		await process_frame
+	if lv == -2:  # bolum -1 = ana ekranda Ayarlar paneli açık
+		main.settings_panel.visible = true
 	if lv >= 0:
 		main.load_level(lv)
 		if solved:
