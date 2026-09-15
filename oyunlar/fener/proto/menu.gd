@@ -89,15 +89,24 @@ func _toggle_row(panel: Control, y: float, text: String, on: bool, changed: Call
 	var b := Button.new()
 	b.toggle_mode = true
 	b.button_pressed = on
-	b.text = tr("ACIK") if on else tr("KAPALI")
 	b.position = Vector2(356, y)
 	b.size = Vector2(208, 96)
 	b.add_theme_font_size_override("font_size", 36)
 	b.focus_mode = Control.FOCUS_NONE
+	_toggle_look(b, on)
 	b.toggled.connect(func(v: bool):
-		b.text = tr("ACIK") if v else tr("KAPALI")
+		_toggle_look(b, v)
 		changed.call(v)
 		_click())
+	panel.add_child(b)
+
+
+## Açık: sıcak sarı yazı · Kapalı: soluk gri (yazı da farklı, renk körlüğü)
+func _toggle_look(b: Button, on: bool) -> void:
+	b.text = tr("ACIK") if on else tr("KAPALI")
+	var c := Color("#FFE7A3") if on else Color(0.6, 0.65, 0.72)
+	for s in ["font_color", "font_pressed_color", "font_hover_color", "font_hover_pressed_color"]:
+		b.add_theme_color_override(s, c)
 	panel.add_child(b)
 
 
