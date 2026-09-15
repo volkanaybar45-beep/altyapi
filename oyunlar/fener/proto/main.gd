@@ -482,6 +482,8 @@ func _process(delta: float) -> void:
 		l.queue_redraw()
 	for m in mirrors:
 		m.lit = lit_mirrors.has(m)
+	for n in boat_nodes:
+		n.queue_redraw()
 	glow_layer.queue_redraw()
 
 
