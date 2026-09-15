@@ -523,7 +523,7 @@ func compute_path() -> Dictionary:
 			mhit[best_m] = true
 			dir = best_m.reflect(dir)
 		out.append(pts)
-	return {"paths": out, "lit": got, "hit": got.size() == boats.size(), "mirrors": mhit}
+	return {"paths": out, "lit": got, "hit": got.size() == boats.size(), "mirrors": mhit, "boat_dirs": bdir}
 
 
 ## Kesişme yoksa -1.
