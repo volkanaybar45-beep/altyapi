@@ -24,11 +24,8 @@ func _initialize() -> void:
 		var lamp: Vector2 = main.arka.lamp_screen()
 		var start: Vector2 = main.paths[0][0]
 		var k3 := maxf(absf(lamp.x - main.fener_pos.x), start.distance_to(lamp))
-		# en üst nesnenin tepesi (yığın 0.385 hücre) ya da üst satır hücre kenarı
+		# üst satırın hücre kenarı (merkez − 0.5 hücre); nesne yığınları 0.385'te kalır
 		var row0_top: float = main.fener_pos.y - 0.5 * main.cell
-		for m in main.mirrors + main.boats + main.rocks:
-			var p: Vector2 = m.position if m is Node2D else m
-			row0_top = minf(row0_top, p.y - 0.4 * main.cell)
 		var gap: float = row0_top - main.arka.dio_bottom()
 		worst_k3 = maxf(worst_k3, k3)
 		worst_gap = minf(worst_gap, gap)
