@@ -344,8 +344,6 @@ func load_level(i: int) -> void:
 	else:
 		title_label.text = tr("URETILEN") % [i - n_hand + 1, d["zorluk"]]
 	info_label.text = ""
-	# ufuk ilk dolu satırın biraz üstünde: bütün nesneler suda durur
-	arka.horizon_y = origin.y + (top + 0.6 - 0.3) * cell
 	_place_moon()
 	_loaded = false  # yükleme anında çan çalmasın
 	update_ray()
