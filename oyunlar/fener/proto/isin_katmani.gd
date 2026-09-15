@@ -118,7 +118,7 @@ func _core(p: PackedVector2Array, d0: float, k: float) -> void:
 	var hot := PackedColorArray()
 	for c in _chunks(p, d0):
 		pts.append(c[0])
-		var f := _fade(c[2], 0.8)
+		var f := 1.0  # İŞ 12: çekirdek mesafeyle sönmez (sönüm yalnız halede)
 		cols.append(Color(CORE.r, CORE.g, CORE.b, f))
 		hot.append(Color(1, 1, 0.96, f))
 	pts.append(p[p.size() - 1])
