@@ -20,6 +20,8 @@ func _initialize() -> void:
 	root.add_child(vp)
 	var scene: String = "res://menu.tscn" if lv < 0 else "res://main.tscn"
 	var main = load(scene).instantiate()
+	if lv >= 0:
+		main.auto_advance = false  # çözülmüş kare alınırken bölüm değişmesin
 	vp.add_child(main)
 	for _i in 3:
 		await process_frame
