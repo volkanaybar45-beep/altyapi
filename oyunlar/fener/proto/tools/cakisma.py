@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 
 # --- aralık kuralı (main.gd _spacing ile aynı) ---
-GAP = float(os.environ.get("GAP", 0.3))
+GAP = float(os.environ.get("GAP", 0.4))
 GAP_KULE_TEKNE = 1.3
 
 
