@@ -201,7 +201,21 @@ func _boat_pose(j: int) -> Array:
 
 func _lantern_at(j: int) -> Vector2:
 	var pose := _boat_pose(j)
-	return pose[0] + ((BOAT_LANTERN - Vector2(256, 256)) * _boat_scale_px()).rotated(pose[1])
+	var f := _boat_f(boats[j])
+	return pose[0] + (Vector2(0, WP * cell) + (BOAT_LANTERN - Vector2(BOAT_AX, BOAT_CUT)) * f).rotated(pose[1])
+
+
+## Sprite pikselinden ekrana ölçek (G2 satır ölçeği dahil).
+func _boat_f(p: Vector2) -> float:
+	return BOAT_W * cell * _rs(p) / 483.0
+
+
+func _rock_f(p: Vector2) -> float:
+	return ROCK_W * cell * _rs(p) / 483.0
+
+
+func _rs(p: Vector2) -> float:
+	return row_scale.get(roundi(p.y), 1.0)
 
 
 func _ease(x: float) -> float:
