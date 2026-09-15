@@ -16,11 +16,19 @@ OUT   = sys.argv[2] if len(sys.argv) > 2 else "agac"
 # hangi eksenden bakılıyor: z = -Z'ye bak (X yatay), x = -X'e bak (Z yatay),
 # xr = +X'e bak (aynalı — özne diğer yöne bakar)
 VIEW  = sys.argv[3] if len(sys.argv) > 3 else "z"
-SUPER = 1536          # üst-örnekleme boyu
-FINAL = 512           # kaydedilen boy
+import os
+SUPER = int(os.environ.get("TR_SUPER", 1536))   # üst-örnekleme boyu
+FINAL = int(os.environ.get("TR_FINAL", 512))    # kaydedilen boy
 TILE  = 256           # tahta ikonu boyu (ölçüm bunda da yapılır)
-NPTS  = 6_000_000     # yüzey örnek sayısı
-HEDEF_DOYGUNLUK = float(sys.argv[4]) if len(sys.argv) > 4 else 0.311
+NPTS  = int(os.environ.get("TR_NPTS", 6_000_000))  # yüzey örnek sayısı
+# Kamera açısı (derece, isteğe bağlı; Fener İŞ 10 G1: yaw -40, pitch 30).
+# Model önce Y ekseninde YAW, sonra X ekseninde PITCH döndürülür, sonra
+# görünüm (z) ile ortografik bakılır. Işık kamera uzayında sabit (soldan).
+YAW   = float(os.environ.get("TR_YAW", 0))
+PITCH = float(os.environ.get("TR_PITCH", 0))
+# "-" verilirse doygunluğa dokunulmaz (diyorama gibi çok renkli sahneler)
+HEDEF_DOYGUNLUK = (None if len(sys.argv) > 4 and sys.argv[4] in ('', '-')
+                   else float(sys.argv[4]) if len(sys.argv) > 4 else 0.311)
 # hedef medyan TON (derece). Bos birakilirsa ton dokunulmaz.
 HEDEF_TON = float(sys.argv[5]) if len(sys.argv) > 5 and sys.argv[5] not in ('','-') else None
 # hedef ortalama PARLAKLIK. Bos birakilirsa dokunulmaz.
