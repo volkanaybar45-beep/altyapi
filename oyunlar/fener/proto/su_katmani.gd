@@ -88,8 +88,8 @@ func _ellipse(c: Vector2, rx: float, ry: float, col: Color, w: float, front_only
 	draw_polyline(pts, col, w, true)
 
 
-## Işının geçtiği yerde suda seyrek, sıcak, göz kırpan parıltılar.
-func _glints(paths: Array, t: float, k: float) -> void:
+## Işının geçtiği yerde suda seyrek, sıcak, göz kırpan parıltılar (gökte yok).
+func _glints(paths: Array, t: float, k: float, hy: float) -> void:
 	for p in paths:
 		for i in p.size() - 1:
 			var a: Vector2 = p[i]
