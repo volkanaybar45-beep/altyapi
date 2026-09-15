@@ -5,7 +5,8 @@ extends Node2D
 ##
 ## Görünüş (İŞ 6): ince parlak çekirdek + geniş yumuşak hale (çekirdek ≤
 ## halenin 1/3'ü) · her kırılma noktasında küçük parlak düğüm · uzunluk
-## boyunca hafif sönümlenme · sis bantlarından geçerken hale hafif yayılır.
+## boyunca hafif sönümlenme YALNIZ halede (İŞ 12: çekirdek sabit kalınlık ve
+## parlaklık, taban 6.5 px) · sis bantlarından geçerken hale hafif yayılır.
 
 const Arka := preload("res://arka.gd")
 
