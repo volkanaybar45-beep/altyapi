@@ -57,7 +57,7 @@ func _button(text: String, y: float) -> Button:
 ## saklanır (user://ayarlar.cfg). Ses yoksa satırlar yine görünür, işlevsiz kalır.
 func _make_settings() -> Control:
 	var panel := Panel.new()
-	panel.position = Vector2(60, 460)
+	panel.position = Vector2(60, 530)  # başlığın altında, Oyna/Ayarlar'ı örter
 	panel.size = Vector2(600, 460)
 	# opak: arkadaki Oyna/Ayarlar düğmeleri içinden görünmesin
 	var sb := StyleBoxFlat.new()
