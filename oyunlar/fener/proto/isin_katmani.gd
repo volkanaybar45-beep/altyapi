@@ -1,10 +1,19 @@
 extends Node2D
-## Işın çizimi. İki örnek kullanılır: `additive = true` parlama (toplamalı
-## karışım), `false` çekirdek (#FFE7A3, ≥16 px, normal karışım — kontrast
-## ölçümü buna yapılır). Veriyi sahibinden (main.gd) okur: paths, glow, k.
+## Işın çizimi. İki örnek kullanılır: `additive = true` hale (toplamalı
+## karışım), `false` çekirdek (#FFE7A3, normal karışım — kontrast ölçümü
+## buna yapılır). Veriyi sahibinden (main.gd) okur: paths, glow, k, time.
+##
+## Görünüş (İŞ 6): ince parlak çekirdek + geniş yumuşak hale (çekirdek ≤
+## halenin 1/3'ü) · her kırılma noktasında küçük parlak düğüm · uzunluk
+## boyunca hafif sönümlenme · sis bantlarından geçerken hale hafif yayılır.
+
+const Arka := preload("res://arka.gd")
 
 const CORE := Color("#FFE7A3")
-const CORE_W := 16.0
+const CORE_W := 10.0    # çekirdek (× k)
+const HALO_W := 48.0    # en dış hale (× k); çekirdek / hale = 0.21
+const FADE_LEN := 1800.0  # bu kadar yolda hale %45'e, çekirdek %80'e iner
+const CHUNK := 24.0       # sönüm/sis için parça boyu (px)
 
 var owner_main: Node2D
 var additive := false
@@ -24,24 +33,100 @@ func _draw() -> void:
 	var glow: float = owner_main.glow
 	var k: float = owner_main.k
 	var pulse := 0.5 + 0.5 * sin(owner_main.time * 3.0)
+	# kolların hepsi fenerden başlar; bölücüden çıkan kol yolu kaldığı yerden sayar
+	var start_d := {}
 	for p in paths:
+		var d0: float = start_d.get(p[0], 0.0)
+		var d := d0
+		for i in p.size() - 1:
+			d += p[i].distance_to(p[i + 1])
+		start_d[p[p.size() - 1]] = d
 		if additive:
-			# dar tutuldu: komşu şeritte paralel iki kol tek banda karışmasın
-			_line(p, Color(1.0, 0.8, 0.45, 0.12 + 0.04 * pulse), 34.0 * k)
-			_line(p, Color(1.0, 0.88, 0.6, 0.22), 22.0 * k)
+			_halo(p, d0, k, pulse)
 		else:
-			_line(p, CORE, CORE_W)
-			_line(p, Color(1, 1, 0.95), 5.0)
+			_core(p, d0, k)
+		_nodes(p, d0, k)
 	if glow > 0.0:
 		for p in paths:
 			_draw_glow(p, glow, k)
 
 
-func _line(p: PackedVector2Array, c: Color, w: float) -> void:
+## Yol boyunca parça parça: (başlangıç, bitiş, parçanın yoldaki uzaklığı).
+func _chunks(p: PackedVector2Array, d0: float) -> Array:
+	var out: Array = []
+	var d := d0
 	for i in p.size() - 1:
-		draw_line(p[i], p[i + 1], c, w)
-	for i in range(1, p.size() - 1):  # köşeler yuvarlak (aynada kırılma)
-		draw_circle(p[i], w / 2.0, c)
+		var a := p[i]
+		var b := p[i + 1]
+		var n := maxi(1, ceili(a.distance_to(b) / CHUNK))
+		for j in n:
+			var s := a.lerp(b, float(j) / n)
+			var e := a.lerp(b, float(j + 1) / n)
+			out.append([s, e, d])
+			d += s.distance_to(e)
+	return out
+
+
+func _fade(d: float, lo: float) -> float:
+	return lerpf(1.0, lo, clampf(d / FADE_LEN, 0.0, 1.0))
+
+
+## Sis bandının içinde 0..1 (bant merkezinde 1). Bantlar arka.gd'den.
+func _fog(y: float) -> float:
+	var f := 0.0
+	for band in Arka.FOG_BANDS:
+		f = maxf(f, 1.0 - clampf(absf(y - band[0]) / (band[1] * 0.5), 0.0, 1.0))
+	return smoothstep(0.0, 1.0, f)
+
+
+## Hale: üç kat, dörtgen parçalar (toplamalı karışımda üst üste binmesin diye
+## daire/uç kapağı yok; köşeyi düğüm örter).
+func _halo(p: PackedVector2Array, d0: float, k: float, pulse: float) -> void:
+	var layers := [[HALO_W, Color(1.0, 0.78, 0.42, 0.07 + 0.02 * pulse)],
+		[HALO_W * 0.6, Color(1.0, 0.85, 0.55, 0.10)],
+		[HALO_W * 0.34, Color(1.0, 0.92, 0.70, 0.16)]]
+	for c in _chunks(p, d0):
+		var a: Vector2 = c[0]
+		var b: Vector2 = c[1]
+		var f := _fade(c[2], 0.45)
+		var fog := _fog((a.y + b.y) * 0.5)
+		var n := (b - a).normalized().orthogonal()
+		for L in layers:
+			var w: float = L[0] * k * (1.0 + 0.45 * fog) * 0.5
+			var col: Color = L[1]
+			col.a *= f * (1.0 - 0.25 * fog)  # yayılınca seyrelir: toplam ışık aynı kalsın
+			draw_colored_polygon(PackedVector2Array([a + n * w, b + n * w, b - n * w, a - n * w]), col)
+
+
+func _core(p: PackedVector2Array, d0: float, k: float) -> void:
+	var pts := PackedVector2Array()
+	var cols := PackedColorArray()
+	var hot := PackedColorArray()
+	for c in _chunks(p, d0):
+		pts.append(c[0])
+		var f := _fade(c[2], 0.8)
+		cols.append(Color(CORE.r, CORE.g, CORE.b, f))
+		hot.append(Color(1, 1, 0.96, f))
+	pts.append(p[p.size() - 1])
+	cols.append(cols[cols.size() - 1])
+	hot.append(hot[hot.size() - 1])
+	draw_polyline_colors(pts, cols, maxf(6.0, CORE_W * k), true)
+	draw_polyline_colors(pts, hot, maxf(2.5, CORE_W * 0.35 * k), true)
+
+
+## Kırılma noktalarında (ayna, bölücü) küçük parlak düğüm; köşe kare kalmaz.
+func _nodes(p: PackedVector2Array, d0: float, k: float) -> void:
+	var d := d0
+	for i in range(1, p.size()):
+		d += p[i - 1].distance_to(p[i])
+		if i == p.size() - 1:
+			break  # kolun sonu: tekne/kaya/kenar, düğüm yok
+		var f := _fade(d, 0.6)
+		if additive:
+			draw_circle(p[i], 22.0 * k, Color(1.0, 0.85, 0.55, 0.10 * f))
+			draw_circle(p[i], 13.0 * k, Color(1.0, 0.92, 0.72, 0.22 * f))
+		else:
+			draw_circle(p[i], 7.0 * k, Color(1, 1, 0.96, f))
 
 
 ## Kutlamada parlama her kolda başından sonuna doğru yayılır.
@@ -56,7 +141,8 @@ func _draw_glow(p: PackedVector2Array, glow: float, k: float) -> void:
 			break
 		var b := p[i + 1] if left >= seg_len else p[i].lerp(p[i + 1], left / seg_len)
 		if additive:
-			draw_line(p[i], b, Color(1.0, 0.9, 0.6, 0.35), 40.0 * k)
+			var n := (b - p[i]).normalized().orthogonal() * 16.0 * k
+			draw_colored_polygon(PackedVector2Array([p[i] + n, b + n, b - n, p[i] - n]), Color(1.0, 0.9, 0.6, 0.22))
 		else:
-			draw_line(p[i], b, Color(1, 1, 0.97), CORE_W * 0.6)
+			draw_line(p[i], b, Color(1, 1, 0.97), CORE_W * 0.5 * k)
 		left -= seg_len
