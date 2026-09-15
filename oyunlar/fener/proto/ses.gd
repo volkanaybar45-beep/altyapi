@@ -15,6 +15,7 @@ const SFX := {
 	"isin": ["res://sesler/isin_ulasti.mp3", -6.0],
 	"tamam": ["res://sesler/bolum_tamam.mp3", -4.0],
 	"dugme": ["res://sesler/dugme.mp3", -8.0],
+	"korna": ["res://sesler/tekne_korna.mp3", -18.0],  # İŞ 9: kısık, uzaktan
 }
 const SFX_VOICES := 4  # aynı anda çalabilecek efekt sayısı
 
