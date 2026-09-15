@@ -59,6 +59,13 @@ func _make_settings() -> Control:
 	var panel := Panel.new()
 	panel.position = Vector2(60, 460)
 	panel.size = Vector2(600, 460)
+	# opak: arkadaki Oyna/Ayarlar düğmeleri içinden görünmesin
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("#0B1E3F")
+	sb.border_color = Color("#FFE7A3")
+	sb.set_border_width_all(3)
+	sb.set_corner_radius_all(18)
+	panel.add_theme_stylebox_override("panel", sb)
 	var ses := get_node_or_null("/root/Ses")
 	_toggle_row(panel, 50, tr("SES_EFEKT"), ses.sfx_on if ses else true,
 		func(on: bool): if ses: ses.set_sfx(on))

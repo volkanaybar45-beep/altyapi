@@ -1,6 +1,6 @@
 extends SceneTree
 ## Ekran görüntüsü. Argüman: -- <cikti.png> <bolum 0..28> <cozulu 0/1> [yukseklik] [bekle_sn] [kare] [aralik_sn]
-##   bolum 0 = ana ekran · 10-19 = üretilen (İŞ 3) · 20-27 = üretilen (İŞ 4)
+##   bolum -1 = Ayarlar paneli · 0 = ana ekran · 10-19 = üretilen (İŞ 3) · 20-27 = üretilen (İŞ 4)
 ##   yukseklik: 1280 (9:16) · 1600 (20:9, çoğu güncel telefon). Genişlik hep 720.
 ##   bekle_sn: çözüldükten sonra bekleme (0.5 → kutlamanın ortası, 1.5 → sonu)
 ## --headless KULLANMA (GPU render gerekir). Çözüm kaba kuvvetle bulunur.
