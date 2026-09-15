@@ -37,4 +37,12 @@ func _initialize() -> void:
 		await process_frame
 	vp.get_texture().get_image().save_png(out)
 	print("yazildi: ", out)
+	# hareket karşılaştırması: [kare_sayisi] [aralik_sn] → cikti_2.png, cikti_3.png ...
+	var frames := int(args[5]) if args.size() > 5 else 1
+	var gap := float(args[6]) if args.size() > 6 else 0.4
+	for f in range(2, frames + 1):
+		await create_timer(gap).timeout
+		var o := out.get_basename() + "_%d.png" % f
+		vp.get_texture().get_image().save_png(o)
+		print("yazildi: ", o)
 	quit()
