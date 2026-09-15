@@ -104,7 +104,9 @@ func _halo(p: PackedVector2Array, d0: float, k: float, pulse: float) -> void:
 		var fog := _fog((a.y + b.y) * 0.5)
 		var n := (b - a).normalized().orthogonal()
 		for L in layers:
-			var w: float = L[0] * k * (1.0 + 0.45 * fog) * 0.5
+			# hale en az çekirdeğin HALO_MIN_X katı (en dış kat); iç katlar oranla
+			var hw := maxf(HALO_W * k, core_px(k) * HALO_MIN_X)
+			var w: float = hw * (L[0] / HALO_W) * (1.0 + 0.45 * fog) * 0.5
 			var col: Color = L[1]
 			col.a *= f * (1.0 - 0.25 * fog)  # yayılınca seyrelir: toplam ışık aynı kalsın
 			draw_colored_polygon(PackedVector2Array([a + n * w, b + n * w, b - n * w, a - n * w]), col)
