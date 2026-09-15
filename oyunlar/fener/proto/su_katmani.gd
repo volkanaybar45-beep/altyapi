@@ -79,6 +79,21 @@ func _rings(cx: float, wl: float, rw: float, t: float, seed: int) -> void:
 		_ellipse(Vector2(cx, wl + 2.0), rx, rx * 0.17, Color(0.7, 0.82, 1.0, 0.22 * (1.0 - p)), 1.5, false)
 
 
+## Süzülen teknenin arkasında açılan V biçimli köpük izi. back: teknenin
+## gittiği yönün tersi × karşılık miktarı (0..1).
+func _wake(c: Vector2, back: Vector2, rw: float, t: float) -> void:
+	var s := back.length()
+	var d := back / s
+	var n := d.orthogonal()
+	for side in [-1.0, 1.0]:
+		var pts := PackedVector2Array()
+		for i in 7:
+			var f := i / 6.0
+			var wob := sin(t * 3.0 + f * 6.0) * 2.0
+			pts.append(c + d * rw * (0.3 + 1.3 * f) * s + n * side * (rw * (0.25 + 0.55 * f) + wob) * Vector2(1, 0.35))
+		draw_polyline(pts, Color(0.8, 0.9, 1.0, 0.28 * s), 2.0, true)
+
+
 func _ellipse(c: Vector2, rx: float, ry: float, col: Color, w: float, front_only: bool) -> void:
 	var pts := PackedVector2Array()
 	var n := 28
