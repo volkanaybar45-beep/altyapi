@@ -1,6 +1,6 @@
 extends Node2D
 ## Ana ekran: oyun adı + Oyna + Ayarlar. Arka plan gece denizi + ay (arka.gd).
-## Ayarlar şimdilik boş panel (ses/dil ayarı sonraki işler).
+## Ayarlar: ses efektleri + ortam sesi (dil ayarı sonraki işler).
 
 const Arka := preload("res://arka.gd")
 
