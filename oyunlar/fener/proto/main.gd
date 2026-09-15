@@ -140,15 +140,23 @@ func load_level(i: int) -> void:
 	var rows: Array = d["map"]
 	var w: int = (rows[0] as String).length()
 	var h: int = rows.size()
+	var sp := _spacing(rows)
+	var xs: Array = sp[0]
+	var ys: Array = sp[1]
+	# uzun telefonda (20:9) görünen yükseklik 1280'den fazla: fazlası oyun alanına
+	var vis_h := maxf(SIZE.y, get_viewport_rect().size.y)
+	var span := PLAY_SPAN + (vis_h - SIZE.y)
 	# hücre: genişliğe (kenarda yarım hücre pay) ve oyun alanı yüksekliğine sığan en büyük
-	cell = minf(SIZE.x / (w + 1), PLAY_SPAN / (h - 1))
+	cell = minf(SIZE.x / (xs[w - 1] + 2.0), span / ys[h - 1])
 	k = cell / 90.0
-	var origin := Vector2((SIZE.x - (w - 1) * cell) / 2.0, PLAY_TOP + (PLAY_SPAN - (h - 1) * cell) / 2.0)
+	# ızgara yatayda ve oyun alanında dikeyde ortalı
+	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, PLAY_TOP + (span - ys[h - 1] * cell) / 2.0)
+	info_label.position.y = vis_h - 80.0
 	for y in h:
 		var row: String = rows[y]
 		for x in row.length():
 			var c := row[x]
-			var p := origin + Vector2(x, y) * cell
+			var p := origin + Vector2(xs[x], ys[y]) * cell
 			match c:
 				".":
 					pass
