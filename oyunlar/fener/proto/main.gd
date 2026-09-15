@@ -757,7 +757,7 @@ func _draw_splitter(n: Node2D) -> void:
 
 ## Tekne: bekleyen sakin yalpalar, feneri sönük; ışık alan sıcak renge bürünür,
 ## feneri parlar, ışığa doğru süzülür (_boat_pose). Alt ortası su noktasında.
-func _draw_boat(j: int, n: Node2D) -> void:
+func _draw_boat(n: Node2D, j: int) -> void:  # bind(j).bind(n) → (n, j)
 	if j >= boats.size():
 		return
 	var pose := _boat_pose(j)
