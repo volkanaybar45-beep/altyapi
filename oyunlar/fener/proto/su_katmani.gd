@@ -54,13 +54,14 @@ func _draw() -> void:
 	_glints(owner_main.paths, t, k, owner_main.arka.horizon_y())
 
 
-## Su hattına (wl) göre dikey aynalanmış çizim. Döndürülmüş nesne (ayna
-## plakası) için açı da aynalanır: önce nesnenin dönüşümü, sonra aynalama.
+## Su noktasına (wl) göre dikey aynalanmış çizim (G3): dikey kayma 0, boy
+## gövdenin %60'ı. Yalpalayan tekne için açı da aynalanır: önce nesnenin
+## dönüşümü, sonra aynalama. y' = wl - 0.6·(y - wl)
 func _reflection(it: Dictionary) -> void:
 	if not it.has("tex"):
 		return
 	var wl: float = it["wl"]
-	var flip := Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2(0, 2.0 * wl))
+	var flip := Transform2D(Vector2(1, 0), Vector2(0, -REFL_H), Vector2(0, (1.0 + REFL_H) * wl))
 	var xf := flip * Transform2D(it.get("angle", 0.0), it["center"])
 	draw_set_transform_matrix(xf)
 	var r: Rect2 = it["rect"]
