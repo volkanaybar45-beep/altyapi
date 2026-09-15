@@ -300,13 +300,15 @@ func water_items() -> Array:
 		out.append({"center": r, "wl": r.y + (ROCK_CUT - 256) * rs, "rw": cell * 0.55, "tex": ROCK,
 			"rect": Rect2(Vector2(-256, -256) * rs, Vector2(512, ROCK_CUT) * rs),
 			"region": Rect2(0, 0, 512, ROCK_CUT)})
-	var bob := _bob()
-	var bsc := _boat_scale_px() * boat_scale
-	for b in boats:
-		var c: Vector2 = b + bob
+	var bsc := _boat_scale_px()
+	for j in boats.size():
+		var pose := _boat_pose(j)
+		var c: Vector2 = pose[0]
+		var e := _ease(boat_resp[j])
+		# yansıma teknenin yalpasıyla birlikte sallanır (aynı açı); süzülürken arkada iz
 		out.append({"center": c, "wl": c.y + (BOAT_CUT - 256) * bsc, "rw": cell * 0.75, "tex": BOAT,
 			"rect": Rect2(Vector2(-256, -256) * bsc, Vector2(512, BOAT_CUT) * bsc),
-			"region": Rect2(0, 0, 512, BOAT_CUT)})
+			"region": Rect2(0, 0, 512, BOAT_CUT), "angle": pose[1], "wake": boat_dir[j] * e})
 	for m in mirrors:
 		var wl: float = m.position.y + m.waterline() * k
 		if not m.fixed:
