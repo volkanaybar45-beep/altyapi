@@ -202,6 +202,56 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 7 — Sahne canlansın · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**Yapılan** (yeni varlık üretilmedi; iki mevcut görsel düzenlendi, defterde)
+1. **Suya oturma:** oyunda ufuk artık ilk satırın hemen üstünde → **gökte nesne kalmadı**
+   (ay gök şeridinde). Kule kayalık adacığın üstünde (adacığın altı suda) · kaya ve tekne
+   su hattından kesik (yarı batık) · her nesnede su hattı köpüğü + yavaşça açılan iki halka ·
+   **her nesnenin titrek yansıması** (dikey aynalı, soluk, dalgalı; ayna plakasının açısı da aynalanır)
+2. **Deniz:** zemin shader'la yavaşça kıpırdar + kayan soluk parıltı bantları (küçük genlik)
+3. **Ay:** yumuşak hale (hafif nabız) + suda titreyen gümüş **ay yolu**. Ay, altında tekne
+   olan sütuna konmaz (kontrast)
+4. **Işık:** lamba odasında dönen iki ışık kolu · çekirdekte ±%7 nefes · ışının geçtiği suda
+   göz kırpan sıcak pullar (gökte yok) · her yansıma düğümünde dönen küçük kıvılcım
+5. **Ayna:** ışık alan ayna tam parlak, yüzeyde kayan parlama, çerçevede altın pırıltı;
+   **ışık almayan ayna sönük** (0.3 sn geçişle)
+6. **Öğretme eğrisi:** yeni Bölüm 1 (tek ayna, tek dokunuş) · 2 iki ayna · 3 kaya + sabit
+   ayna (eski 4, iki çözümlü) · 4-5 dört ayna (eski 2-3) · 6 eski 5 · 7-10 aynı. Üretilen
+   bölümler aynı. **Elle bölüm sayısı 9→10: eski "bölüm N" numaraları 1 kaydı**
+7. **Ufuk bandı:** arkaplan görselinde ufuk altındaki parlak ay izi/dalga parıltıları o
+   satırın deniz rengine çekildi (gök aynı). Canlı denizde sis bandı üstünde tekne yine 2.3
+   kaldı → tekne `z 0.30 - 0.72` ile yeniden render. Kenar çizgisi yaması yok. Eskiler `cop/fener_is7/`
+- Çakışma: kule adacığı `cakisma.py`'ye eklendi; 5 bölümde iki alttaki aynaya biniyordu →
+  kurala eklendi (kulenin 2 altı doluysa boşluk). **0/28**
+
+**Kontrast — tekne gövdesi / zemin** (canlı deniz, shader açık, 720×1600 ekran görüntüsünden)
+- Medyan deniz **5.8** · en açık sis bandı (%99) **3.6** · ufuk bandı: gövde artık hep ufkun
+  altında; ufuk altındaki deniz en açık luminans 0.019 → **≥5.8** ✓ (İŞ 6'da 1.3)
+
+**Kare hızı (PC, 720×1600, en kalabalık bölüm 26, dikey eşitleme kapalı):** su katmanları
+açık **148 fps / 6.8 ms**, kapalı **187 fps / 5.3 ms** → su katmanları ~1.4 ms/kare.
+**Telefonda ölçülmedi.** Telefon 5-10 kat yavaşsa 60 fps sınırına yaklaşabilir; takılırsa
+ilk kapatılacak: suda ışın pulları + ay yolu (her kare GDScript döngüsü)
+
+**GÖZLE BAKILDI:** Bölüm 1 (çözülmemiş + çözülmüş, 20:9), Üretilen 10 (zor, 20:9),
+Üretilen İŞ4-Z6 (bölücülü, 20:9, 2 kare 0.6 sn arayla), Bölüm 7 (9:16), Bölüm 17 (9:16), ana ekran.
+Kareler arası fark görüldü (ay yolu pulları, ayna parlaması, ışın pulları yer değiştiriyor).
+Bakınca düzeltilen: ilk arkaplan düzenlemesi ufukta çamurlu şerit + zeytin rengi ay izi
+yaptı (atıldı, sadece deniz düzenlendi) · ayna yansıması çizgili gri leke (çizgi kaldırıldı) ·
+ışın pulları gökte "+" gibiydi (sadece suda, yassı) · ay yolu çok dardı (ay çapına bağlandı) ·
+adacık görünmüyordu (1.0→1.3 hücre) · 9:16'da adacık "Devam" yazısına değiyordu
+
+**Test edilen:** motor testi OK (10 elle + 18 üretilen), import/betik kontrolü temiz, çakışma 0/28.
+
+**Test EDİLMEYEN:** telefonda açılmadı, kare hızı telefonda ölçülmedi; deniz kıpırtısı ve
+sis canlı izlenmedi (sadece aralıklı kareler); ayna dönüş animasyonu sırasında yansıma
+(ölçek tween'i) bakılmadı; ana ekranda nesne yok, suya oturma sadece oyunda.
+
+**Öneri**
+- Yeni APK'dan önce kurucu 1-5. bölümleri oynasın (eğri tahmin, test edilmedi)
+- `tools/fps_probe.gd` APK'da da koşturulabilir hale getirilirse telefonda kare hızı ölçülür
+
 **İŞ 6 — Görsel düzeltme turu · kod yazıldı, telefonda test edilmedi** (2026-09-15)
 
 **Yapılan**
