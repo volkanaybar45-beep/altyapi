@@ -103,10 +103,11 @@ func _glints(paths: Array, t: float, k: float, hy: float) -> void:
 			while s < len:
 				var h := fposmod(sin((a.x + s * dir.x) * 12.99 + (a.y + s * dir.y) * 78.23) * 43758.5, 1.0)
 				var tw := pow(maxf(0.0, sin(t * (1.6 + h * 1.8) + h * 40.0)), 8.0)
-				if tw > 0.05:
-					var off := (h - 0.5) * 2.0 * 26.0 * k
-					var c := a + dir * s + n * off
-					var sz := (3.0 + 4.0 * h) * k
-					draw_line(c - Vector2(sz * 1.8, 0), c + Vector2(sz * 1.8, 0), Color(1.0, 0.85, 0.55, 0.5 * tw), 2.0)
-					draw_line(c - Vector2(0, sz * 0.6), c + Vector2(0, sz * 0.6), Color(1.0, 0.85, 0.55, 0.35 * tw), 1.5)
+				var off := (h - 0.5) * 2.0 * 26.0 * k
+				var c := a + dir * s + n * off
+				if tw > 0.05 and c.y > hy + 6.0:
+					# suda yatay, yassı ışık pulu
+					var sz := (4.0 + 6.0 * h) * k
+					draw_line(c - Vector2(sz, 0), c + Vector2(sz, 0), Color(1.0, 0.82, 0.5, 0.4 * tw), 2.5)
+					draw_line(c - Vector2(sz * 0.4, 0), c + Vector2(sz * 0.4, 0), Color(1.0, 0.95, 0.8, 0.5 * tw), 1.5)
 				s += 16.0 + 14.0 * h
