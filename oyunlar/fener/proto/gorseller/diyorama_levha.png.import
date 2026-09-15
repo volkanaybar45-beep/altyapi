@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gayfcooxkk7l"
-path="res://.godot/imported/sis_katmani.png-a24bd31e7fbe6e80e7f1cf893b6cbf4e.ctex"
+uid="uid://f36eidhacrrv"
+path="res://.godot/imported/diyorama_levha.png-97e82259d002c597b8f70b8e25f22b12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gorseller/sis_katmani.png"
-dest_files=["res://.godot/imported/sis_katmani.png-a24bd31e7fbe6e80e7f1cf893b6cbf4e.ctex"]
+source_file="res://gorseller/diyorama_levha.png"
+dest_files=["res://.godot/imported/diyorama_levha.png-97e82259d002c597b8f70b8e25f22b12.ctex"]
 
 [params]
 

@@ -1,26 +1,33 @@
 extends Node2D
 ## Ayna: ışık için bir doğru parçası. Döner ayna dokununca 90° döner
 ## (iki çapraz arasında; kurucu kararı, kilitli).
-## Görsel: döner ayna = dönen plaka + dönmeyen taban + hale.
-## Sabit ayna = karartılmış plaka + iki uçta taşan kıskaç, taban ve hale YOK.
-## Ayırt etme silüetle (renk körlüğü), karartma sadece destek.
+##
+## İŞ 10 görünüş: pirinç çerçeveli yuvarlak ayna, düz tepeli taban kayasının
+## üstünde. Sprite'lar diyorama kamerasıyla (yaw -40°, pitch 30°) render edildi
+## (G1); düğüm DÖNDÜRÜLMEZ, adım başına ayrı sprite gösterilir. 4 yön render'la
+## doğrulandı: diskin mil ekseni ekranda 135.2° / 45.1° / 135.1° / 45.0°
+## (adım 1 "\" · 3 "/" · 5 "\" arka yüz · 7 "/" arka yüz).
+## Sabit ayna: aynı sprite karartılmış + diskin üstünde X biçimli demir kilit
+## (silüetten ayrılır, renk körlüğü).
+##
+## Yerel ölçü: 1 hücre = 90 birim (düğüm ölçeği k = hücre/90). Su noktası
+## hücre merkezinin WP_Y altında; taban kayasının alt ortası oraya oturur (G3).
 
-const PLATE := preload("res://gorseller/ayna_plaka.png")
-const BASE_TEX := preload("res://gorseller/ayna_taban.png")
+const TEX := [preload("res://gorseller/ayna_0.png"), preload("res://gorseller/ayna_1.png"),
+	preload("res://gorseller/ayna_2.png"), preload("res://gorseller/ayna_3.png")]
+const ISLET := preload("res://gorseller/kaya_taban.png")
 
 const LENGTH := 90.0
 const TAP_RADIUS := 70.0
-const PLATE_BBOX_W := 488.0  # ayna_plaka.png içindeki görünür genişlik (512'lik tuval)
-const PLATE_H := 230.0       # görünür yükseklik
-const KNOB_Y := 30.0         # ayna_taban.png: mil topuzunun y'si (256'lık tuval)
-const BASE_SIZE := 60.0      # taban çizim boyu (yerel)
+const WP_Y := 54.0          # su noktası: hücre merkezi + 0.6 hücre
+## Ölçüler (512'lik render pikseli, tools/is10_varlik.py ile ölçüldü)
+const ISLET_W := 0.9        # taban kayası genişliği (hücre); görünür genişlik 483 px
+const ISLET_CUT := 260.0    # bu satırın altı suda (çizilmez)
+const ISLET_TOP := 118.0    # düz tepenin orta noktası
+const ISLET_AX := 255.5
+const MIRROR_H := 0.72      # ayna boyu (hücre); görünür boy 483 px, alt 497
+const MIRROR_AX := [263.0, 263.0, 261.0, 256.0]  # sprite alt orta x
 
-## Plaka görselinin yüzü render gürültüsüyle gri/grenli. Gölgelendirici yüzü
-## (düşük doygunluklu açık pikseller) pürüzsüz gümüş-mavi degrade + parlak
-## çapraz yansıma ile değiştirir, pirinç çerçeveyi altına çeker. Kontur aynen kalır.
-## dark = 1 sabit ayna (karartma). lit 0..1: ışık alıyor mu (İŞ 7) — ışık
-## alan ayna tam parlak, yüzeyde kayan parlama, çerçevede altın pırıltı;
-## ışık almayan ayna sönük ve parlamasız (hangi aynanın yolda olduğu okunsun).
 const PLATE_SHADER := "shader_type canvas_item;
 uniform float dark = 0.0;
 uniform float lit = 0.0;
@@ -29,18 +36,14 @@ void fragment() {
 	vec4 t = texture(TEXTURE, UV);
 	float mx = max(t.r, max(t.g, t.b));
 	float sat = (mx - min(t.r, min(t.g, t.b))) / max(mx, 0.001);
-	vec3 col = t.rgb;
-	if (sat < 0.14 && mx > 0.42) {
-		vec3 top = vec3(0.96, 0.98, 1.0);
-		vec3 bot = vec3(0.60, 0.74, 0.90);
-		col = mix(top, bot, smoothstep(0.30, 0.68, UV.y)) * mix(0.66, 1.0, lit);
+	vec3 col = t.rgb * mix(0.62, 1.05, lit);
+	if (sat < 0.16 && mx > 0.5) {  // gümüş yüz: ışık alınca soldan sağa kayan parlama
 		float sweep = fract(TIME * 0.42) * 1.9 - 0.45;
-		float d = abs(UV.x - sweep + (UV.y - 0.5) * 0.9);
-		col += vec3(1.0) * smoothstep(0.08, 0.0, d) * 0.75 * lit * (1.0 - dark * 0.6);
-	} else if (sat > 0.2) {
-		col = vec3(1.0, 0.80, 0.34) * (0.55 + 0.6 * mx) * mix(0.72, 1.05, lit);
-		float s = hash(floor(UV * vec2(56.0, 28.0)) + floor(TIME * 5.0));
-		col += step(0.965, s) * lit * vec3(1.0, 0.95, 0.7) * 0.9;
+		float d = abs(UV.x - sweep + (UV.y - 0.35) * 0.6);
+		col += vec3(1.0) * smoothstep(0.06, 0.0, d) * 0.7 * lit * (1.0 - dark * 0.6);
+	} else if (sat > 0.35 && t.r > t.b) {  // pirinç: altın pırıltı
+		float s = hash(floor(UV * vec2(64.0, 64.0)) + floor(TIME * 5.0));
+		col += step(0.975, s) * lit * vec3(1.0, 0.92, 0.65) * 0.9;
 	}
 	col = mix(col, col * vec3(0.42, 0.44, 0.52), dark);
 	COLOR = vec4(col, t.a);
@@ -50,27 +53,25 @@ static var _shader: Shader
 
 var step := 0  # 0..7, her adım 45°
 var fixed := false
-var base := 1.0  # çizim ölçeği (8x14 ızgarada hücre küçük); fizik etkilenmez
+var base := 1.0  # çizim ölçeği k (hücre/90); fizik etkilenmez
+var row_scale := 1.0  # G2: üst satır 0.85, alt satır 1.0
 var lit := false  # main.gd her kare yazar
 var _lit_amt := 0.0
 var _mat: ShaderMaterial
-var _plate: Sprite2D
+var _vis: Node2D  # ayna sprite'ı (gölgelendiricili); taban kayası bu düğümde
 
 
 func _ready() -> void:
 	if _shader == null:
 		_shader = Shader.new()
 		_shader.code = PLATE_SHADER
-	_mat = ShaderMaterial.new()  # ayna başına: lit her aynada ayrı
+	_mat = ShaderMaterial.new()
 	_mat.shader = _shader
 	_mat.set_shader_parameter("dark", 1.0 if fixed else 0.0)
-	# plaka: görünür genişlik ışık doğrusunun %95'i (8x14'te çapraz komşular binmesin)
-	_plate = Sprite2D.new()
-	_plate.texture = PLATE
-	_plate.scale = Vector2.ONE * LENGTH * 0.95 / PLATE_BBOX_W
-	_plate.material = _mat
-	_plate.show_behind_parent = fixed  # sabit: kıskaçlar plakanın üstünde
-	add_child(_plate)
+	_vis = Node2D.new()
+	_vis.material = _mat
+	_vis.draw.connect(_draw_mirror)
+	add_child(_vis)
 
 
 func _process(delta: float) -> void:
@@ -80,38 +81,51 @@ func _process(delta: float) -> void:
 		_mat.set_shader_parameter("lit", _lit_amt)
 
 
-## Su hattı: taban dibinin biraz üstü (yerel, ölçek k ile çarpılır).
-## Sabit aynanın tabanı yok: kıskaç dibi.
+func sprite_index() -> int:
+	return ((step - 1) / 2) % 4  # adım 1,3,5,7 → 0,1,2,3
+
+
+## Su hattı (yerel y, ölçek k ile çarpılır).
 func waterline() -> float:
-	if fixed:
-		return (PLATE_H * LENGTH * 0.95 / PLATE_BBOX_W + 18.0) * 0.5
-	return BASE_SIZE - BASE_SIZE * KNOB_Y / 256.0 - 5.0
+	return WP_Y
 
 
-## Yansıma için: taban ve plakanın merkeze göre dikdörtgeni (ölçek s).
-func base_rect(s: float) -> Rect2:
-	return Rect2(Vector2(-BASE_SIZE / 2.0, -BASE_SIZE * KNOB_Y / 256.0) * s, Vector2(BASE_SIZE, BASE_SIZE) * s)
+func _islet_f() -> float:
+	return ISLET_W * 90.0 * row_scale / 483.0
 
 
-func plate_rect(s: float) -> Rect2:
-	var ps := Vector2(PLATE.get_width(), PLATE.get_height()) * LENGTH * 0.95 / PLATE_BBOX_W * s
-	return Rect2(-ps / 2.0, ps)
+func _mirror_f() -> float:
+	return MIRROR_H * 90.0 * row_scale / 483.0
+
+
+## Çizim parçaları (yerel): [{tex, rect, region?}] — yansıma da bunları kullanır.
+func parts() -> Array:
+	var fi := _islet_f()
+	var wp := Vector2(0, WP_Y)
+	var out: Array = [{"tex": ISLET, "rect": Rect2(wp - Vector2(ISLET_AX, ISLET_CUT) * fi, Vector2(512, ISLET_CUT) * fi),
+		"region": Rect2(0, 0, 512, ISLET_CUT)}]
+	var top := wp - Vector2(0, (ISLET_CUT - ISLET_TOP) * fi)
+	var fm := _mirror_f()
+	var i := sprite_index()
+	out.append({"tex": TEX[i], "rect": Rect2(top - Vector2(MIRROR_AX[i], 497.0) * fm, Vector2(512, 512) * fm)})
+	return out
 
 
 func set_step(s: int) -> void:
 	step = posmod(s, 8)
-	rotation_degrees = step * 45.0
 	queue_redraw()
+	if _vis:
+		_vis.queue_redraw()
 
 
 func turn() -> void:
 	if fixed:  # dönmediğini göster: kısa titreme
 		var tw := create_tween()
-		for a in [6.0, -6.0, 0.0]:
-			tw.tween_property(self, "rotation_degrees", step * 45.0 + a, 0.05)
+		for a in [4.0, -4.0, 0.0]:
+			tw.tween_property(self, "rotation_degrees", a, 0.05)
 		return
 	set_step(step + 2)
-	scale = Vector2.ONE * base * 1.15
+	scale = Vector2.ONE * base * 1.12
 	create_tween().tween_property(self, "scale", Vector2.ONE * base, 0.15)
 
 
@@ -126,17 +140,19 @@ func reflect(d: Vector2) -> Vector2:
 	return 2.0 * d.dot(l) * l - d
 
 
-## Plaka Sprite2D çocuğu çizer; burada taban + hale (döner) ya da kıskaç (sabit).
+## Taban kayası (gölgelendiricisiz: yosun altına dönmesin).
 func _draw() -> void:
-	var sc := LENGTH * 0.95 / PLATE_BBOX_W
-	if fixed:
-		var hx := PLATE_BBOX_W * sc / 2.0
-		var ch := PLATE_H * sc + 18.0  # kıskaç plakadan taşar → farklı silüet
-		for x in [-hx, hx - 14.0]:
-			draw_rect(Rect2(Vector2(x, -ch / 2.0), Vector2(14, ch)), Color(0.12, 0.13, 0.16))
-			draw_rect(Rect2(Vector2(x + 3, -ch / 2.0 + 3), Vector2(8, ch - 6)), Color(0.3, 0.32, 0.38))
-		return
-	# taban dönmez: düğümün dönüşünü geri al
-	draw_set_transform(Vector2.ZERO, -rotation, Vector2.ONE)
-	draw_texture_rect(BASE_TEX, base_rect(1.0), false)
-	draw_arc(Vector2.ZERO, TAP_RADIUS * 0.62, 0.0, TAU, 40, Color(1.0, 0.86, 0.5, 0.30), 2.0)
+	var p: Dictionary = parts()[0]
+	draw_texture_rect_region(p["tex"], p["rect"], p["region"])
+
+
+func _draw_mirror() -> void:
+	var p: Dictionary = parts()[1]
+	_vis.draw_texture_rect(p["tex"], p["rect"], false)
+	if fixed:  # X kilit: diskin ortasından iki kalın demir bant
+		var r: Rect2 = p["rect"]
+		var c := r.position + Vector2(r.size.x * 0.5, r.size.y * 0.3)
+		var e := r.size.x * 0.2
+		for d in [Vector2(e, e), Vector2(e, -e)]:
+			_vis.draw_line(c - d, c + d, Color(0.1, 0.1, 0.12), 7.0)
+			_vis.draw_line(c - d, c + d, Color(0.35, 0.36, 0.4), 3.0)

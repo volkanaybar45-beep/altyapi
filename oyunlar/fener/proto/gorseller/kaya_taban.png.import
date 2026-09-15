@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gayfcooxkk7l"
-path="res://.godot/imported/sis_katmani.png-a24bd31e7fbe6e80e7f1cf893b6cbf4e.ctex"
+uid="uid://7fhqgne3la5r"
+path="res://.godot/imported/kaya_taban.png-b8921c42883a481beafd7c5b72038a94.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gorseller/sis_katmani.png"
-dest_files=["res://.godot/imported/sis_katmani.png-a24bd31e7fbe6e80e7f1cf893b6cbf4e.ctex"]
+source_file="res://gorseller/kaya_taban.png"
+dest_files=["res://.godot/imported/kaya_taban.png-b8921c42883a481beafd7c5b72038a94.ctex"]
 
 [params]
 
