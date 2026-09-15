@@ -578,15 +578,15 @@ func _ray_bounds_t(ro: Vector2, rd: Vector2) -> float:
 
 func _celebrate() -> void:
 	completed = true
-	for b in boats:
-		_sparkle(b)
+	for j in boats.size():
+		_sparkle(j)
 	create_tween().tween_property(self, "lantern", 1.0, 0.9).set_trans(Tween.TRANS_SINE)
 	var tw := create_tween()
 	tw.tween_property(self, "glow", 1.0, 0.7).set_trans(Tween.TRANS_SINE)
-	tw.tween_property(self, "boat_scale", 1.4, 0.15)
-	tw.tween_property(self, "boat_scale", 1.0, 0.25).set_trans(Tween.TRANS_BACK)
-	# ışın ulaştı çanı update_ray'de çalar; "bölüm tamam" biraz sonra, üst üste binmesin
-	create_tween().tween_callback(sfx.bind("tamam")).set_delay(0.35)
+	# tekne süzülmesi (boat_resp, ~1.4 sn) görünsün diye bekle; eski "büyüyüp küçülme" kalktı
+	tw.tween_interval(0.8)
+	# çan (0 sn) ve korna (HORN_DELAY) update_ray'de; "bölüm tamam" kornadan sonra
+	create_tween().tween_callback(sfx.bind("tamam")).set_delay(1.1)
 	tw.tween_callback(func():
 		can_continue = true
 		var last := level == all_levels.size() - 1
