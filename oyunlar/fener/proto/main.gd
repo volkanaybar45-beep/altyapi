@@ -286,17 +286,11 @@ func load_level(i: int) -> void:
 	k = cell / 90.0
 	var origin := Vector2((SIZE.x - xs[w - 1] * cell) / 2.0, area_top + 0.5 * cell + (area_h - units * cell) / 2.0)
 	info_label.position.y = vis_h - INFO_H
-	# E2: levha kaynak sütununa kaydırılır; iki yönden ekranı daha çok kaplayan seçilir
-	var fxp: float = origin.x + xs[fx] * cell
-	var best_cov := -INF
-	for flip in [false, true]:
-		var lx: float = (Arka.DIO.get_width() - Arka.DIO_LAMP.x) if flip else Arka.DIO_LAMP.x
-		var dx: float = fxp - lx * arka.dio_scale
-		var cov := minf(SIZE.x, dx + Arka.DIO.get_width() * arka.dio_scale) - maxf(0.0, dx)
-		if cov > best_cov:
-			best_cov = cov
-			arka.dio_flip = flip
-			arka.dio_x = dx
+	# E2: levha kaynak sütununa kaydırılır (sütun 1-5 → en çok ±2 hücre). Aynalama
+	# KULLANILMAZ: levhanın pişmiş lamba ışığı sağdan gelir, G4 yasaklar; kaydırma
+	# bütün sütunlara yetiyor
+	arka.dio_flip = false
+	arka.dio_x = origin.x + xs[fx] * cell - Arka.DIO_LAMP.x * arka.dio_scale
 	for y in h:
 		row_scale[roundi(origin.y + ys[y] * cell)] = lerpf(ROW_SCALE_TOP, 1.0, ys[y] / maxf(1.0, ys[last]))
 	for y in h:
