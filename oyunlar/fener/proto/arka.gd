@@ -97,8 +97,8 @@ func _ready() -> void:
 	_layers[0].add_child(_moon_node)
 	var g := Gradient.new()
 	g.set_color(0, Color(0.95, 0.9, 0.8, 0.22))
+	g.set_color(1, Color(0.8, 0.86, 1.0, 0.0))  # önce uçlar: add_point indeksleri kaydırır
 	g.add_point(0.35, Color(0.85, 0.88, 1.0, 0.08))
-	g.set_color(1, Color(0.8, 0.86, 1.0, 0.0))
 	_halo = GradientTexture2D.new()
 	_halo.gradient = g
 	_halo.fill = GradientTexture2D.FILL_RADIAL
