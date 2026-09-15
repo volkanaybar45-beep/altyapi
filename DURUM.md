@@ -6,6 +6,11 @@ Her oturum İLK bu dosya okunur. Karar verilince HEMEN buraya yazılır.
 Fener: görsel düzeltme turu (KOD, İŞ 6) → sonra APK
 
 ## SIRADA
+0. **V1 görsel çeşitliliği — modüler bölge paketi** (APK + oyuncu geri bildirimi
+   SONRASI konuşulur): 5-7 bölge (Sakin Kıyı · Sisli Kayalıklar · Fırtına ·
+   Buz · Tropik · Volkan · Kuzey Işıkları), her bölge modüler parça seti;
+   70 ayrı sahne çizilmez. Şimdi TEK bölge (gece denizi) okunur olsun.
+   VFX'li bölgeler (şimşek/volkan) kapsam şişmesi riski
 1. İngilizce metinler (Tasarım yazar) — mağaza öncesi, test Türkçe olduğu için ertelendi
 2. `oyun-calistir` skill'i oyundan bağımsız yap (import kapısı hook'u yapıldı)
 2. KOD ekranı ilk kurulum testi (`kod_ekrani.cmd` → /login → /kod → "iş emri yok")
