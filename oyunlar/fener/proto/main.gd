@@ -6,6 +6,7 @@ extends Node2D
 const Mirror := preload("res://mirror.gd")
 const Arka := preload("res://arka.gd")
 const IsinKatmani := preload("res://isin_katmani.gd")
+const SuKatmani := preload("res://su_katmani.gd")
 const TOWER := preload("res://gorseller/fener_kulesi.png")
 const BOAT := preload("res://gorseller/tekne.png")
 const ROCK := preload("res://gorseller/kayalik.png")
