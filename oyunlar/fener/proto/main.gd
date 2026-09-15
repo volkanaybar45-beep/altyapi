@@ -149,16 +149,18 @@ func _ready() -> void:
 ## Fener lambası ve tekne fenerleri: sıcak sarı, toplamalı. Tekne feneri hep
 ## yanar (tekne en net okunan nesne), ışık alınca ve bölüm bitince güçlenir.
 func _draw_glows() -> void:
+	# diyoramanın lamba odası (tek fener, K2): sıcak parıltı + dönen iki ışık kolu
+	var lamp: Vector2 = arka.lamp_screen()
+	var ds: float = arka.dio_scale
 	var fl := 0.85 + 0.15 * sin(time * 2.0) * sin(time * 3.7)
-	_soft_glow(fener_pos, 52.0 * k, Color(1.0, 0.6, 0.2, 0.45 * fl))
-	_soft_glow(fener_pos, 22.0 * k, Color(1.0, 0.85, 0.5, 0.7 * fl))
-	# lamba odasında dönen parıltı: iki ince, uca doğru sivrilen ışık kolu
+	_soft_glow(lamp, 40.0 * ds, Color(1.0, 0.6, 0.2, 0.45 * fl))
+	_soft_glow(lamp, 16.0 * ds, Color(1.0, 0.85, 0.5, 0.7 * fl))
 	for i in 2:
 		var d := Vector2.RIGHT.rotated(time * 1.3 + i * PI)
-		var n := d.orthogonal() * 5.0 * k
-		var tip := fener_pos + d * 62.0 * k
+		var n := d.orthogonal() * 3.5 * ds
+		var tip := lamp + d * 48.0 * ds
 		var side := absf(d.x)  # yandan bakınca (kol yatayken) daha parlak
-		glow_layer.draw_colored_polygon(PackedVector2Array([fener_pos + n, tip, fener_pos - n]),
+		glow_layer.draw_colored_polygon(PackedVector2Array([lamp + n, tip, lamp - n]),
 			Color(1.0, 0.9, 0.6, 0.10 + 0.22 * side))
 	for j in boats.size():
 		var lp := _lantern_at(j)
