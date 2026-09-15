@@ -33,3 +33,31 @@ Gözle kontrol: hepsi gerçek arka plan üzerinde gerçek ölçekte bakıldı (5
 
 <!-- Satır örneği için gorsel_plan.md bölüm 2'deki prompt'lar kullanılır.
      Prompt sütununa promptun TAMAMI yazılır, özeti değil. -->
+
+
+## İŞ 10 — Diyorama seti (2026-09-15) · kaynak: `diyorama_deneme/` (promptlar.md)
+Akış: ChatGPT görseli → **Tripo Pro (kurucunun ücretli hesabı)** image-to-3D → `.glb` →
+`bolumler/sanat/toon_render.py` (**yaw −40°, pitch 30°**, ışık soldan; `TR_YAW/TR_PITCH`) →
+`proto/tools/is10_varlik.py` (kırpma/kopya/temizlik) → `proto/gorseller/`.
+Lisans: Tripo ücretli hesap + ChatGPT (OpenAI) görselleri, ticari kullanım serbest.
+
+| Dosya | Tarih | Araç | Prompt | Format / işlem |
+|---|---|---|---|---|
+| diyorama_deneme/diyorama_liman.glb | 2026-09-15 | ChatGPT → Tripo Pro (aydınlatma kapalı, PBR) | **YAZILI DEĞİL** — `promptlar.md`'de yalnız model adı var (`coastal village 3d model (1)`). Kurucuya soruldu | GLB 10 MB |
+| diyorama_deneme/ayna.glb | 2026-09-15 | ChatGPT → Tripo Pro | Single game asset on plain background: a stylized brass harbor signal mirror. A round polished silver mirror disc held in an ornate golden brass ring, mounted on a short cylindrical stone-and-brass base with rivets. Cozy stylized 3D render, soft toon shading, warm lamp light from the left against cool blue night. Three-quarter view, centered, no text, no background scenery. | GLB 11 MB |
+| diyorama_deneme/kaya_taban_duz.glb | 2026-09-15 | ChatGPT → Tripo Pro | Single game asset on plain background: a small rocky sea islet, grey weathered stone with green moss patches, FLAT TOP surface, wet dark stone at the waterline. Cozy stylized 3D render, soft toon shading, warm lamp light from the left against cool blue night. Three-quarter view, centered, no text, no background scenery. | GLB 11 MB |
+| diyorama_deneme/kaya_engel_sivri.glb | 2026-09-15 | ChatGPT → Tripo Pro | Single game asset on plain background: a cluster of jagged sea rocks, grey weathered stone with green moss, POINTED uneven sharp tops, wet dark stone at the waterline. Cozy stylized 3D render, soft toon shading, warm lamp light from the left against cool blue night. Three-quarter view, centered, no text, no background scenery. | GLB 11 MB |
+| diyorama_deneme/tekne.glb | 2026-09-15 | ChatGPT → Tripo Pro | Single game asset on plain background: a small stylized fishing boat, white hull with blue trim and a red waterline stripe, wooden deck, a small cabin with a warmly lit window, a lantern on the mast, rope fenders on the side. Cozy stylized 3D render, soft toon shading, warm lamp light from the left against cool blue night. Three-quarter view from slightly above, centered, no text, no background scenery. | GLB 11 MB |
+| diyorama_deneme/gokyuzu_panorama.png | 2026-09-15 | ChatGPT (OpenAI), düz resim | Wide panoramic night sky over a distant sea horizon. Deep blue gradient from near-black at the top to soft indigo at the horizon, scattered stars, a few thin wispy clouds. Cozy stylized game art, soft painterly shading, no moon, no land, no boats, no text. | PNG 1672×941 |
+| diyorama_deneme/ay.png | 2026-09-15 | ChatGPT (OpenAI), şeffaf zemin | Single game asset on transparent background: a large detailed full moon, pale silver-white with soft craters and a warm gentle halo glow. Cozy stylized game art, centered, no text, no background. | PNG 1254×1254 RGBA |
+
+**Oyuna giren türevler** (`proto/gorseller/`, hepsi yukarıdaki kaynaklardan; render'lar `render/`'da):
+| Oyun dosyası | Kaynak | İşlem |
+|---|---|---|
+| diyorama_levha.png | diyorama_liman.glb | render 1300 px, doygunluk dokunulmadı · y 90-670 kırpıldı (**iskele kesildi, E1**), alt 24 px yumuşak kenar · modelin kendi su plakası (koyu mavi) %75 saydam · 1228×580. Lamba (751.9, 78.9), kule 123 px |
+| ayna_0..3.png | ayna.glb | 4 yön: model θ = 336.6 / 103.4 / 156.6 / 283.4 (kamera yaw = θ−40). Mil ekseni render'da 135.2° / 45.1° / 135.1° / 45.0° ölçüldü · parlaklık 0.60 (K6) |
+| kaya_taban.png | kaya_taban_duz.glb | parlaklık 0.50 |
+| kaya_engel.png | kaya_engel_sivri.glb | parlaklık 0.55 (K6) |
+| tekne.png | tekne.glb (İŞ 10) | parlaklık 0.62 (K6). Eski 2B-kaynaklı tekne `cop/fener_is10/proto_tekne.png` |
+| gokyuzu.png | gokyuzu_panorama.png | ufuk satırı 737'nin altı kesildi (1672×737) |
+| ay.png | diyorama_deneme/ay.png | yarı saydam piksellerin rengi hale tonuna (#F2E3C0) çekildi (benek temizliği), 512 px. Eski ay `cop/fener_is10/proto_ay.png` |

@@ -8,8 +8,11 @@ proto/gorseller/ (oyun) ve gorseller/render/ (asıl render'lar).
 Render komutları (bolumler/sanat/toon_render.py, "-" = doygunluğa dokunma):
   TR_YAW=-40 TR_PITCH=30 TR_NPTS=14000000 TR_SUPER=2600 TR_FINAL=1300 \
       toon_render.py diyorama_liman.glb diyorama_y-40_p30 z -
-  TR_YAW=<θ-40> TR_PITCH=30 toon_render.py ayna.glb ayna_t<θ> z -   θ = 336.6 103.4 156.6 283.4
-  TR_YAW=-40 TR_PITCH=30 toon_render.py <kaya_taban_duz|kaya_engel_sivri|tekne>.glb <ad>_y-40_p30 z -
+  TR_YAW=<θ-40> TR_PITCH=30 toon_render.py ayna.glb ayna_p_t<θ> z - - 0.60   θ = 336.6 103.4 156.6 283.4
+  TR_YAW=-40 TR_PITCH=30 toon_render.py tekne.glb tekne_p62 z - - 0.62
+  TR_YAW=-40 TR_PITCH=30 toon_render.py kaya_engel_sivri.glb engel_p55 z - - 0.55
+  TR_YAW=-40 TR_PITCH=30 toon_render.py kaya_taban_duz.glb taban_p50 z - - 0.50
+  (parlaklık hedefleri K6 kontrastı için; açı G1 aynı)
 Oyun sabitleri (main.gd / arka.gd) bu betiğin yazdırdığı ölçülerle aynı olmalı.
 """
 import os, shutil, sys
@@ -60,11 +63,11 @@ print("içerik tepesi levhada y=%d" % (ys.min() - Y0))
 
 # --- sprite'lar ------------------------------------------------------------------
 for i, t in enumerate(("336.6", "103.4", "156.6", "283.4")):
-    shutil.copy(os.path.join(R, "ayna_t%s_512.png" % t), os.path.join(OYUN, "ayna_%d.png" % i))
-    shutil.copy(os.path.join(R, "ayna_t%s_512.png" % t), os.path.join(ASIL, "render", "ayna_t%s_512.png" % t))
-for src, dst in (("kaya_taban_duz", "kaya_taban"), ("kaya_engel_sivri", "kaya_engel"), ("tekne", "tekne")):
-    shutil.copy(os.path.join(R, "%s_y-40_p30_512.png" % src), os.path.join(OYUN, dst + ".png"))
-    shutil.copy(os.path.join(R, "%s_y-40_p30_512.png" % src), os.path.join(ASIL, "render", "%s_y-40_p30_512.png" % src))
+    shutil.copy(os.path.join(R, "ayna_p_t%s_512.png" % t), os.path.join(OYUN, "ayna_%d.png" % i))
+    shutil.copy(os.path.join(R, "ayna_p_t%s_512.png" % t), os.path.join(ASIL, "render", "ayna_p_t%s_512.png" % t))
+for src, dst in (("taban_p50", "kaya_taban"), ("engel_p55", "kaya_engel"), ("tekne_p62", "tekne")):
+    shutil.copy(os.path.join(R, "%s_512.png" % src), os.path.join(OYUN, dst + ".png"))
+    shutil.copy(os.path.join(R, "%s_512.png" % src), os.path.join(ASIL, "render", "%s_y-40_p30_512.png" % src))
 b = np.asarray(Image.open(os.path.join(OYUN, "tekne.png"))).astype(int)
 w = (b[..., 0] > 220) & (b[..., 1] > 170) & (b[..., 2] < 150) & (b[..., 3] > 200)
 wy, wx = np.where(w[:110])
