@@ -247,6 +247,7 @@ func load_level(i: int) -> void:
 	# ufuk ilk dolu satırın biraz üstünde: bütün nesneler suda durur
 	arka.horizon_y = origin.y + (top + 0.6 - 0.3) * cell
 	_place_moon()
+	_lit_count = -1  # yükleme anında çan çalmasın
 	update_ray()
 
 
