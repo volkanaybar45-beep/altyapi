@@ -50,3 +50,17 @@ Açılış: `C:\Altyapi`'de yeni Claude Code aç, `/kod` yaz.
 - Dilimleme sınırlarını doğrula (end>start); ters sıra hata vermeden içeriği bozar
 - Ekran boyutu değişebiliyorsa sabit boyut atayan kod yeniden hesaplansın (test hep aynı boyutta koşar)
 - Basılı tutulan buton input ortasında kendini disabled yapmasın
+
+## Görsel/uzamsal işlerde ÖNCE HESAP (patron kuralı, 2026-09-15)
+Kurucu hatırlatmak zorunda kalmasın: görsel, yerleşim veya hareket içeren her
+iş emrinde matematik/geometri/fizik ÖNCEDEN çıkarılır, iş emrine sayı olarak
+yazılır. "Bakınca düzeltirim" turu israftır.
+- Perspektifli arka plan + düz oyun alanı bir arada kullanılıyorsa çatışmayı
+  ADLANDIR ve hangisinin öncelikli olduğunu karara bağla (okunurluk > atmosfer)
+- Sprite'lar arka planla aynı kamera açısından render edilir; açı yazılır
+- Derinlik: uzaklık-ölçek oranı yüzdeyle verilir, "biraz küçük" denmez
+- Oturma noktası (alt-orta mı, merkez mi), yansıma yüksekliği, alfa, sönümleme
+  sayıyla yazılır
+- Işık yönü TEK olur ve yazılır; ters yönden aydınlatma yasak
+- Kontrast hedefi en açık zemin bandında ölçülür, medyanda değil
+- Siluet ayrımı gri tonda kanıtlanır (renk körlüğü)

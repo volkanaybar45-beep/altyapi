@@ -327,6 +327,60 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 10 — DURDU, kod yazılmadı: K4 ve madde 3 sayıyla sağlanamıyor** (2026-09-15)
+
+Önce hesap yapıldı (istendiği gibi). İki engel çıktı; ikisi de patron/kurucu kararı.
+
+**Engel 1 — K4 (ızgara diyoramanın altına sığmıyor, 9:16'da oynanamaz)**
+- Ölçüm (`kompoz_720x1600.png`, diyorama 720 genişlikte): lamba ≈ (352, 62). Diyorama
+  sağda y≈330'da, ortada y≈420'de biter; **iskele solda y≈785'e iner** (en alt nokta)
+- Izgara yüksekliği = 12.2 hücre (7×12: 11 aralık + üst/alt 0.6 pay), 8×14'te 14.2 hücre; altta 80 px yazı
+- Kullanılabilir yükseklik ve hücre boyu (şu an hücre 90 px, ayna dokunma yarıçapı 70 px):
+
+  | Ekran | Diyorama altı → yazı | 7×12 hücre | 8×14 hücre |
+  |---|---|---|---|
+  | 20:9 (1600) | 785 → 1520 = 735 px | **60 px** | **52 px** |
+  | 9:16 (1280) | 785 → 1200 = 415 px | **34 px** | **29 px** |
+- 34 px hücre ≈ 3.5 mm dokunma hedefi: 9:16'da oynanamaz. (Patronun deneme kompozisyonunda da
+  ilk satırın 2 hücresi iskelenin üstünde, 12. satır ekran dışında)
+- Seçenekler (karar gerekli):
+  **(a)** İskele kırpılsın (madde 1 "iskele sol kenarda" değişir): diyorama altı ≈440 → 20:9'da 88 px,
+  9:16'da 62 px hücre (7×12) ·
+  **(b)** Diyorama küçültülsün: 9:16'da 70 px hücre için ölçek ≤ **0.44** (fener ~90→40 px, "sahnenin sahibi" olmaz) ·
+  **(c)** K4 gevşesin: iskelenin üstüne yalnız BOŞ hücre binebilir (üreteç o hücreleri boş tutar) ·
+  **(d)** Izgara küçülsün (ör. 7×9): bütün bölümler yeniden üretilir
+
+**Engel 2 — Madde 3 (kaynak üstte sabit): 28 bölümden 23'ü elenir**
+- Kural: ışın lambadan (x≈352 = 7 sütunlu ızgarada **3. sütun**) aşağı iner. Bir bölüm, yatay/dikey
+  aynalamayla fener 3. sütuna, yön aşağıya getirilebiliyor ve fenerin üstü boşsa uyar; sonra
+  Python çözücüyle yeniden doğrulandı (başta çözülmemiş + en az 1 çözüm)
+- **Uyan: 5/28** — elle 1, 2, 3, 6, 9 (çözüm sayıları değişmedi: 1/2 · 1/4 · 2/4 · 1/16 · 4/128)
+- **Elenen: 23/28** — elle 4, 5, 7, 8, 10 (fener yan/alt/başka sütunda) + **üretilenlerin 18'inin 18'i**
+  (fener ızgaranın içinde, yön U/L/R; 8×14'lerde lamba iki sütunun arasına düşüyor)
+- Yani 5 bölümlük oyun kalır. Üreteç "kaynak üstte, 3. sütun, yön aşağı" kısıtıyla yeniden
+  yazılıp ~20 bölüm yeniden üretilmeli + zorluk eşikleri yeniden seçilmeli. Bu İŞ 10'un
+  "yeniden doğrula" kapsamını aşan ayrı bir iş; karar gerekli
+
+**Hazır olan hesaplar** (engeller kalkınca koda girecek değerler, henüz uygulanmadı)
+- G1: bütün GLB'ler yaw −40°, pitch 30°. `toon_render.py`'de kamera döndürme YOK (sadece düz
+  ön/yan) → isteğe bağlı yaw/pitch argümanı eklenmeli (Sanat aracı; geriye uyumlu). Işık vektörü
+  zaten soldan (L = −0.35, 0.62, 0.70) → G4 uyumlu
+- Ayna 4 yön: pitch 30°'de derinlik ekranda sin30 = 0.5 kısalır → diskin ekranda 45° çizgi
+  görünmesi için kameraya göre yaw = atan(2) = **63.4° · 116.6° · 243.4° · 296.6°**
+  (adım 1-3-5-7'ye karşılık; dönüşte sprite değişir). Render'la doğrulanmadı
+- G2: satır ölçeği s(r) = 0.85 + 0.15·r/(h−1) → 7×12: satır 0 = 0.850, satır 6 = 0.932, satır 11 = 1.000
+  (8×14: satır başı adım 0.01154). Yansıma aynı ölçekle
+- G3: oturma = sprite alt ortası = hücre su noktası; yansıma o noktadan aynalanır, dikey kayma 0,
+  yükseklik gövdenin %60'ı, alfa 0.35, aşağı doğrusal sönüm (şu anki yansıma merkezden değil su
+  hattından aynalanıyor ama boyu %100 — değişecek)
+
+**K9 — defter:** diyorama seti ana deftere (`gorseller/kayit.md`) henüz işlenmemiş (yalnız
+`diyorama_deneme/promptlar.md`'de). `gokyuzu_panorama.png` ve `ay.png` için **prompt yazılı değil**
+→ kurucu: bu ikisinin ChatGPT prompt'u neydi? (tek soru)
+
+**Öneri:** en az maliyetli yol (a) iskele kırpma + üreteci sabit kaynakla yeniden koşturma
+(ayrı iş, İŞ 10'dan önce). Karar gelince G1-G4 değerleri hazır, doğrudan uygulanır.
+
 **İŞ 8 + İŞ 9 — Otomatik devam + ses + tekne karşılığı · kod yazıldı, telefonda test edilmedi** (2026-09-15)
 
 **Yapılan — İŞ 9. Tekne** (ızgara hücresinde kaldı; fizik konumu değişmedi)
