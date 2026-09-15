@@ -691,10 +691,6 @@ func _sparkle(j: int) -> void:
 	p.finished.connect(p.queue_free)
 
 
-func _boat_scale_px() -> float:
-	return cell * BOAT_W / 490.0  # tekne görünür genişliği BOAT_W hücre (bbox 490)
-
-
 # --- girdi -------------------------------------------------------------------
 
 func _input(event: InputEvent) -> void:
