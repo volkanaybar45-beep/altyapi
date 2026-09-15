@@ -67,9 +67,17 @@ const AUTO_WAIT := 0.6       # kutlama bittikten sonra geçişe kadar
 const AUTO_WAIT_LAST := 2.2  # son bölüm: "bitti" yazısı okunsun, sonra ana ekran
 var transitioning := false
 var fade_rect: ColorRect
-var _lit_count := -1  # ışık alan tekne sayısı; artınca çan
+var _loaded := false  # bölüm yüklenirken ilk ışın hesabında çan/korna çalmasın
+## Tekne karşılığı (İŞ 9), tekne indeksine göre:
+const BOAT_GLIDE := 0.15    # ışık alınca ışığa doğru süzülme (hücre)
+const HORN_DELAY := 0.35    # çandan sonra korna
+const HORN_COOLDOWN := 3.0  # aynı tekne ışığı kaybedip bulunca korna tekrarı en erken
+var boat_resp: Array = []   # 0..1 ışık alınca yavaşça 1'e (süzülme, sıcak renk, fener)
+var boat_flash: Array = []  # ışığı ilk alış parlaması, söner
+var boat_dir: Array = []    # teknenin ışığı aldığı yön (son)
+var _horn_cd: Array = []
+var _prev_lit := {}
 var glow := 0.0  # kutlamada güzergâh boyunca yayılan parlama (0..1)
-var boat_scale := 1.0
 var time := 0.0
 
 var title_label: Label
