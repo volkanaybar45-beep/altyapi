@@ -64,7 +64,8 @@ var lantern := 0.0  # tamamlanınca tekne feneri parlaması (0..1)
 
 
 func _ready() -> void:
-	add_child(Arka.new())
+	arka = Arka.new()
+	add_child(arka)
 	for add in [true, false]:  # parlama (toplamalı) altta, çekirdek üstte
 		var layer := IsinKatmani.new()
 		layer.owner_main = self
