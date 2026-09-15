@@ -36,7 +36,6 @@ const LevelsGen := preload("res://levels_uretilen_11.gd")  # tools/uretec.py ...
 const SIZE := Vector2(720, 1280)
 const MAX_SEGMENTS := 80    # bütün kollar toplamı (sonsuz döngü koruması)
 const BOAT_RADIUS := 42.0
-const FENER_RADIUS := 24.0
 const ROCK_RADIUS := 36.0
 const SPLIT_RADIUS := 28.0
 const EPS := 0.5
