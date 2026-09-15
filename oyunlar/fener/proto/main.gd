@@ -142,16 +142,34 @@ func _draw_glows() -> void:
 		var side := absf(d.x)  # yandan bakınca (kol yatayken) daha parlak
 		glow_layer.draw_colored_polygon(PackedVector2Array([fener_pos + n, tip, fener_pos - n]),
 			Color(1.0, 0.9, 0.6, 0.10 + 0.22 * side))
-	var bob := _bob()
 	for j in boats.size():
-		var lp := _lantern_pos(boats[j] + bob, _boat_scale_px() * boat_scale)
-		var a := 0.45 + (0.3 if lit.has(j) else 0.0) + 0.25 * lantern
-		glow_layer.draw_circle(lp, 26.0 * k * (1.0 + 0.5 * lantern), Color(1.0, 0.78, 0.35, 0.18 * a))
-		glow_layer.draw_circle(lp, 12.0 * k, Color(1.0, 0.86, 0.5, 0.40 * a))
+		var lp := _lantern_at(j)
+		# bekleyen: sönük kor · ışık alan: tam yanar · ilk an: kısa parlama
+		var e := _ease(boat_resp[j])
+		var f: float = boat_flash[j]
+		var a := 0.22 + 0.55 * e + 0.25 * lantern
+		glow_layer.draw_circle(lp, 26.0 * k * (1.0 + 0.5 * lantern + 1.2 * f), Color(1.0, 0.78, 0.35, 0.18 * a + 0.22 * f))
+		glow_layer.draw_circle(lp, 12.0 * k, Color(1.0, 0.86, 0.5, 0.40 * a + 0.4 * f))
 
 
-func _bob() -> Vector2:
-	return Vector2(0, sin(time * 1.5) * 3.0)
+## Teknenin anlık yeri ve açısı: [merkez, açı]. Bekleme: yavaş yalpa + iniş-çıkış
+## (her tekne farklı evrede). Işık alınca (boat_resp) ışığın geldiği yöne biraz
+## süzülür — ışının ucu gövdede kalır — ve yalpası yatışır. Fizik konumu değişmez.
+func _boat_pose(j: int) -> Array:
+	var ph := j * 1.7
+	var e := _ease(boat_resp[j])
+	var c: Vector2 = boats[j] + Vector2(0, sin(time * 1.5 + ph) * 3.0 * k) - boat_dir[j] * cell * BOAT_GLIDE * e
+	var ang := sin(time * 0.9 + ph) * deg_to_rad(3.0) * (1.0 - 0.5 * e)
+	return [c, ang]
+
+
+func _lantern_at(j: int) -> Vector2:
+	var pose := _boat_pose(j)
+	return pose[0] + ((BOAT_LANTERN - Vector2(256, 256)) * _boat_scale_px()).rotated(pose[1])
+
+
+func _ease(x: float) -> float:
+	return x * x * (3.0 - 2.0 * x)
 
 
 ## Prototip için: bölümü geç (kurucu üretilen bölümlere hızlı ulaşsın). Son bölümde ana ekrana.
