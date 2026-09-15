@@ -515,6 +515,7 @@ func compute_path() -> Dictionary:
 			pts.append(pos)
 			if kind == "boat":
 				got[idx] = true
+				bdir[idx] = dir
 				break
 			if best_m == null:
 				break  # ekran kenarı, kaya ya da fener
