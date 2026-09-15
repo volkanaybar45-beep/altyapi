@@ -36,7 +36,8 @@ func _draw() -> void:
 	var s := maxf(vis.x / BG.get_width(), vis.y / BG.get_height())
 	var bs := Vector2(BG.get_width(), BG.get_height()) * s
 	draw_texture_rect(BG, Rect2(Vector2((vis.x - bs.x) / 2.0, 0), bs), false)
-	draw_texture_rect(MOON, Rect2(moon_pos - Vector2.ONE * MOON_SIZE / 2.0, Vector2.ONE * MOON_SIZE), false)
+	if show_moon:
+		draw_texture_rect(MOON, Rect2(moon_pos - Vector2.ONE * MOON_SIZE / 2.0, Vector2.ONE * MOON_SIZE), false)
 	# sis: yatay döşenir, kayar (görsel kenarları eşleşik)
 	for band in FOG_BANDS:
 		var h: float = band[1]
