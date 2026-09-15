@@ -41,6 +41,11 @@ Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
 4. **Aynalar yeniden tasarlanır:** ChatGPT mockup'ındaki pirinç/altın gövdeli,
    yuvarlak taban üstünde duran, cam yüzeyli ayna. Kurucu onayladı.
    Görsel Tripo'dan gelecek (Sanat), KOD gelince bağlar. 4 yön render
+4a. **SET GELDİ (2026-09-15), hepsi `gorseller/diyorama_deneme/`, defteri dolu:**
+   `diyorama_liman.glb` · `ayna.glb` · `kaya_taban_duz.glb` · `kaya_engel_sivri.glb` ·
+   `tekne.glb` · `gokyuzu_panorama.png` · `ay.png`. GLB'ler `toon_render.py` ile
+   oyun sprite'ına çevrilir; ayna 4 yönden. `ay.png` halesinde renkli benek var,
+   temizlensin. Yeni dosyalar `gorseller/kayit.md`'ye de işlenir
 4b. **Kayalar da yeniden:** ayna tabanı = **düz tepeli** yosunlu kayalık ada;
    engel kayası = **sivri tepeli** kaya kümesi. İkisi SİLUETTEN ayrılır,
    renkten değil (renk körlüğü dersi). Tripo'dan gelecek, KOD bağlar
