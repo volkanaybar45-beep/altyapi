@@ -151,8 +151,15 @@ func _draw_sky(n: Node2D) -> void:
 	var s := maxf(SIZE.x / SKY.get_width(), hy / SKY.get_height())
 	var sz := Vector2(SKY.get_width(), SKY.get_height()) * s
 	n.draw_texture_rect(SKY, Rect2(Vector2((SIZE.x - sz.x) / 2.0, hy - sz.y), sz), false)
+	if show_moon:  # geniş soluk hale (ayın kendisi _moon_node'da, yumuşak kenarlı)
+		var hs := moon_size * 3.2 * (1.0 + 0.03 * sin(t * 0.8))
+		n.draw_texture_rect(_halo, Rect2(moon_pos - Vector2.ONE * hs / 2.0, Vector2.ONE * hs), false)
+	_moon_node.queue_redraw()
+
+
+func _draw_moon() -> void:
 	if show_moon:
-		n.draw_texture_rect(MOON, Rect2(moon_pos - Vector2.ONE * moon_size / 2.0, Vector2.ONE * moon_size), false)
+		_moon_node.draw_texture_rect(MOON, Rect2(moon_pos - Vector2.ONE * moon_size / 2.0, Vector2.ONE * moon_size), false)
 
 
 ## Deniz görselinin yalnız ufuk altı kısmı, ufuk çizgisi diyoramanın ufkunda.
