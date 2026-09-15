@@ -13,6 +13,7 @@ const TAP_RADIUS := 70.0
 const PLATE_BBOX_W := 488.0  # ayna_plaka.png içindeki görünür genişlik (512'lik tuval)
 const PLATE_H := 230.0       # görünür yükseklik
 const KNOB_Y := 30.0         # ayna_taban.png: mil topuzunun y'si (256'lık tuval)
+const BASE_SIZE := 60.0      # taban çizim boyu (yerel)
 
 ## Plaka görselinin yüzü render gürültüsüyle gri/grenli. Gölgelendirici yüzü
 ## (düşük doygunluklu açık pikseller) pürüzsüz gümüş-mavi degrade + parlak
