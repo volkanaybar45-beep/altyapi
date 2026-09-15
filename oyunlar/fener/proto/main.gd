@@ -152,12 +152,28 @@ func _draw_glows() -> void:
 			Color(1.0, 0.9, 0.6, 0.10 + 0.22 * side))
 	for j in boats.size():
 		var lp := _lantern_at(j)
-		# bekleyen: sönük kor · ışık alan: tam yanar · ilk an: kısa parlama
+		# bekleyen: sönük kor · ışık alan: tam yanar · ilk an: kısa parlama.
+		# Yumuşak radyal doku + doygun turuncu: düz daire mavi zeminde gri disk oluyordu
 		var e := _ease(boat_resp[j])
 		var f: float = boat_flash[j]
-		var a := 0.22 + 0.55 * e + 0.25 * lantern
-		glow_layer.draw_circle(lp, 26.0 * k * (1.0 + 0.5 * lantern + 1.2 * f), Color(1.0, 0.78, 0.35, 0.18 * a + 0.22 * f))
-		glow_layer.draw_circle(lp, 12.0 * k, Color(1.0, 0.86, 0.5, 0.40 * a + 0.4 * f))
+		var a := 0.15 + 0.6 * e + 0.25 * lantern
+		_soft_glow(lp, 40.0 * k * (1.0 + 0.4 * lantern + 1.0 * f), Color(1.0, 0.55, 0.15, 0.5 * a + 0.4 * f))
+		_soft_glow(lp, 16.0 * k, Color(1.0, 0.8, 0.4, 0.8 * a + 0.3 * f))
+
+
+## Toplamalı, kenarı yumuşak parıltı (r: dış yarıçap).
+func _soft_glow(c: Vector2, r: float, col: Color) -> void:
+	if _glow_tex == null:
+		var g := Gradient.new()
+		g.set_color(0, Color(1, 1, 1, 1))
+		g.set_color(1, Color(1, 1, 1, 0))
+		g.add_point(0.4, Color(1, 1, 1, 0.35))
+		_glow_tex = GradientTexture2D.new()
+		_glow_tex.gradient = g
+		_glow_tex.fill = GradientTexture2D.FILL_RADIAL
+		_glow_tex.fill_from = Vector2(0.5, 0.5)
+		_glow_tex.fill_to = Vector2(1.0, 0.5)
+	glow_layer.draw_texture_rect(_glow_tex, Rect2(c - Vector2(r, r), Vector2(r, r) * 2.0), false, col)
 
 
 ## Teknenin anlık yeri ve açısı: [merkez, açı]. Bekleme: yavaş yalpa + iniş-çıkış
