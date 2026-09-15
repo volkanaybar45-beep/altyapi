@@ -254,6 +254,44 @@ Kapsam dışı: Ateşböceği prototipi (İŞ 2), görsel üretimi, ana ekran, s
 reklam, sis/yağmur/renkli ışık varyasyonları, bölüm üreteci.
 
 ## KOD RAPORU (KOD yazar)
+**İŞ 8 — Otomatik devam + ses · kod yazıldı, telefonda test edilmedi** (2026-09-15)
+
+**Yapılan — A. Otomatik devam**
+- Bölüm bitince kutlama (~1.1 sn) + 0.6 sn → 0.25 sn kararma → sonraki bölüm → 0.3 sn açılma
+- "Devam için dokun" kalktı; kutlama sırasında dokunuş hemen geçirir (çift geçiş korumalı)
+- Son bölüm: "Şimdilik bu kadar — teşekkürler!" 2.2 sn → ana ekran. "Atla" da aynı geçişi kullanır
+  (son bölümde artık başa sarmaz, ana ekrana döner)
+
+**Yapılan — B. Ses** (autoload `Ses`, `proto/ses.gd`; sahne değişince ortam kesilmez)
+- Ortam: deniz (-8 dB) + rüzgâr (-24 dB, çok kısık), dikişsiz döngü (import Loop açık)
+- Efekt: ayna çevirme · ışın tekneye ulaştı (yeni bir tekne ışık alınca; yüklemede değil) ·
+  bölüm tamam (çandan 0.35 sn sonra, üst üste binmesin) · düğme (menü, Atla, ayar)
+- **Ayarlar ekranı:** Ses efektleri + Ortam sesi, Açık/Kapalı (yazı + renk). `user://ayarlar.cfg`;
+  sadece iki bool okunur, tip yanlış/dosya bozuk → varsayılan (açık). Panel opak yapıldı
+- Ses dosyası yoksa uyarı yazılır, oyun sessiz devam eder (kod `/root/Ses` yoksa da çalışır)
+- Metinler `tr()`: yeni SES_EFEKT, SES_ORTAM, ACIK, KAPALI (EN boş); SON değişti; DEVAM, AYAR_YOK silindi
+- Müzik yok
+
+**Ses dosyaları ve boyut**
+- `ortam_deniz`: 132 sn / 4.2 MB mp3 → **45 sn döngü, mono OGG, 366 KB** (çapraz geçişle dikişsiz)
+- `ortam_ruzgar`: 8 sn mp3 → 6.2 sn döngü, mono OGG, 42 KB
+- 4 efekt mp3 olduğu gibi (11 + 184 + 66 + 34 KB)
+- **APK'ya giren ses: ~0.74 MB** (Godot import çıktısı ölçüldü). Ham hali kopyalansaydı ~4.8 MB
+- Defter: `sesler/kayit.md`'ye sayfa linki, lisans, ham/oyundaki süre, işlem eklendi; `proto/sesler/kayit.md` işaret
+  dosyası. **Linkler dosya adından kuruldu, tarayıcıda açılıp doğrulanmadı**
+
+**Test edilen** (`tools/devam_probe.gd`, pencereli, gerçek ses sürücüsü WASAPI): otomatik devam OK ·
+dokununca hemen geçiş OK · son bölüm → ana ekran OK · ayar kaydı/geri okuma OK · bozuk ayar
+dosyası → varsayılan OK · eksik ses dosyası çökmüyor OK · ortam sesi ilerliyor OK · efekt çalıyor OK.
+Motor testi OK. Ayarlar paneli 20:9 ve 9:16'da gözle bakıldı (ilk hali yarı saydamdı, arkadaki
+düğmeler içinden görünüyordu → düzeltildi)
+
+**Test EDİLMEYEN:** sesler **kulakla dinlenmedi** (seviye dengesi, `ayna_cevir` kuru mu, `isin_ulasti`
+5.9 sn — kuyruğu sonraki bölüme taşabilir); telefonda sessiz mod; geçişin akıcılığı canlı izlenmedi.
+APK alınmadı (gerçek APK boyutu farkı ölçülmedi, tahmin ~+0.74 MB)
+
+**Öneri:** kurucu dinlesin; `isin_ulasti` uzun gelirse 2 sn'ye kısaltılıp söndürülür (tek satır ffmpeg)
+
 **İŞ 7 — Sahne canlansın · kod yazıldı, telefonda test edilmedi** (2026-09-15)
 
 **Yapılan** (yeni varlık üretilmedi; iki mevcut görsel düzenlendi, defterde)

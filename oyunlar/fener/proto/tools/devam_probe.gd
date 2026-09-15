@@ -4,7 +4,8 @@ extends SceneTree
 ##  2) kutlama sırasında dokunuş hemen geçirir
 ##  3) son bölümden sonra ana ekrana dönülür
 ##  4) ses ayarı kaydedilir / geri okunur; bozuk ayar dosyası varsayılana düşer
-##  5) eksik ses dosyası çökme değil null
+##  5) eksik ses dosyası çökme değil null · ortam ve efekt gerçekten çalıyor
+## Ses kontrolü için --headless OLMADAN koştur (headless ses sürücüsü sahte).
 
 
 func _solve(main) -> void:
