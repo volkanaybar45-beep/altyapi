@@ -100,7 +100,7 @@ func _halo(p: PackedVector2Array, d0: float, k: float, pulse: float) -> void:
 	for c in _chunks(p, d0):
 		var a: Vector2 = c[0]
 		var b: Vector2 = c[1]
-		var f := _fade(c[2], 0.45)
+		var f := _fade(c[2], 0.65)
 		var fog := _fog((a.y + b.y) * 0.5)
 		var n := (b - a).normalized().orthogonal()
 		for L in layers:
