@@ -140,8 +140,8 @@ func _ready() -> void:
 ## yanar (tekne en net okunan nesne), ışık alınca ve bölüm bitince güçlenir.
 func _draw_glows() -> void:
 	var fl := 0.85 + 0.15 * sin(time * 2.0) * sin(time * 3.7)
-	glow_layer.draw_circle(fener_pos, 34.0 * k, Color(1.0, 0.8, 0.4, 0.16 * fl))
-	glow_layer.draw_circle(fener_pos, 18.0 * k, Color(1.0, 0.88, 0.55, 0.30 * fl))
+	_soft_glow(fener_pos, 52.0 * k, Color(1.0, 0.6, 0.2, 0.45 * fl))
+	_soft_glow(fener_pos, 22.0 * k, Color(1.0, 0.85, 0.5, 0.7 * fl))
 	# lamba odasında dönen parıltı: iki ince, uca doğru sivrilen ışık kolu
 	for i in 2:
 		var d := Vector2.RIGHT.rotated(time * 1.3 + i * PI)
