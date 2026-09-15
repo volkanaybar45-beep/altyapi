@@ -53,6 +53,25 @@ Deneme render'ları ve 720×1600 kompozisyon: `gorseller/diyorama_deneme/`
 6. Ekran görüntüsü: 3 bölüm, gerçek telefon oranı, GÖZLE BAK
 7. RAPOR: kaynak sabitlenince kaç üretilmiş bölüm elendi, kare hızı
 
+**KABUL ÖLÇÜTLERİ — tek turda bitsin, hepsi RAPOR'da sayıyla yazılacak**
+Kurucu: "tek seferde, doğru hesaplamalarla, doğru yerlere." Aşağıdakilerin
+HEPSİ sağlanmadan iş bitmiş sayılmaz. Sağlanamayan madde varsa DUR ve yaz.
+- K1. Katman sırası (alttan üste): gökyüzü → ay → deniz shader → ay yolu →
+  diyorama levhası → nesne yansımaları → ışın → nesneler (kaya, ayna, tekne)
+- K2. Ekranda **tek fener** var. Ayrı kule nesnesi kodda ve sahnede kalmadı
+- K3. Işın, diyoramanın lamba odası pikselinden çıkıyor (±8 px). Ölç ve yaz
+- K4. Izgara diyoramanın altındaki açık denize tam oturuyor; hiçbir hücre
+  diyorama levhasının üstüne binmiyor. 9:16 ve 20:9'da ayrı ayrı doğrula
+- K5. Çakışma 0/28 (mevcut `cakisma.py`). Bozulan bölüm varsa sayısını yaz
+- K6. Kontrast ≥3.0: ışın/deniz · ayna yüzü/deniz · tekne/deniz · engel kayası/deniz.
+  Dördü de en açık deniz bandında ölçülecek, medyanda değil
+- K7. Taban kayası ile engel kayası **gri tonda** (doygunluk sıfırlanmış)
+  yan yana konduğunda ayırt ediliyor — siluet testi, ekran görüntüsüyle kanıtla
+- K8. Kare hızı PC'de 60 fps'in altına düşmedi; düştüyse hangi katman pahalı
+- K9. Her yeni dosya `gorseller/kayit.md`'de kayıtlı (kaynak, tarih, prompt)
+- K10. En az 3 bölüm (kolay · bölücülü · zor) gerçek telefon oranında ekran
+  görüntüsüyle GÖZLE bakıldı; kareler rapora eklendi
+
 Kapsam dışı: altın/ipucu ekonomisi, günlük görev, koleksiyon, mektup kutusu,
 yeni mini oyunlar (cam silme, iskele dizme) — hepsi V1 dışı, SIRADA'ya yazıldı.
 
