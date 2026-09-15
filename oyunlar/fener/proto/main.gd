@@ -110,11 +110,16 @@ func _ready() -> void:
 		layer.additive = add
 		add_child(layer)
 		beam_layers.append(layer)
+	# nesneler ışının üstünde (K1); y'ye göre sıralı: alt satır üst satırı örter
+	objects = Node2D.new()
+	objects.y_sort_enabled = true
+	objects.z_index = 5
+	add_child(objects)
 	glow_layer = Node2D.new()
 	var gm := CanvasItemMaterial.new()
 	gm.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	glow_layer.material = gm
-	glow_layer.z_index = 1
+	glow_layer.z_index = 10
 	glow_layer.draw.connect(_draw_glows)
 	add_child(glow_layer)
 	title_label = _make_label(34, Color(0.85, 0.9, 1.0, 0.5), 16)
