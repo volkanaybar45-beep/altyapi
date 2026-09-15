@@ -17,6 +17,7 @@ PX = 40  # hücre başına piksel (denetim çözünürlüğü)
 BOAT_W = float(os.environ.get("BOAT_W", 1.7))    # tekne görünür genişliği
 TOWER_H = float(os.environ.get("TOWER_H", 2.0))  # kule görünür yüksekliği
 ROCK_W = 1.1
+ISLET_W = 1.3  # main.gd ISLET_W
 PLATE_W = 0.95
 ESIK = 0.01  # hücre alanının %1'inden az binme kenar yumuşatmasıdır, sayılmaz
 
@@ -68,7 +69,14 @@ def denetle(harita, xs=None, ys=None):
         if c == "T":
             m = yerlestir(tuval, M["tekne"], p, BOAT_W * PX / 490)
         elif c == "F":
-            m = yerlestir(tuval, M["fener_kulesi"], p, TOWER_H * PX / 490, capa=(252, 109))
+            ts = TOWER_H * PX / 490
+            m = yerlestir(tuval, M["fener_kulesi"], p, ts, capa=(252, 109))
+            # kule adacığı (İŞ 7): kayalık, kule dibine oturur, ISLET_CUT altı suda
+            ayak = (p[0], p[1] + (497 - 109) * ts - 4 / 90 * PX)
+            isl = yerlestir(tuval, M["kayalik"], ayak, ISLET_W * PX / 490, capa=(256, 240))
+            su = int(ayak[1] + (325 - 240) * ISLET_W * PX / 490)
+            isl[su:, :] = False
+            m |= isl
         elif c == "R":
             m = yerlestir(tuval, M["kayalik"], p, ROCK_W * PX / 490)
         elif c == "Y":
