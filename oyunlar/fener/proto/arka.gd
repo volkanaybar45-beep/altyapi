@@ -128,7 +128,7 @@ func _moon_path(hy: float, bottom: float) -> void:
 	var y := hy + 2.0
 	while y < hy + length:
 		var f := (y - hy) / length
-		var w := lerpf(10.0, 80.0, f) * (moon_size / MOON_SIZE * 0.6 + 0.4)
+		var w := lerpf(0.5, 1.5, f) * moon_size  # ufukta ay çapının yarısı, aşağıda 1.5 katı
 		var jx := sin(y * 0.11 + t * 1.3) * 6.0 * f + sin(y * 0.047 - t * 0.7) * 10.0 * f
 		# iki dalga çarpımı: pullar yerinde yanıp söner, aşağı doğru yavaşça akar
 		var fl := (0.5 + 0.5 * sin(y * 0.61 - t * 1.9)) * (0.5 + 0.5 * sin(y * 0.23 + t * 1.1 + sin(y * 0.05) * 3.0))
